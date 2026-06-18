@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Reach 67 Stable 10</title>
+<title>Reach 67 Stable 11</title>
 <style>
 :root{
   --bg:#050508; --panel:#171727; --text:#f7f7ff; --muted:#aaaac8;
@@ -99,23 +99,23 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><b>Reach 67</b><span>stable build 10</span></div>
+    <div class="brand"><b>Reach 67</b><span>stable build 11</span></div>
     <div class="resources">
-      <div class="resPill">✦ <span id="topShards">0</span> <small>shards</small></div>
-      <div class="resPill">◉ <span id="topCases">0</span> <small>cases</small></div>
+      <div class="resPill">✦ <span id="topShards">0</span> <small>осколки</small></div>
+      <div class="resPill">◉ <span id="topCases">0</span> <small>кейсы</small></div>
     </div>
   </div>
-  <div class="nav"><button id="navMenu" class="active">Play</button><button id="navShop">Shop</button><button id="navCases">Cases</button><button id="navCollection">67</button></div>
+  <div class="nav"><button id="navМеню" class="active">Играть</button><button id="navShop">Магазин</button><button id="navCases">Кейсы</button><button id="navCollection">67</button></div>
 
-  <section id="menu" class="screen on"><div class="panel"><div class="big67">67</div><h1>Reach exactly 67</h1><p style="margin-top:8px">Catch numbers, dodge fake 67s, collect shards, open cases.</p><div class="stats"><div class="stat"><b id="best">0</b><span>best</span></div><div class="stat"><b id="wins">0</b><span>wins</span></div><div class="stat"><b id="foundStat">0</b><span>found</span></div></div><div class="cleanBox"><div style="font-weight:950;color:#fff;margin-bottom:8px">Skin</div><select id="skinSelect"></select></div><div class="btns"><button id="btnPlay" type="button">Play</button></div></div></section>
+  <section id="menu" class="screen on"><div class="panel"><div class="big67">67</div><h1>Дойди ровно до 67</h1><p style="margin-top:8px">Лови числа, избегай фейков и бомб, собирай осколки и открывай кейсы.</p><div class="stats"><div class="stat"><b id="best">0</b><span>рекорд</span></div><div class="stat"><b id="wins">0</b><span>побед</span></div><div class="stat"><b id="foundStat">0</b><span>найдено</span></div></div><div class="cleanBox"><div style="font-weight:950;color:#fff;margin-bottom:8px">Скин</div><select id="skinSelect"></select></div><div class="btns"><button id="btnPlay" type="button">Играть</button></div></div></section>
 
-  <section id="game" class="screen"><div class="gameBox" id="gameBox"><div id="lanes"></div><div class="watermark">67</div><div class="hud"><div class="tiny">drag</div><div class="box" id="scoreBox"><span id="score">0</span> / 67</div><div class="tiny" id="speed">speed 1.0x</div></div><button class="focusBtn" id="focusBtn" type="button">fullscreen</button><div class="player" id="player"><span class="num">67</span><span class="skinIcon" id="skinIcon"></span></div><div class="overlay" id="overlay"><div class="modal"><div class="result" id="resScore">0 / 67</div><h2 id="resTitle">Lost</h2><p id="resText" style="margin-top:8px">...</p><div class="btns" id="resButtons"></div><div class="cleanBox" id="resNote"></div></div></div></div><div class="sliderWrap"><div class="sliderTrack" id="sliderTrack"><div class="sliderThumb" id="sliderThumb">67</div></div></div></section>
+  <section id="game" class="screen"><div class="gameBox" id="gameBox"><div id="lanes"></div><div class="watermark">67</div><div class="hud"><div class="tiny">палец</div><div class="box" id="scoreBox"><span id="score">0</span> / 67</div><div class="tiny" id="speed">скорость 1.0x</div></div><button class="focusBtn" id="focusBtn" type="button">фуллскрин</button><div class="player" id="player"><span class="num">67</span><span class="skinIcon" id="skinIcon"></span></div><div class="overlay" id="overlay"><div class="modal"><div class="result" id="resScore">0 / 67</div><h2 id="resTitle">Поражение</h2><p id="resText" style="margin-top:8px">...</p><div class="btns" id="resButtons"></div><div class="cleanBox" id="resNote"></div></div></div></div><div class="sliderWrap"><div class="sliderTrack" id="sliderTrack"><div class="sliderThumb" id="sliderThumb">67</div></div></div></section>
 
-  <section id="shop" class="screen"><div class="panel"><h2>Shop</h2><p style="margin-top:8px">Buy cases with shards.</p><div class="shopGrid"><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">◉</div></div><div style="flex:1"><h3>67 Case</h3><p>Contains a 67, a fake number, or shards.</p><div class="price">500 ✦</div></div></div><div class="btns"><button id="buyCase">Buy case</button></div></div><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">⏱</div></div><div style="flex:1"><h3>Free Case</h3><p>Claim one timed case.</p><div class="timer" id="freeTimer">Ready</div></div></div><div class="btns"><button id="claimFree">Claim free case</button></div></div></div></div></section>
+  <section id="shop" class="screen"><div class="panel"><h2>Магазин</h2><p style="margin-top:8px">Покупай кейсы за осколки.</p><div class="shopGrid"><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">◉</div></div><div style="flex:1"><h3>Кейс 67</h3><p>Внутри может быть 67, фейк или осколки.</p><div class="price">500 ✦</div></div></div><div class="btns"><button id="buyCase">Купить кейс</button></div></div><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">⏱</div></div><div style="flex:1"><h3>Бесплатный кейс</h3><p>Забирай кейс по таймеру.</p><div class="timer" id="freeTimer">Готово</div></div></div><div class="btns"><button id="claimFree">Забрать кейс</button></div></div></div></div></section>
 
-  <section id="cases" class="screen"><div class="panel caseStage" id="caseStage"><h2>Open Case</h2><p id="caseInfo" style="margin-top:8px">Hold the hands and move up/down.</p><div class="handZone left" id="leftHandZone"><div class="hand" id="leftHand">✋</div></div><div class="handZone right" id="rightHandZone"><div class="hand" id="rightHand">🤚</div></div><div class="caseCapsule pulse" id="caseCapsule">?</div><div class="newBanner" id="newBanner">NEW 67!</div><h1 id="dropName">Ready?</h1><p id="dropRarity" style="margin-top:6px">Cases: <span id="caseCountText">0</span></p><div class="progressShell"><div class="progressBar" id="openProgress"></div></div><div class="openHint" id="openHint">Press Start</div><div class="openSub" id="openSub">Harder rewards take longer to open.</div><div class="btns"><button id="startOpen">Start opening</button></div><div class="cleanBox" id="dropNote">Earn cases by reaching 67, buying them, or waiting for the timer.</div></div></section>
+  <section id="cases" class="screen"><div class="panel caseStage" id="caseStage"><h2>Открыть кейс</h2><p id="caseInfo" style="margin-top:8px">Сделай 67 двумя пальцами.</p><div class="handZone left" id="leftHandZone"><div class="hand" id="leftHand">✋</div></div><div class="handZone right" id="rightHandZone"><div class="hand" id="rightHand">🤚</div></div><div class="caseCapsule pulse" id="caseCapsule">?</div><div class="newBanner" id="newBanner">NEW 67!</div><h1 id="dropName">Готов?</h1><p id="dropRarity" style="margin-top:6px">Cases: <span id="caseCountText">0</span></p><div class="progressShell"><div class="progressBar" id="openProgress"></div></div><div class="openHint" id="openHint">Нажми старт</div><div class="openSub" id="openSub">Чем круче награда, тем больше движений нужно.</div><div class="btns"><button id="startOpen">Начать открытие</button></div><div class="cleanBox" id="dropNote">Кейсы дают за победу, покупку или таймер.</div></div></section>
 
-  <section id="collection" class="screen"><div class="panel"><h2>Collection 67</h2><p style="margin-top:8px">Choose any unlocked 67 as your run skin.</p><div class="tabs"><button class="small active" data-filter="all" type="button">All</button><button class="small secondary" data-filter="found" type="button">Found</button><button class="small secondary" data-filter="rareplus" type="button">Rare+</button></div><div class="cards" id="cards"></div><div class="btns"><button id="reset" type="button" class="bad">Reset progress</button></div></div></section>
+  <section id="collection" class="screen"><div class="panel"><h2>Коллекция 67</h2><p style="margin-top:8px">Выбирай любой открытый 67 как скин для забега.</p><div class="tabs"><button class="small active" data-filter="all" type="button">Все</button><button class="small secondary" data-filter="found" type="button">Открытые</button><button class="small secondary" data-filter="rareplus" type="button">Rare+</button></div><div class="cards" id="cards"></div><div class="btns"><button id="reset" type="button" class="bad">Сбросить прогресс</button></div></div></section>
 </div>
 
 <script>
@@ -128,8 +128,8 @@ function setClass(id,value){const node=$(id); if(node) node.className=value;}
 function setDisabled(id,value){const node=$(id); if(node) node.disabled=value;}
 function setStyle(id,prop,value){const node=$(id); if(node) node.style[prop]=value;}
 const screens=["menu","game","shop","cases","collection"];
-const SAVE_KEY="reach67_stable_10";
-const OLD_KEYS=["reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
+const SAVE_KEY="reach67_stable_11";
+const OLD_KEYS=["reach67_stable_11","reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
 const LANE_COUNT=5, CASE_PRICE=500, FREE_CASE_INTERVAL=3*60*1000;
 
 const common=["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
@@ -137,11 +137,11 @@ const rare=["Неоновый","Пиратский","Ниндзя","Кофейн
 const epic=["Проклятый","Демонический","Радужный","Глитчевый","Королевский","Мутант","Бесконечный","Теневой","Секретный","Панический"];
 const legendary=["Золотой","Кровавый","Абсурдный","Божественный","Запретный"];
 const mythic=["Галактический","Абсолютный"];
-const trash=[["66","Almost."],["76","Wrong direction."],["69","Wrong meme."],["404","67 not found."],["666","Evil cousin."],["100","Too much."]];
+const trash=[["66","Почти."],["76","Не туда."],["69","Не тот мем."],["404","67 не найден."],["666","Злой кузен."],["100","Перебор."]];
 
 let defs=[];
 function add(list,rarity){list.forEach(n=>defs.push({id:defs.length+1,name:n+" 67",base:n,rarity,desc:desc(rarity)}));}
-function desc(r){const d={common:["It just exists.","Looks like 67.","Not special, but real."],rare:["Not bad.","A decent pull.","Actually usable as a skin."],epic:["Now it starts.","This one has aura.","Almost legendary."],legendary:["Screenshot this.","A real event.","It thinks it owns the place."],mythic:["No way.","God of nonsense.","Almost impossible."]};const a=d[r];return a[Math.floor(Math.random()*a.length)];}
+function desc(r){const d={common:["Он просто существует.","Выглядит как 67.","Не особенный, но настоящий."],rare:["Неплохо.","Нормальный дроп.","Уже можно ставить как скин."],epic:["Вот тут начинается вайб.","У него есть аура.","Почти легенда."],legendary:["Это надо скринить.","Это уже событие.","Думает, что он тут главный."],mythic:["Да ладно.","Бог бессмысленности.","Почти невозможно."]};const a=d[r];return a[Math.floor(Math.random()*a.length)];}
 add(common,"common");add(rare,"rare");add(epic,"epic");add(legendary,"legendary");add(mythic,"mythic");
 
 let save=load();
@@ -189,7 +189,7 @@ function skinTheme(def){
 }
 function getSkinDefByChoice(choice){if(choice==="default"||!choice)return null;if(choice==="random"){const found=getFoundDefs();return found.length?found[Math.floor(Math.random()*found.length)]:null;}return defs.find(d=>d.id===Number(choice))||null;}
 function applyPlayerSkin(def){const th=skinTheme(def);$("player").style.background=th.bg;$("player").style.color=th.color;$("player").style.boxShadow=th.shadow;$("skinIcon").textContent=th.icon||"";}
-function refreshSkinSelect(){const sel=$("skinSelect"),old=save.selectedSkin||"default",found=getFoundDefs();let html=`<option value="default">Default 67</option><option value="random">Random from opened</option>`;found.forEach(d=>html+=`<option value="${d.id}">${d.name} (${d.rarity})</option>`);sel.innerHTML=html;sel.value=[...sel.options].some(o=>o.value===old)?old:"default";}
+function refreshSkinSelect(){const sel=$("skinSelect"),old=save.selectedSkin||"default",found=getFoundDefs();let html=`<option value="default">Обычный 67</option><option value="random">Случайный из открытых</option>`;found.forEach(d=>html+=`<option value="${d.id}">${d.name} (${d.rarity})</option>`);sel.innerHTML=html;sel.value=[...sel.options].some(o=>o.value===old)?old:"default";}
 function refresh(){
   setText("topShards", save.shards||0);
   setText("topCases", save.cases||0);
@@ -204,26 +204,30 @@ function refresh(){
 $("skinSelect").addEventListener("change",e=>{save.selectedSkin=e.target.value;persist();});
 
 function show(id){
+  if(id!=="game"){
+    document.body.classList.remove("focusMode");
+    const fb=$("focusBtn"); if(fb) fb.textContent="фуллскрин";
+  }
   if(state&&id!=="game")stop();
   screens.forEach(s=>$(s).classList.toggle("on",s===id));
-  ["navMenu","navShop","navCases","navCollection"].forEach(n=>$(n).classList.remove("active"));
-  const map={menu:"navMenu",shop:"navShop",cases:"navCases",collection:"navCollection",game:"navMenu"};
+  ["navМеню","navShop","navCases","navCollection"].forEach(n=>$(n).classList.remove("active"));
+  const map={menu:"navМеню",shop:"navShop",cases:"navCases",collection:"navCollection",game:"navМеню"};
   if(map[id])$(map[id]).classList.add("active");
   if(id==="collection")renderCards(currentFilter);
   if(id==="game")setTimeout(()=>{layoutPlayer();updateSliderThumb();},30);
   if(id==="cases")resetCaseScreen(false);
   window.scrollTo(0,0);
 }
-$("navMenu").onclick=()=>show("menu");$("navShop").onclick=()=>show("shop");$("navCases").onclick=()=>show("cases");$("navCollection").onclick=()=>show("collection");
+$("navМеню").onclick=()=>show("menu");$("navShop").onclick=()=>show("shop");$("navCases").onclick=()=>show("cases");$("navCollection").onclick=()=>show("collection");
 $("btnPlay").onclick=()=>{show("game");startRun(0,false);};
 $("buyCase").onclick=()=>{if((save.shards||0)>=CASE_PRICE){save.shards-=CASE_PRICE;save.cases=(save.cases||0)+1;persist();show("cases");}};
 $("claimFree").onclick=()=>{if(Date.now()>=save.nextFreeCase){save.cases=(save.cases||0)+1;save.nextFreeCase=Date.now()+FREE_CASE_INTERVAL;persist();show("cases");}};
 $("reset").onclick=()=>{if(confirm("Reset progress?")){localStorage.removeItem(SAVE_KEY);save=baseSave();persist();renderCards(currentFilter);}};
-$("focusBtn").onclick=async()=>{document.body.classList.toggle("focusMode");$("focusBtn").textContent=document.body.classList.contains("focusMode")?"exit":"fullscreen";try{if(document.body.classList.contains("focusMode")&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen();}catch(e){}setTimeout(()=>{if(state){state.playerX=clamp(state.playerX,34,gameBox.clientWidth-34);state.targetX=clamp(state.targetX,34,gameBox.clientWidth-34);layoutPlayer();updateSliderThumb();}},120);};
+$("focusBtn").onclick=async()=>{document.body.classList.toggle("focusMode");$("focusBtn").textContent=document.body.classList.contains("focusMode")?"выйти":"фуллскрин";try{if(document.body.classList.contains("focusMode")&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else if(document.фуллскринElement&&document.выйтиFullscreen)await document.выйтиFullscreen();}catch(e){}setTimeout(()=>{if(state){state.playerX=clamp(state.playerX,34,gameBox.clientWidth-34);state.targetX=clamp(state.targetX,34,gameBox.clientWidth-34);layoutPlayer();updateSliderThumb();}},120);};
 function updateFreeTimer(){
   const left=Math.max(0,save.nextFreeCase-Date.now());
   setDisabled("claimFree", left>0);
-  if(left<=0){setText("freeTimer","Ready");return;}
+  if(left<=0){setText("freeTimer","Готово");return;}
   const m=Math.floor(left/60000),s=Math.floor((left%60000)/1000);
   setText("freeTimer", `${m}:${String(s).padStart(2,"0")}`);
 }
@@ -231,7 +235,7 @@ setInterval(refresh,1000);
 
 let currentFilter="all";
 document.querySelectorAll(".tabs button").forEach(btn=>{btn.onclick=()=>{document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentFilter=btn.dataset.filter;renderCards(currentFilter);};});
-function renderCards(filter){const wrap=$("cards");let list=defs.slice();if(filter==="found")list=list.filter(d=>save.found[d.id]);if(filter==="rareplus")list=list.filter(d=>["rare","epic","legendary","mythic"].includes(d.rarity));wrap.innerHTML="";if(!list.length){wrap.innerHTML='<p style="grid-column:1/-1">Empty.</p>';return;}list.forEach(d=>{const found=!!save.found[d.id],th=skinTheme(d),div=document.createElement("div");div.className="card "+(found?d.rarity:"locked");div.innerHTML=`<div><div class="n">${found?"67":"??"}</div><div class="name">${found?d.name:"#"+String(d.id).padStart(2,"0")+" locked"}</div><div class="meta rarity-${d.rarity}">${found?d.rarity:"unknown"}</div>${found?`<div class="preview" style="background:${th.bg};color:${th.color}">67 ${th.icon||""}</div>`:""}</div><div><div class="meta">${found?d.desc:"open cases to unlock"}</div>${found&&save.dupes[d.id]?`<div class="meta">dupes: ${save.dupes[d.id]}</div>`:""}</div>`;wrap.appendChild(div);});}
+function renderCards(filter){const wrap=$("cards");let list=defs.slice();if(filter==="found")list=list.filter(d=>save.found[d.id]);if(filter==="rareplus")list=list.filter(d=>["rare","epic","legendary","mythic"].includes(d.rarity));wrap.innerHTML="";if(!list.length){wrap.innerHTML='<p style="grid-column:1/-1">Пусто.</p>';return;}list.forEach(d=>{const found=!!save.found[d.id],th=skinTheme(d),div=document.createElement("div");div.className="card "+(found?d.rarity:"locked");div.innerHTML=`<div><div class="n">${found?"67":"??"}</div><div class="name">${found?d.name:"#"+String(d.id).padStart(2,"0")+" locked"}</div><div class="meta rarity-${d.rarity}">${found?d.rarity:"unknown"}</div>${found?`<div class="preview" style="background:${th.bg};color:${th.color}">67 ${th.icon||""}</div>`:""}</div><div><div class="meta">${found?d.desc:"открывай кейсы"}</div>${found&&save.dupes[d.id]?`<div class="meta">dupes: ${save.dupes[d.id]}</div>`:""}</div>`;wrap.appendChild(div);});}
 
 const lanesWrap=$("lanes");for(let i=1;i<LANE_COUNT;i++){const line=document.createElement("div");line.className="laneLine";line.style.left=(i*100/LANE_COUNT)+"%";lanesWrap.appendChild(line);}
 const gameBox=$("gameBox"),playerEl=$("player"),overlay=$("overlay"),sliderTrack=$("sliderTrack"),sliderThumb=$("sliderThumb"),scoreBox=$("scoreBox");
@@ -249,7 +253,7 @@ window.addEventListener("resize",()=>{if(state){state.playerX=clamp(state.player
 
 function startRun(fromScore,continued){cleanupItems();overlay.classList.remove("on");overlay.style.display="none";if(raf)cancelAnimationFrame(raf);const x=laneLeft(2),skin=getSkinDefByChoice(save.selectedSkin||"default");applyPlayerSkin(skin);state={running:true,score:fromScore||0,items:[],last:performance.now(),spawn:0,continued:!!continued,runShards:0,playerX:x,targetX:x,ending:false};$("score").textContent=state.score;layoutPlayer();updateSliderThumb();raf=requestAnimationFrame(tick);}
 function cleanupItems(){document.querySelectorAll(".item,.floatText,.spark").forEach(x=>x.remove());}
-function tick(now){if(!state||!state.running)return;const dt=Math.min(.035,(now-state.last)/1000);state.last=now;const speed=1.02+Math.min(1.28,state.score/67*1.12);$("speed").textContent="speed "+speed.toFixed(1)+"x";const diff=state.targetX-state.playerX,maxStep=(650+state.score*1.7)*dt;state.playerX+=clamp(diff,-maxStep,maxStep);layoutPlayer();state.spawn-=dt;if(state.spawn<=0){spawnItem();const base=state.score>55?.43:state.score>38?.54:.66;state.spawn=base-Math.random()*.13;}const boxH=gameBox.clientHeight,playerY=boxH-63,px=state.playerX;for(let i=state.items.length-1;i>=0;i--){const it=state.items[i];it.y+=it.v*dt*speed;it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`;if(it.y>boxH+80){it.el.remove();state.items.splice(i,1);continue;}const dx=Math.abs(it.x-px),dy=Math.abs((it.y+it.h/2)-playerY);if(dx<(it.type==="shard"?48:52)&&dy<(it.type==="shard"?46:49)){it.el.remove();state.items.splice(i,1);hit(it);break;}}raf=requestAnimationFrame(tick);}
+function tick(now){if(!state||!state.running)return;const dt=Math.min(.035,(now-state.last)/1000);state.last=now;const speed=1.02+Math.min(1.28,state.score/67*1.12);$("speed").textContent="скорость "+speed.toFixed(1)+"x";const diff=state.targetX-state.playerX,maxStep=(650+state.score*1.7)*dt;state.playerX+=clamp(diff,-maxStep,maxStep);layoutPlayer();state.spawn-=dt;if(state.spawn<=0){spawnItem();const base=state.score>55?.43:state.score>38?.54:.66;state.spawn=base-Math.random()*.13;}const boxH=gameBox.clientHeight,playerY=boxH-63,px=state.playerX;for(let i=state.items.length-1;i>=0;i--){const it=state.items[i];it.y+=it.v*dt*speed;it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`;if(it.y>boxH+80){it.el.remove();state.items.splice(i,1);continue;}const dx=Math.abs(it.x-px),dy=Math.abs((it.y+it.h/2)-playerY);if(dx<(it.type==="shard"?48:52)&&dy<(it.type==="shard"?46:49)){it.el.remove();state.items.splice(i,1);hit(it);break;}}raf=requestAnimationFrame(tick);}
 function makeItem(type,label,value,lane){const el=document.createElement("div");let cls="item ";if(type==="number"){cls+="num "+(value>=0?"pos ":"neg ");if(value===1)cls+="n1 ";if(value>=6)cls+="big ";}if(type==="fake")cls+="fake";if(type==="danger")cls+="danger";if(type==="shard")cls+="shard";el.className=cls;el.textContent=label;gameBox.appendChild(el);const x=laneLeft(lane);const it={type,label,value,lane,x,y:-64,v:150+Math.random()*62+state.score*1.55,el,h:type==="shard"?52:52,half:type==="shard"?26:31};el.style.transform=`translate(${x-it.half}px, ${it.y}px)`;return it;}
 function pickNumberValue(){const s=state.score,need=67-s;let values;if(s<18)values=[1,2,2,3,3,4,5,6,7];else if(s<45)values=[1,2,3,3,4,5,6,7,-1,-2,-3];else if(s<58)values=[1,2,2,3,4,5,6,7,-1,-2,-3,-4,-6];else values=[1,2,3,4,5,6,7,-1,-2,-3,-4,-5,-6,-7,8,9];if(s>=60&&Math.random()<.08&&need>=1&&need<=7)values.push(need);if(s===66)values.push(1,-6,7,8,9);if(s===65)values.push(2,-5,7,9);if(s===64)values.push(3,-6,7,9);return values[Math.floor(Math.random()*values.length)];}
 function spawnItem(){const lane=Math.floor(Math.random()*LANE_COUNT),s=state.score;const shardChance=s<20?.07:.08,dangerChance=s>=55?.30:s>=35?.22:.14,fakeChance=s>=55?.20:s>=35?.14:.09;const r=Math.random();let it;if(r<shardChance)it=makeItem("shard","✦",0,lane);else if(r<shardChance+dangerChance)it=makeItem("danger",Math.random()<.58?"💣":"✖",0,lane);else if(r<shardChance+dangerChance+fakeChance){const f=["66","76","69","404"][Math.floor(Math.random()*4)];it=makeItem("fake",f,0,lane);}else{const val=pickNumberValue();it=makeItem("number",(val>0?"+":"")+val,val,lane);}state.items.push(it);if(s>45&&Math.random()<.30){const lane2=(lane+1+Math.floor(Math.random()*(LANE_COUNT-1)))%LANE_COUNT;const val=Math.random()<.55?pickNumberValue():0;const extra=val?makeItem("number",(val>0?"+":"")+val,val,lane2):makeItem(Math.random()<.5?"fake":"danger",Math.random()<.5?"76":"💣",0,lane2);extra.y-=72;state.items.push(extra);}}
@@ -257,11 +261,11 @@ function pulseScore(){scoreBox.classList.remove("pulse");void scoreBox.offsetWid
 function flash(kind){gameBox.classList.remove("flashGood","flashBad","shake");void gameBox.offsetWidth;if(kind==="good")gameBox.classList.add("flashGood");if(kind==="bad"){gameBox.classList.add("flashBad");gameBox.classList.add("shake");}}
 function sparks(x,y,color,count=10){for(let i=0;i<count;i++){const s=document.createElement("div");s.className="spark";s.style.left=x+"px";s.style.top=y+"px";s.style.background=color;const a=Math.random()*Math.PI*2,d=25+Math.random()*45;s.style.setProperty("--dx",Math.cos(a)*d+"px");s.style.setProperty("--dy",Math.sin(a)*d+"px");gameBox.appendChild(s);setTimeout(()=>s.remove(),500);}}
 function floatText(x,y,text,color){const el=document.createElement("div");el.className="floatText";el.textContent=text;el.style.left=(x-22)+"px";el.style.top=y+"px";el.style.color=color||"white";gameBox.appendChild(el);setTimeout(()=>el.remove(),760);}
-function hit(it){if(!state||state.ending)return;if(it.type==="shard"){state.runShards++;save.shards=(save.shards||0)+1;persist();floatText(it.x,it.y,"+1 ✦","var(--cyan)");sparks(it.x,it.y,"#69e8ff",12);flash("good");return;}if(it.type==="number"){const before=state.score;state.score+=it.value;if(state.score<0)state.score=0;$("score").textContent=state.score;pulseScore();floatText(it.x,it.y,(it.value>0?"+":"")+it.value,it.value<0?"var(--cyan)":"white");sparks(it.x,it.y,it.value<0?"#69e8ff":"#ffdc5c",it.value<0?8:12);flash("good");if(state.score===67)return win();if(state.score>67)return lose(`Over: ${before} + ${it.value} = ${state.score}`,"More than 67 is death.");return;}if(it.type==="fake"){flash("bad");return lose(`Fake ${it.label}`,"It pretended to be 67.");}if(it.type==="danger"){flash("bad");return lose("Bomb","67 hates explosions.");}}
+function hit(it){if(!state||state.ending)return;if(it.type==="shard"){state.runShards++;save.shards=(save.shards||0)+1;persist();floatText(it.x,it.y,"+1 ✦","var(--cyan)");sparks(it.x,it.y,"#69e8ff",12);flash("good");return;}if(it.type==="number"){const before=state.score;state.score+=it.value;if(state.score<0)state.score=0;$("score").textContent=state.score;pulseScore();floatText(it.x,it.y,(it.value>0?"+":"")+it.value,it.value<0?"var(--cyan)":"white");sparks(it.x,it.y,it.value<0?"#69e8ff":"#ffdc5c",it.value<0?8:12);flash("good");if(state.score===67)return win();if(state.score>67)return lose(`Перелёт: ${before} + ${it.value} = ${state.score}`,"Больше 67 — смерть.");return;}if(it.type==="fake"){flash("bad");return lose(`Фейк ${it.label}`,"Он притворялся настоящим 67.");}if(it.type==="danger"){flash("bad");return lose("Бомба","67 не любит взрывы.");}}
 function stop(){if(!state)return;state.running=false;if(raf)cancelAnimationFrame(raf);}
 function forceOverlay(){overlay.classList.add("on");overlay.style.display="flex";overlay.style.visibility="visible";overlay.style.opacity="1";overlay.style.zIndex="9999";}
-function lose(title,text){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);save.best=Math.max(save.best||0,Math.min(state.score,67));persist();const finalScore=state.score,runShards=state.runShards,can=finalScore>=55&&finalScore<=66&&!state.continued;$("resScore").textContent=finalScore+" / 67";$("resTitle").textContent=title;$("resText").textContent=can?`You were ${67-finalScore} away. Continue?`:text;$("resNote").textContent=`Run shards: ${runShards}`;const b=$("resButtons");b.innerHTML="";if(can){const c=document.createElement("button");c.textContent="Continue";c.onclick=()=>startRun(finalScore,true);b.appendChild(c);}const r=document.createElement("button");r.className="secondary";r.textContent="Retry";r.onclick=()=>startRun(0,false);b.appendChild(r);const m=document.createElement("button");m.className="secondary";m.textContent="Menu";m.onclick=()=>{cleanupItems();show("menu");};b.appendChild(m);forceOverlay();}
-function win(){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);const runShards=state.runShards;save.best=67;save.wins=(save.wins||0)+1;save.shards=(save.shards||0)+25;save.cases=(save.cases||0)+1;persist();$("resScore").textContent="67 / 67";$("resTitle").textContent=state.continued?"Reached 67":"Clean 67";$("resText").textContent="Case earned. +25 shards.";$("resNote").textContent=`Run shards: ${runShards}`;const b=$("resButtons");b.innerHTML="";const open=document.createElement("button");open.className="good";open.textContent="Open case";open.onclick=()=>{cleanupItems();show("cases");};b.appendChild(open);const again=document.createElement("button");again.className="secondary";again.textContent="Play again";again.onclick=()=>startRun(0,false);b.appendChild(again);forceOverlay();}
+function lose(title,text){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);save.best=Math.max(save.best||0,Math.min(state.score,67));persist();const finalScore=state.score,runShards=state.runShards,can=finalScore>=55&&finalScore<=66&&!state.continued;$("resScore").textContent=finalScore+" / 67";$("resTitle").textContent=title;$("resText").textContent=can?`До 67 оставалось ${67-finalScore}. Продолжить?`:text;$("resNote").textContent=`Осколки за забег: ${runShards}`;const b=$("resButtons");b.innerHTML="";if(can){const c=document.createElement("button");c.textContent="Продолжить";c.onclick=()=>startRun(finalScore,true);b.appendChild(c);}const r=document.createElement("button");r.className="secondary";r.textContent="Заново";r.onclick=()=>startRun(0,false);b.appendChild(r);const m=document.createElement("button");m.className="secondary";m.textContent="Меню";m.onclick=()=>{cleanupItems();show("menu");};b.appendChild(m);forceOverlay();}
+function win(){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);const runShards=state.runShards;save.best=67;save.wins=(save.wins||0)+1;save.shards=(save.shards||0)+25;save.cases=(save.cases||0)+1;persist();$("resScore").textContent="67 / 67";$("resTitle").textContent=state.continued?"Дошёл до 67":"Чистый 67";$("resText").textContent="Кейс получен. +25 осколков.";$("resNote").textContent=`Осколки за забег: ${runShards}`;const b=$("resButtons");b.innerHTML="";const open=document.createElement("button");open.className="good";open.textContent="Открыть кейс";open.onclick=()=>{cleanupItems();show("cases");};b.appendChild(open);const again=document.createElement("button");again.className="secondary";again.textContent="Ещё забег";again.onclick=()=>startRun(0,false);b.appendChild(again);forceOverlay();}
 
 let opening=null,autoOpenTimer=null;
 function resetCaseScreen(keepDrop){
@@ -275,28 +279,142 @@ function resetCaseScreen(keepDrop){
     setText("caseCapsule","?");
     setStyle("caseCapsule","background","");
     const nb=$("newBanner"); if(nb) nb.classList.remove("on");
-    setText("dropName",(save.cases||0)>0?"Ready?":"No cases");
+    setText("dropName",(save.cases||0)>0?"Готово?":"Нет кейсов");
     setText("dropRarity","Cases: "+(save.cases||0));
     setClass("dropRarity","");
-    setText("dropNote",(save.cases||0)>0?"Start opening, then move either hand up and down.":"Buy a case or wait for the timer.");
+    setText("dropNote",(save.cases||0)>0?"Нажми старт. Потом одновременно веди один палец вверх, другой вниз — это одно движение 67.":"Купи кейс или дождись таймера.");
   }
   setDisabled("startOpen",(save.cases||0)<=0);
-  setText("startOpen",(save.cases||0)>0?"Start opening":"No cases");
+  setText("startOpen",(save.cases||0)>0?"Начать открытие":"Нет кейсов");
   opening=null;
 }
-function rollCase(){const r=Math.random()*100;if(r<15){const x=Math.random()*100;if(x<60)return{kind:"shards",amount:100,rarity:"common",need:95};if(x<86)return{kind:"shards",amount:250,rarity:"rare",need:135};if(x<97)return{kind:"shards",amount:500,rarity:"epic",need:210};return{kind:"shards",amount:1000,rarity:"legendary",need:310};}const q=Math.random()*100;if(q<20){const t=trash[Math.floor(Math.random()*trash.length)];return{kind:"trash",name:t[0],desc:t[1],rarity:"trash",need:75};}let rarity;if(q<70)rarity="common";else if(q<95)rarity="rare";else if(q<99)rarity="epic";else if(q<99.725)rarity="legendary";else rarity="mythic";const pool=defs.filter(d=>d.rarity===rarity),item=pool[Math.floor(Math.random()*pool.length)];const need={common:95,rare:135,epic:215,legendary:320,mythic:430}[rarity];return{kind:"67",item,rarity,need};}
+function rollCase(){
+  const r=Math.random()*100;
+  if(r<15){
+    const x=Math.random()*100;
+    if(x<60)return{kind:"shards",amount:100,rarity:"common",need:5};
+    if(x<86)return{kind:"shards",amount:250,rarity:"rare",need:7};
+    if(x<97)return{kind:"shards",amount:500,rarity:"epic",need:10};
+    return{kind:"shards",amount:1000,rarity:"legendary",need:14};
+  }
+  const q=Math.random()*100;
+  if(q<20){
+    const t=trash[Math.floor(Math.random()*trash.length)];
+    return{kind:"trash",name:t[0],desc:t[1],rarity:"trash",need:3};
+  }
+  let rarity;
+  if(q<70)rarity="common";
+  else if(q<95)rarity="rare";
+  else if(q<99)rarity="epic";
+  else if(q<99.725)rarity="legendary";
+  else rarity="mythic";
+  const pool=defs.filter(d=>d.rarity===rarity),item=pool[Math.floor(Math.random()*pool.length)];
+  const need={common:5,rare:7,epic:10,legendary:14,mythic:18}[rarity];
+  return{kind:"67",item,rarity,need};
+}
 $("startOpen").onclick=()=>startOpening();
-function startOpening(){if((save.cases||0)<=0)return;clearInterval(autoOpenTimer);save.cases--;persist();const reward=rollCase();opening={reward,progress:0,need:reward.need,lastY:null};$("startOpen").disabled=true;$("caseCapsule").className="caseCapsule opening";$("caseInfo").textContent="Move hands up and down.";$("dropName").textContent="Opening...";$("dropRarity").textContent=reward.rarity.toUpperCase();$("dropRarity").className="rarity-"+reward.rarity;$("dropNote").textContent="Rare pulls take longer.";autoOpenTimer=setInterval(()=>{if(!opening)return;addOpenProgress(0.35);},60);}
-function addOpenProgress(v){if(!opening)return;opening.progress+=v;$("openProgress").style.width=Math.min(100,opening.progress/opening.need*100)+"%";if(opening.progress>=opening.need)finishOpening();}
-function handDown(side,y){if(!opening)return;opening.lastY=y;$(side+"Hand").classList.add("active");addOpenProgress(2);}
-function handMove(side,y){if(!opening)return;const last=opening.lastY===null?y:opening.lastY;const delta=Math.abs(y-last);opening.lastY=y;if(delta>0.5)addOpenProgress(Math.min(delta*1.55,36));}
-function handUp(side){$(side+"Hand").classList.remove("active");}
-["left","right"].forEach(side=>{const z=$(side+"HandZone");z.addEventListener("pointerdown",e=>{try{z.setPointerCapture(e.pointerId)}catch(err){};handDown(side,e.clientY);});z.addEventListener("pointermove",e=>handMove(side,e.clientY));z.addEventListener("pointerup",e=>{try{z.releasePointerCapture(e.pointerId)}catch(err){};handUp(side);});z.addEventListener("pointercancel",()=>handUp(side));z.addEventListener("touchstart",e=>{e.preventDefault();if(e.touches[0])handDown(side,e.touches[0].clientY);},{passive:false});z.addEventListener("touchmove",e=>{e.preventDefault();if(e.touches[0])handMove(side,e.touches[0].clientY);},{passive:false});z.addEventListener("touchend",e=>{e.preventDefault();handUp(side);},{passive:false});});
-function finishOpening(){if(!opening)return;clearInterval(autoOpenTimer);autoOpenTimer=null;const d=opening.reward;opening=null;$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");$("openProgress").style.width="100%";$("caseCapsule").className="caseCapsule boom";if(d.kind==="shards"){save.shards=(save.shards||0)+d.amount;$("caseCapsule").textContent="✦";$("caseCapsule").style.background=d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)";$("dropName").textContent=`${d.amount} shards`;$("dropNote").textContent=`+${d.amount} ✦ added.`;$("dropRarity").textContent=d.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.rarity;persist();resetStartButton();return;}if(d.kind==="trash"){$("caseCapsule").textContent=d.name;$("dropName").textContent=d.name+" — not 67";$("dropRarity").textContent="TRASH";$("dropRarity").className="rarity-trash";$("dropNote").textContent=d.desc;persist();resetStartButton();return;}const th=skinTheme(d.item);$("caseCapsule").textContent="67";$("caseCapsule").style.background=th.bg;$("dropName").textContent=d.item.name;$("dropRarity").textContent=d.item.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.item.rarity;if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];save.shards=(save.shards||0)+amount;$("dropNote").textContent=`Duplicate. +${amount} ✦.`;}else{save.found[d.item.id]=Date.now();$("newBanner").classList.add("on");$("dropNote").textContent=`New 67 unlocked. #${d.item.id}`;}persist();resetStartButton();}
+function startOpening(){
+  if((save.cases||0)<=0)return;
+  clearInterval(autoOpenTimer);
+  autoOpenTimer=null;
+  save.cases--;
+  persist();
+  const reward=rollCase();
+  opening={
+    reward,
+    moves:0,
+    need:reward.need,
+    leftActive:false,
+    rightActive:false,
+    leftStart:null,
+    rightStart:null,
+    leftY:null,
+    rightY:null,
+    lock:false
+  };
+  setDisabled("startOpen",true);
+  setClass("caseCapsule","caseCapsule opening");
+  setText("caseInfo","Сделай 67 двумя пальцами.");
+  setText("dropName","Открывается...");
+  setText("dropRarity",reward.rarity.toUpperCase());
+  setClass("dropRarity","rarity-"+reward.rarity);
+  setText("dropNote",`Сделай ${reward.need} движений: один палец вверх, другой вниз.`);
+  setText("openHint",`0 / ${reward.need}`);
+  setText("openSub","Движение засчитывается только когда пальцы идут в разные стороны.");
+  setStyle("openProgress","width","0%");
+}
+function updateOpenProgress(){
+  if(!opening)return;
+  setStyle("openProgress","width",Math.min(100,opening.moves/opening.need*100)+"%");
+  setText("openHint",`${opening.moves} / ${opening.need}`);
+}
+function register67Move(){
+  if(!opening || opening.lock)return;
+  opening.lock=true;
+  opening.moves++;
+  updateOpenProgress();
+  setClass("caseCapsule","caseCapsule opening");
+  setTimeout(()=>{ if($("caseCapsule")) $("caseCapsule").classList.add("boom"); },10);
+  setTimeout(()=>{ if($("caseCapsule") && opening) $("caseCapsule").className="caseCapsule opening"; },180);
+  if(opening.moves>=opening.need){
+    setTimeout(()=>finishOpening(),220);
+    return;
+  }
+  setTimeout(()=>{
+    if(!opening)return;
+    opening.lock=false;
+    opening.leftStart=opening.leftY;
+    opening.rightStart=opening.rightY;
+  },220);
+}
+function check67Gesture(){
+  if(!opening || opening.lock)return;
+  if(!opening.leftActive || !opening.rightActive)return;
+  if(opening.leftStart===null || opening.rightStart===null || opening.leftY===null || opening.rightY===null)return;
+  const l=opening.leftY-opening.leftStart;
+  const r=opening.rightY-opening.rightStart;
+  const threshold=34;
+  if(Math.abs(l)<threshold || Math.abs(r)<threshold)return;
+  if(l*r<0)register67Move();
+}
+function handDown(side,y){
+  if(!opening)return;
+  if(side==="left"){
+    opening.leftActive=true; opening.leftStart=y; opening.leftY=y;
+  }else{
+    opening.rightActive=true; opening.rightStart=y; opening.rightY=y;
+  }
+  $(side+"Hand").classList.add("active");
+  check67Gesture();
+}
+function handMove(side,y){
+  if(!opening)return;
+  if(side==="left")opening.leftY=y;
+  else opening.rightY=y;
+  check67Gesture();
+}
+function handUp(side){
+  if(opening){
+    if(side==="left"){opening.leftActive=false;opening.leftStart=null;opening.leftY=null;}
+    else{opening.rightActive=false;opening.rightStart=null;opening.rightY=null;}
+  }
+  const hand=$(side+"Hand"); if(hand) hand.classList.remove("active");
+}
+["left","right"].forEach(side=>{
+  const z=$(side+"HandZone");
+  z.addEventListener("pointerdown",e=>{try{z.setPointerCapture(e.pointerId)}catch(err){};handDown(side,e.clientY);});
+  z.addEventListener("pointermove",e=>handMove(side,e.clientY));
+  z.addEventListener("pointerup",e=>{try{z.releasePointerCapture(e.pointerId)}catch(err){};handUp(side);});
+  z.addEventListener("pointercancel",()=>handUp(side));
+  z.addEventListener("touchstart",e=>{e.preventDefault();if(e.touches[0])handDown(side,e.touches[0].clientY);},{passive:false});
+  z.addEventListener("touchmove",e=>{e.preventDefault();if(e.touches[0])handMove(side,e.touches[0].clientY);},{passive:false});
+  z.addEventListener("touchend",e=>{e.preventDefault();handUp(side);},{passive:false});
+});
+function finishOpening(){if(!opening)return;clearInterval(autoOpenTimer);autoOpenTimer=null;const d=opening.reward;opening=null;$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");$("openProgress").style.width="100%";$("caseCapsule").className="caseCapsule boom";if(d.kind==="shards"){save.shards=(save.shards||0)+d.amount;$("caseCapsule").textContent="✦";$("caseCapsule").style.background=d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)";$("dropName").textContent=`${d.amount} осколков`;$("dropNote").textContent=`+${d.amount} ✦ добавлено.`;$("dropRarity").textContent=d.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.rarity;persist();resetStartButton();return;}if(d.kind==="trash"){$("caseCapsule").textContent=d.name;$("dropName").textContent=d.name+" — не 67";$("dropRarity").textContent="TRASH";$("dropRarity").className="rarity-trash";$("dropNote").textContent=d.desc;persist();resetStartButton();return;}const th=skinTheme(d.item);$("caseCapsule").textContent="67";$("caseCapsule").style.background=th.bg;$("dropName").textContent=d.item.name;$("dropRarity").textContent=d.item.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.item.rarity;if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];save.shards=(save.shards||0)+amount;$("dropNote").textContent=`Дубликат. +${amount} ✦.`;}else{save.found[d.item.id]=Date.now();$("newBanner").classList.add("on");$("dropNote").textContent=`Новый 67 открыт. #${d.item.id}`;}persist();resetStartButton();}
 function resetStartButton(){
   setText("caseCountText", save.cases||0);
   setDisabled("startOpen",(save.cases||0)<=0);
-  setText("startOpen",(save.cases||0)>0?"Open next case":"No cases");
+  setText("startOpen",(save.cases||0)>0?"Открыть следующий":"Нет кейсов");
 }
 
 refresh();resetCaseScreen(false);show("menu");
