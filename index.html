@@ -5,21 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Reach 67 v0.8</title>
+<title>Reach 67</title>
 <style>
 :root{
-  --bg:#06060b; --panel:#171727; --panel2:#23233a; --text:#f7f7ff; --muted:#aaaac8;
-  --yellow:#ffdc5c; --red:#ff4f6d; --green:#60ffab; --blue:#5aa7ff; --purple:#b66cff;
-  --gold:#ffbd37; --pink:#ff62d4; --cyan:#69e8ff;
+  --bg:#050508; --panel:#171727; --text:#f7f7ff; --muted:#aaaac8;
+  --yellow:#ffdc5c; --red:#ff4f6d; --green:#60ffab; --blue:#5aa7ff;
+  --purple:#b66cff; --gold:#ffbd37; --pink:#ff62d4; --cyan:#69e8ff;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:radial-gradient(circle at top,#2c2045 0,#090912 42%,#030306 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;overscroll-behavior:none}
+html,body{margin:0;min-height:100%;background:radial-gradient(circle at top,#2d2148 0,#0a0a13 42%,#030306 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;overscroll-behavior:none}
 body{display:flex;justify-content:center}
-body.focusMode{overflow:hidden}
+body.focusMode{overflow:hidden;background:#030306}
 body.focusMode .app{width:100%;height:100dvh;min-height:100dvh;padding:8px}
-body.focusMode .top, body.focusMode .nav{display:none}
-body.focusMode .gameBox{height:calc(100dvh - 76px);max-height:none;min-height:0;border-radius:18px}
-body.focusMode .sliderWrap{margin-top:8px}
+body.focusMode .top,body.focusMode .nav{display:none}
+body.focusMode .gameBox{height:calc(100dvh - 72px);max-height:none;min-height:0;border-radius:18px}
 .app{width:min(540px,100%);min-height:100vh;padding:14px;display:flex;flex-direction:column;gap:12px}
 .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .brand{line-height:.92}
@@ -29,35 +28,27 @@ body.focusMode .sliderWrap{margin-top:8px}
 .resPill{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);border-radius:999px;padding:7px 10px;color:var(--text);font-size:13px;font-weight:900;white-space:nowrap}
 .resPill small{color:var(--muted);font-weight:800}
 .panel{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.13);border-radius:26px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
-.screen{display:none}
-.screen.on{display:block}
-h1,h2,h3,p{margin:0}
-h1{font-size:34px;letter-spacing:-1.4px}
-h2{font-size:26px;letter-spacing:-.8px}
-p{color:var(--muted);line-height:1.4}
+.screen{display:none}.screen.on{display:block}
+h1,h2,h3,p{margin:0} h1{font-size:34px;letter-spacing:-1.4px} h2{font-size:26px;letter-spacing:-.8px} p{color:var(--muted);line-height:1.4}
 .big67{text-align:center;font-size:112px;font-weight:1000;letter-spacing:-9px;line-height:.85;margin:18px 0 12px;text-shadow:0 12px 40px rgba(255,220,92,.25);transform:rotate(-4deg)}
 .btns{display:grid;gap:10px;margin-top:14px}
 button{border:0;border-radius:19px;padding:16px 14px;background:var(--yellow);color:#101018;font-weight:950;font-size:16px;box-shadow:0 7px 0 rgba(0,0,0,.35);cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 button:active{transform:translateY(5px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
 button.secondary{background:#282842;color:var(--text);border:1px solid rgba(255,255,255,.11)}
-button.good{background:var(--green)}
-button.bad{background:var(--red);color:white}
+button.good{background:var(--green)} button.bad{background:var(--red);color:white}
 button:disabled{opacity:.45;filter:grayscale(.8);transform:none}
 select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:var(--text);border:1px solid rgba(255,255,255,.12);font-weight:850;font-size:14px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
 .stat{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:10px;text-align:center}
-.stat b{display:block;font-size:24px}
-.stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px}
+.stat b{display:block;font-size:24px}.stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px}
 .cleanBox{margin-top:14px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:12px;color:var(--muted);font-size:13px;line-height:1.35}
 .nav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .nav button{font-size:13px;padding:12px 6px;border-radius:15px;box-shadow:none;background:#282842;color:var(--text)}
 .nav button.active{background:var(--yellow);color:#11111a}
 
 .gameBox{position:relative;height:600px;max-height:calc(100vh - 185px);min-height:505px;border-radius:26px;overflow:hidden;background:radial-gradient(circle at 50% 16%,rgba(255,220,92,.13),transparent 32%),linear-gradient(180deg,#141421,#05050b);border:1px solid rgba(255,255,255,.13);touch-action:none;user-select:none}
-.gameBox.flashGood{animation:flashGood .18s ease}
-.gameBox.flashBad{animation:flashBad .28s ease}
-.gameBox.shake{animation:shakeBox .28s linear}
-@keyframes flashGood{0%{filter:brightness(1)}40%{filter:brightness(1.45)}100%{filter:brightness(1)}}
+.gameBox.flashGood{animation:flashGood .18s ease}.gameBox.flashBad{animation:flashBad .28s ease}.gameBox.shake{animation:shakeBox .28s linear}
+@keyframes flashGood{0%{filter:brightness(1)}40%{filter:brightness(1.42)}100%{filter:brightness(1)}}
 @keyframes flashBad{0%{filter:brightness(1)}35%{filter:brightness(1.55) saturate(1.4)}100%{filter:brightness(1)}}
 @keyframes shakeBox{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
 .laneLine{position:absolute;top:0;bottom:0;border-left:1px solid rgba(255,255,255,.055);z-index:1;pointer-events:none}
@@ -69,12 +60,9 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 .hud .tiny{text-align:center;color:var(--muted);font-size:11px}
 .player{position:absolute;bottom:30px;width:82px;height:66px;margin-left:-41px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:35px;font-weight:1000;letter-spacing:-2px;color:#11111a;z-index:5;box-shadow:0 0 28px rgba(255,220,92,.35);overflow:hidden;transform:translateZ(0)}
 .player::after{content:"";position:absolute;inset:0;border-radius:22px;border:4px solid rgba(255,255,255,.85);pointer-events:none}
-.player .num{position:relative;z-index:2;text-shadow:0 2px 8px rgba(255,255,255,.2)}
-.player .skinIcon{position:absolute;right:4px;top:1px;z-index:3;font-size:18px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.player .num{position:relative;z-index:2;text-shadow:0 2px 8px rgba(255,255,255,.2)}.player .skinIcon{position:absolute;right:4px;top:1px;z-index:3;font-size:18px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
 .item{position:absolute;width:62px;height:52px;margin-left:-31px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:1000;color:#11111a;border:3px solid rgba(255,255,255,.7);z-index:4;will-change:transform;box-shadow:0 8px 22px rgba(0,0,0,.25)}
-.item.num.pos{background:#f5f5ff}
-.item.num.pos.n1{background:var(--green)}
-.item.num.pos.big{background:var(--yellow)}
+.item.num.pos{background:#f5f5ff}.item.num.pos.n1{background:var(--green)}.item.num.pos.big{background:var(--yellow)}
 .item.num.neg{background:linear-gradient(180deg,#d7f6ff,#5aa7ff);color:#071019;border-color:rgba(255,255,255,.55)}
 .item.fake{background:#9090a1;border-color:rgba(255,255,255,.3)}
 .item.danger{background:var(--red);color:#fff;border-color:rgba(255,255,255,.4)}
@@ -83,195 +71,62 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-54px) scale(1.14)}}
 .spark{position:absolute;width:7px;height:7px;border-radius:50%;background:#fff;z-index:8;pointer-events:none;animation:spark .45s ease-out forwards}
 @keyframes spark{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.2)}}
-.sliderWrap{margin-top:10px}
-.sliderTrack{height:50px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden;touch-action:none}
+.sliderWrap{margin-top:10px}.sliderTrack{height:50px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden;touch-action:none}
 .sliderThumb{position:absolute;top:5px;width:72px;height:38px;margin-left:-36px;border-radius:999px;background:var(--yellow);box-shadow:0 6px 18px rgba(255,220,92,.35);display:flex;align-items:center;justify-content:center;color:#11111a;font-weight:1000;font-size:13px;pointer-events:none}
 .focusBtn{position:absolute;left:10px;bottom:10px;z-index:9;width:auto;padding:9px 11px;border-radius:999px;font-size:12px;box-shadow:none;background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.14)}
-
-.overlay{position:absolute;inset:0;background:rgba(5,5,10,.88);backdrop-filter:blur(8px);z-index:50;display:none;align-items:center;justify-content:center;padding:16px;text-align:center}
+.overlay{position:absolute;inset:0;background:rgba(5,5,10,.9);backdrop-filter:blur(8px);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;text-align:center}
 .overlay.on{display:flex!important;opacity:1!important;visibility:visible!important}
 .modal{width:100%;background:linear-gradient(180deg,#292943,#151525);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:18px;box-shadow:0 30px 100px rgba(0,0,0,.55)}
 .result{font-size:60px;font-weight:1000;letter-spacing:-4px;margin-bottom:4px}
 
-.shopGrid{display:grid;gap:12px;margin-top:14px}
-.shopItem{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:14px}
-.shopTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.shopIcon{font-size:42px}
-.price{font-weight:1000;color:var(--yellow)}
-.timer{font-size:13px;color:var(--muted);margin-top:6px}
+.shopGrid{display:grid;gap:12px;margin-top:14px}.shopItem{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:14px}
+.shopTop{display:flex;align-items:center;justify-content:space-between;gap:10px}.shopIcon{font-size:42px}.price{font-weight:1000;color:var(--yellow)}.timer{font-size:13px;color:var(--muted);margin-top:6px}
 
-.caseStage{text-align:center;position:relative;min-height:520px}
-.caseCapsule{width:164px;height:210px;border-radius:90px 90px 64px 64px;background:linear-gradient(140deg,#fff0a0,#ff4f6d 45%,#6a42ff);border:5px solid rgba(255,255,255,.88);display:flex;align-items:center;justify-content:center;margin:26px auto 12px;font-size:56px;font-weight:1000;color:white;text-shadow:0 6px 16px rgba(0,0,0,.36);box-shadow:0 18px 80px rgba(255,220,92,.25);transition:transform .15s ease, filter .15s ease}
-.caseCapsule.pulse{animation:capPulse .65s ease-in-out infinite}
-.caseCapsule.opening{animation:capWobble .34s ease-in-out infinite}
-.caseCapsule.boom{animation:capBoom .6s ease}
-@keyframes capPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes capWobble{0%,100%{transform:rotate(-3deg) scale(1.02)}50%{transform:rotate(3deg) scale(1.08)}}
-@keyframes capBoom{0%{transform:scale(1)}45%{transform:scale(1.22) rotate(-3deg)}100%{transform:scale(1)}}
+.caseStage{text-align:center;position:relative;min-height:520px;touch-action:none}.caseCapsule{width:164px;height:210px;border-radius:90px 90px 64px 64px;background:linear-gradient(140deg,#fff0a0,#ff4f6d 45%,#6a42ff);border:5px solid rgba(255,255,255,.88);display:flex;align-items:center;justify-content:center;margin:26px auto 12px;font-size:56px;font-weight:1000;color:white;text-shadow:0 6px 16px rgba(0,0,0,.36);box-shadow:0 18px 80px rgba(255,220,92,.25);transition:transform .15s ease, filter .15s ease}
+.caseCapsule.pulse{animation:capPulse .65s ease-in-out infinite}.caseCapsule.opening{animation:capWobble .34s ease-in-out infinite}.caseCapsule.boom{animation:capBoom .6s ease}
+@keyframes capPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes capWobble{0%,100%{transform:rotate(-3deg) scale(1.02)}50%{transform:rotate(3deg) scale(1.08)}}@keyframes capBoom{0%{transform:scale(1)}45%{transform:scale(1.22) rotate(-3deg)}100%{transform:scale(1)}}
 .handZone{position:absolute;top:150px;width:116px;height:250px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;z-index:4}
-.handZone.left{left:0}
-.handZone.right{right:0}
-.hand{font-size:62px;opacity:.46;filter:drop-shadow(0 12px 24px rgba(0,0,0,.4))}
-.hand.active{opacity:.9;animation:handMove .45s ease-in-out infinite}
-@keyframes handMove{0%,100%{transform:translateY(-18px) rotate(-10deg)}50%{transform:translateY(18px) rotate(10deg)}}
-.openHint{font-weight:900;margin-top:4px}
-.openSub{font-size:13px;color:var(--muted);margin-top:4px}
-.progressShell{height:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);border-radius:999px;overflow:hidden;margin:18px 0 0}
-.progressBar{height:100%;width:0%;background:linear-gradient(90deg,var(--yellow),var(--pink),var(--cyan));border-radius:999px;transition:width .08s linear}
+.handZone.left{left:0}.handZone.right{right:0}.hand{font-size:62px;opacity:.46;filter:drop-shadow(0 12px 24px rgba(0,0,0,.4))}
+.hand.active{opacity:.9;animation:handMove .45s ease-in-out infinite}@keyframes handMove{0%,100%{transform:translateY(-18px) rotate(-10deg)}50%{transform:translateY(18px) rotate(10deg)}}
+.openHint{font-weight:900;margin-top:4px}.openSub{font-size:13px;color:var(--muted);margin-top:4px}.progressShell{height:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);border-radius:999px;overflow:hidden;margin:18px 0 0}.progressBar{height:100%;width:0%;background:linear-gradient(90deg,var(--yellow),var(--pink),var(--cyan));border-radius:999px;transition:width .08s linear}
 .newBanner{display:none;margin:12px auto 0;padding:10px 14px;border-radius:999px;font-weight:1000;letter-spacing:1px;background:linear-gradient(90deg,#ffdc5c,#ff62d4,#69e8ff);color:#11111a;box-shadow:0 14px 40px rgba(255,98,212,.2)}
-.newBanner.on{display:inline-block;animation:newPop .7s ease}
-@keyframes newPop{0%{opacity:0;transform:scale(.6)}50%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
+.newBanner.on{display:inline-block;animation:newPop .7s ease}@keyframes newPop{0%{opacity:0;transform:scale(.6)}50%{opacity:1;transform:scale(1.12)}100%{transform:scale(1)}}
 .rarity-common{color:#dedeee}.rarity-rare{color:var(--blue)}.rarity-epic{color:var(--purple)}.rarity-legendary{color:var(--gold)}.rarity-mythic{color:var(--pink)}.rarity-trash{color:#9797a7}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.tabs button.active{background:var(--yellow);color:#11111a}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
-.card{min-height:138px;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:10px;background:rgba(255,255,255,.05);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.card.locked{filter:grayscale(1);opacity:.35}
-.card .n{font-size:34px;font-weight:1000;letter-spacing:-2px;line-height:1}
-.card .name{font-size:12px;font-weight:900;line-height:1.1}
-.card .meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:4px}
-.card .preview{height:34px;border-radius:12px;border:2px solid rgba(255,255,255,.55);margin-top:8px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-weight:1000;color:#11111a}
-.card.rare{border-color:rgba(90,167,255,.4)}.card.epic{border-color:rgba(182,108,255,.45)}.card.legendary{border-color:rgba(255,189,55,.55);box-shadow:0 0 22px rgba(255,189,55,.13)}.card.mythic{border-color:rgba(255,98,212,.6);box-shadow:0 0 24px rgba(255,98,212,.18)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.tabs button.active{background:var(--yellow);color:#11111a}.tabs button{box-shadow:none}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.card{min-height:138px;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:10px;background:rgba(255,255,255,.05);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}.card.locked{filter:grayscale(1);opacity:.35}.card .n{font-size:34px;font-weight:1000;letter-spacing:-2px;line-height:1}.card .name{font-size:12px;font-weight:900;line-height:1.1}.card .meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:4px}.card .preview{height:34px;border-radius:12px;border:2px solid rgba(255,255,255,.55);margin-top:8px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-weight:1000;color:#11111a}.card.rare{border-color:rgba(90,167,255,.4)}.card.epic{border-color:rgba(182,108,255,.45)}.card.legendary{border-color:rgba(255,189,55,.55);box-shadow:0 0 22px rgba(255,189,55,.13)}.card.mythic{border-color:rgba(255,98,212,.6);box-shadow:0 0 24px rgba(255,98,212,.18)}
 </style>
 </head>
 <body>
-<div class="app" id="app">
+<div class="app">
   <div class="top">
-    <div class="brand"><b>Reach 67</b><span>v0.8 hotfix</span></div>
+    <div class="brand"><b>Reach 67</b><span>stable build</span></div>
     <div class="resources">
       <div class="resPill">✦ <span id="topShards">0</span> <small>shards</small></div>
       <div class="resPill">◉ <span id="topCases">0</span> <small>cases</small></div>
     </div>
   </div>
+  <div class="nav"><button id="navMenu" class="active">Play</button><button id="navShop">Shop</button><button id="navCases">Cases</button><button id="navCollection">67</button></div>
 
-  <div class="nav">
-    <button id="navMenu" class="active">Play</button>
-    <button id="navShop">Shop</button>
-    <button id="navCases">Cases</button>
-    <button id="navCollection">67</button>
-  </div>
+  <section id="menu" class="screen on"><div class="panel"><div class="big67">67</div><h1>Reach exactly 67</h1><p style="margin-top:8px">Catch numbers, dodge fake 67s, collect shards, open cases.</p><div class="stats"><div class="stat"><b id="best">0</b><span>best</span></div><div class="stat"><b id="wins">0</b><span>wins</span></div><div class="stat"><b id="foundStat">0</b><span>found</span></div></div><div class="cleanBox"><div style="font-weight:950;color:#fff;margin-bottom:8px">Skin</div><select id="skinSelect"></select></div><div class="btns"><button id="btnPlay" type="button">Play</button></div></div></section>
 
-  <section id="menu" class="screen on">
-    <div class="panel">
-      <div class="big67">67</div>
-      <h1>Reach exactly 67</h1>
-      <p style="margin-top:8px">Catch numbers, dodge fake 67s, collect shards, open cases.</p>
-      <div class="stats">
-        <div class="stat"><b id="best">0</b><span>best</span></div>
-        <div class="stat"><b id="wins">0</b><span>wins</span></div>
-        <div class="stat"><b id="foundStat">0</b><span>found</span></div>
-      </div>
-      <div class="cleanBox">
-        <div style="font-weight:950;color:#fff;margin-bottom:8px">Skin</div>
-        <select id="skinSelect"></select>
-      </div>
-      <div class="btns">
-        <button id="btnPlay" type="button">Play</button>
-      </div>
-    </div>
-  </section>
+  <section id="game" class="screen"><div class="gameBox" id="gameBox"><div id="lanes"></div><div class="watermark">67</div><div class="hud"><div class="tiny">drag</div><div class="box" id="scoreBox"><span id="score">0</span> / 67</div><div class="tiny" id="speed">speed 1.0x</div></div><button class="focusBtn" id="focusBtn" type="button">fullscreen</button><div class="player" id="player"><span class="num">67</span><span class="skinIcon" id="skinIcon"></span></div><div class="overlay" id="overlay"><div class="modal"><div class="result" id="resScore">0 / 67</div><h2 id="resTitle">Lost</h2><p id="resText" style="margin-top:8px">...</p><div class="btns" id="resButtons"></div><div class="cleanBox" id="resNote"></div></div></div></div><div class="sliderWrap"><div class="sliderTrack" id="sliderTrack"><div class="sliderThumb" id="sliderThumb">67</div></div></div></section>
 
-  <section id="game" class="screen">
-    <div class="gameBox" id="gameBox">
-      <div id="lanes"></div>
-      <div class="watermark">67</div>
-      <div class="hud">
-        <div class="tiny">drag</div>
-        <div class="box" id="scoreBox"><span id="score">0</span> / 67</div>
-        <div class="tiny" id="speed">speed 1.0x</div>
-      </div>
-      <button class="focusBtn" id="focusBtn" type="button">fullscreen</button>
-      <div class="player" id="player"><span class="num">67</span><span class="skinIcon" id="skinIcon"></span></div>
-      <div class="overlay" id="overlay">
-        <div class="modal">
-          <div class="result" id="resScore">0 / 67</div>
-          <h2 id="resTitle">Lost</h2>
-          <p id="resText" style="margin-top:8px">...</p>
-          <div class="btns" id="resButtons"></div>
-          <div class="cleanBox" id="resNote"></div>
-        </div>
-      </div>
-    </div>
-    <div class="sliderWrap"><div class="sliderTrack" id="sliderTrack"><div class="sliderThumb" id="sliderThumb">67</div></div></div>
-  </section>
+  <section id="shop" class="screen"><div class="panel"><h2>Shop</h2><p style="margin-top:8px">Buy cases with shards.</p><div class="shopGrid"><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">◉</div></div><div style="flex:1"><h3>67 Case</h3><p>Contains a 67, a fake number, or shards.</p><div class="price">500 ✦</div></div></div><div class="btns"><button id="buyCase">Buy case</button></div></div><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">⏱</div></div><div style="flex:1"><h3>Free Case</h3><p>Claim one timed case.</p><div class="timer" id="freeTimer">Ready</div></div></div><div class="btns"><button id="claimFree">Claim free case</button></div></div></div></div></section>
 
-  <section id="shop" class="screen">
-    <div class="panel">
-      <h2>Shop</h2>
-      <p style="margin-top:8px">Buy cases with shards.</p>
-      <div class="shopGrid">
-        <div class="shopItem">
-          <div class="shopTop">
-            <div><div class="shopIcon">◉</div></div>
-            <div style="flex:1">
-              <h3>67 Case</h3>
-              <p>Contains a 67, a fake number, or shards.</p>
-              <div class="price">500 ✦</div>
-            </div>
-          </div>
-          <div class="btns"><button id="buyCase">Buy case</button></div>
-        </div>
-        <div class="shopItem">
-          <div class="shopTop">
-            <div><div class="shopIcon">⏱</div></div>
-            <div style="flex:1">
-              <h3>Free Case</h3>
-              <p>Claim one timed case.</p>
-              <div class="timer" id="freeTimer">Ready</div>
-            </div>
-          </div>
-          <div class="btns"><button id="claimFree">Claim free case</button></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section id="cases" class="screen"><div class="panel caseStage" id="caseStage"><h2>Open Case</h2><p id="caseInfo" style="margin-top:8px">Hold the hands and move up/down.</p><div class="handZone left" id="leftHandZone"><div class="hand" id="leftHand">✋</div></div><div class="handZone right" id="rightHandZone"><div class="hand" id="rightHand">🤚</div></div><div class="caseCapsule pulse" id="caseCapsule">?</div><div class="newBanner" id="newBanner">NEW 67!</div><h1 id="dropName">Ready?</h1><p id="dropRarity" style="margin-top:6px">Cases: <span id="caseCountText">0</span></p><div class="progressShell"><div class="progressBar" id="openProgress"></div></div><div class="openHint" id="openHint">Press Start</div><div class="openSub" id="openSub">Harder rewards take longer to open.</div><div class="btns"><button id="startOpen">Start opening</button></div><div class="cleanBox" id="dropNote">Earn cases by reaching 67, buying them, or waiting for the timer.</div></div></section>
 
-  <section id="cases" class="screen">
-    <div class="panel caseStage">
-      <h2>Open Case</h2>
-      <p id="caseInfo" style="margin-top:8px">Hold the hands and move up/down.</p>
-      <div class="handZone left" id="leftHandZone"><div class="hand" id="leftHand">✋</div></div>
-      <div class="handZone right" id="rightHandZone"><div class="hand" id="rightHand">🤚</div></div>
-      <div class="caseCapsule pulse" id="caseCapsule">?</div>
-      <div class="newBanner" id="newBanner">NEW 67!</div>
-      <h1 id="dropName">Ready?</h1>
-      <p id="dropRarity" style="margin-top:6px">Cases: <span id="caseCountText">0</span></p>
-      <div class="progressShell"><div class="progressBar" id="openProgress"></div></div>
-      <div class="openHint" id="openHint">Press Start</div>
-      <div class="openSub" id="openSub">Harder rewards take longer to open.</div>
-      <div class="btns">
-        <button id="startOpen">Start opening</button>
-      </div>
-      <div class="cleanBox" id="dropNote">Earn cases by reaching 67, buying them, or waiting for the timer.</div>
-    </div>
-  </section>
-
-  <section id="collection" class="screen">
-    <div class="panel">
-      <h2>Collection 67</h2>
-      <p style="margin-top:8px">Choose any unlocked 67 as your run skin.</p>
-      <div class="tabs">
-        <button class="small active" data-filter="all" type="button">All</button>
-        <button class="small secondary" data-filter="found" type="button">Found</button>
-        <button class="small secondary" data-filter="rareplus" type="button">Rare+</button>
-      </div>
-      <div class="cards" id="cards"></div>
-      <div class="btns">
-        <button id="reset" type="button" class="bad">Reset progress</button>
-      </div>
-    </div>
-  </section>
+  <section id="collection" class="screen"><div class="panel"><h2>Collection 67</h2><p style="margin-top:8px">Choose any unlocked 67 as your run skin.</p><div class="tabs"><button class="small active" data-filter="all" type="button">All</button><button class="small secondary" data-filter="found" type="button">Found</button><button class="small secondary" data-filter="rareplus" type="button">Rare+</button></div><div class="cards" id="cards"></div><div class="btns"><button id="reset" type="button" class="bad">Reset progress</button></div></div></section>
 </div>
 
 <script>
 (function(){
 "use strict";
+window.addEventListener("error",function(e){alert("Game error: "+(e.message||"unknown"));});
 const $=id=>document.getElementById(id);
 const screens=["menu","game","shop","cases","collection"];
-const SAVE_KEY="reach67_product_v08";
-const LANE_COUNT=5;
-const CASE_PRICE=500;
-const FREE_CASE_INTERVAL=3*60*1000;
+const SAVE_KEY="reach67_stable_09";
+const OLD_KEYS=["reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
+const LANE_COUNT=5, CASE_PRICE=500, FREE_CASE_INTERVAL=3*60*1000;
 
 const common=["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
 const rare=["Неоновый","Пиратский","Ниндзя","Кофейный","Сырный","Крысиный","Вампирский","Лимонадный","Косой","Радиоактивный","Ледяной","Огненный","Токсичный","Зеркальный","Ночной","Пляжный","Болотный","Скелетный","Кибер","Звёздный"];
@@ -286,9 +141,25 @@ function desc(r){const d={common:["It just exists.","Looks like 67.","Not specia
 add(common,"common");add(rare,"rare");add(epic,"epic");add(legendary,"legendary");add(mythic,"mythic");
 
 let save=load();
+function baseSave(){return{found:{},dupes:{},best:0,wins:0,shards:250,cases:1,selectedSkin:"default",nextFreeCase:Date.now()+FREE_CASE_INTERVAL};}
 function load(){
-  const base={found:{},dupes:{},best:0,wins:0,shards:250,cases:1,selectedSkin:"default",nextFreeCase:Date.now()+FREE_CASE_INTERVAL};
-  try{return Object.assign(base,JSON.parse(localStorage.getItem(SAVE_KEY)||"{}"));}catch(e){return base;}
+  const base=baseSave();
+  for(const key of OLD_KEYS){
+    try{
+      const raw=localStorage.getItem(key);
+      if(!raw)continue;
+      const data=JSON.parse(raw);
+      const merged=Object.assign(base,data);
+      if(typeof merged.shards!=="number")merged.shards=Number(merged.shards||0);
+      if(typeof merged.cases!=="number")merged.cases=Number(merged.cases||0);
+      if(!merged.found)merged.found={};
+      if(!merged.dupes)merged.dupes={};
+      if(!merged.nextFreeCase)merged.nextFreeCase=Date.now()+FREE_CASE_INTERVAL;
+      localStorage.setItem(SAVE_KEY,JSON.stringify(merged));
+      return merged;
+    }catch(e){}
+  }
+  return base;
 }
 function persist(){localStorage.setItem(SAVE_KEY,JSON.stringify(save));refresh();}
 function countFound(){return Object.keys(save.found||{}).length;}
@@ -296,8 +167,7 @@ function getFoundDefs(){return defs.filter(d=>save.found[d.id]);}
 
 function skinTheme(def){
   if(!def)return{bg:"linear-gradient(135deg,#fff0a0,#ffdc5c)",icon:"",color:"#11111a",shadow:"0 0 30px rgba(255,220,92,.35)"};
-  const n=def.base.toLowerCase();
-  function t(bg,icon,shadow,color="#11111a"){return{bg,icon,shadow,color};}
+  const n=def.base.toLowerCase();function t(bg,icon,shadow,color="#11111a"){return{bg,icon,shadow,color};}
   if(n.includes("дерев"))return t("repeating-linear-gradient(90deg,#8b4f24 0 9px,#b87537 9px 18px,#6d3b1b 18px 27px)","🪵","0 0 30px rgba(184,117,55,.35)");
   if(n.includes("пласт"))return t("radial-gradient(circle at 28% 20%,rgba(255,255,255,.7),transparent 18%),linear-gradient(135deg,#ff7cf3,#8e6cff)","✨","0 0 30px rgba(255,124,243,.35)");
   if(n.includes("демон"))return t("radial-gradient(circle at 30% 20%,#ff4f6d,transparent 18%),linear-gradient(135deg,#18040a,#9b0c26,#ff4f6d)","😈","0 0 36px rgba(255,79,109,.45)","#fff");
@@ -313,24 +183,19 @@ function skinTheme(def){
   const hue=(def.id*37)%360,hue2=(hue+55)%360;
   return t(`linear-gradient(135deg,hsl(${hue} 85% 72%),hsl(${hue2} 85% 60%))`,def.rarity==="legendary"?"⭐":def.rarity==="mythic"?"✦":"","0 0 30px hsla("+hue+",85%,65%,.35)");
 }
-function getSkinDefByChoice(choice){
-  if(choice==="default"||!choice)return null;
-  if(choice==="random"){const found=getFoundDefs();return found.length?found[Math.floor(Math.random()*found.length)]:null;}
-  return defs.find(d=>d.id===Number(choice))||null;
-}
+function getSkinDefByChoice(choice){if(choice==="default"||!choice)return null;if(choice==="random"){const found=getFoundDefs();return found.length?found[Math.floor(Math.random()*found.length)]:null;}return defs.find(d=>d.id===Number(choice))||null;}
 function applyPlayerSkin(def){const th=skinTheme(def);$("player").style.background=th.bg;$("player").style.color=th.color;$("player").style.boxShadow=th.shadow;$("skinIcon").textContent=th.icon||"";}
 function refreshSkinSelect(){const sel=$("skinSelect"),old=save.selectedSkin||"default",found=getFoundDefs();let html=`<option value="default">Default 67</option><option value="random">Random from opened</option>`;found.forEach(d=>html+=`<option value="${d.id}">${d.name} (${d.rarity})</option>`);sel.innerHTML=html;sel.value=[...sel.options].some(o=>o.value===old)?old:"default";}
 function refresh(){
   $("topShards").textContent=save.shards||0;$("topCases").textContent=save.cases||0;$("caseCountText").textContent=save.cases||0;
   $("best").textContent=save.best||0;$("wins").textContent=save.wins||0;$("foundStat").textContent=countFound();
   $("buyCase").disabled=(save.shards||0)<CASE_PRICE;
-  refreshSkinSelect();
-  updateFreeTimer();
+  refreshSkinSelect();updateFreeTimer();
 }
 $("skinSelect").addEventListener("change",e=>{save.selectedSkin=e.target.value;persist();});
 
 function show(id){
-  if(state && id!=="game"){stop();}
+  if(state&&id!=="game")stop();
   screens.forEach(s=>$(s).classList.toggle("on",s===id));
   ["navMenu","navShop","navCases","navCollection"].forEach(n=>$(n).classList.remove("active"));
   const map={menu:"navMenu",shop:"navShop",cases:"navCases",collection:"navCollection",game:"navMenu"};
@@ -344,39 +209,16 @@ $("navMenu").onclick=()=>show("menu");$("navShop").onclick=()=>show("shop");$("n
 $("btnPlay").onclick=()=>{show("game");startRun(0,false);};
 $("buyCase").onclick=()=>{if((save.shards||0)>=CASE_PRICE){save.shards-=CASE_PRICE;save.cases=(save.cases||0)+1;persist();show("cases");}};
 $("claimFree").onclick=()=>{if(Date.now()>=save.nextFreeCase){save.cases=(save.cases||0)+1;save.nextFreeCase=Date.now()+FREE_CASE_INTERVAL;persist();show("cases");}};
-$("reset").onclick=()=>{if(confirm("Reset progress?")){localStorage.removeItem(SAVE_KEY);save=load();refresh();renderCards(currentFilter);}};
-$("focusBtn").onclick=async()=>{
-  document.body.classList.toggle("focusMode");
-  $("focusBtn").textContent=document.body.classList.contains("focusMode")?"exit":"fullscreen";
-  try{
-    if(document.body.classList.contains("focusMode") && document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
-    else if(document.fullscreenElement && document.exitFullscreen) await document.exitFullscreen();
-  }catch(e){}
-  setTimeout(()=>{if(state){state.playerX=clamp(state.playerX,34,gameBox.clientWidth-34);state.targetX=clamp(state.targetX,34,gameBox.clientWidth-34);layoutPlayer();updateSliderThumb();}},120);
-};
-
-function updateFreeTimer(){
-  const left=Math.max(0,save.nextFreeCase-Date.now());
-  $("claimFree").disabled=left>0;
-  if(left<=0){$("freeTimer").textContent="Ready";return;}
-  const m=Math.floor(left/60000),s=Math.floor((left%60000)/1000);
-  $("freeTimer").textContent=`${m}:${String(s).padStart(2,"0")}`;
-}
+$("reset").onclick=()=>{if(confirm("Reset progress?")){localStorage.removeItem(SAVE_KEY);save=baseSave();persist();renderCards(currentFilter);}};
+$("focusBtn").onclick=async()=>{document.body.classList.toggle("focusMode");$("focusBtn").textContent=document.body.classList.contains("focusMode")?"exit":"fullscreen";try{if(document.body.classList.contains("focusMode")&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen();}catch(e){}setTimeout(()=>{if(state){state.playerX=clamp(state.playerX,34,gameBox.clientWidth-34);state.targetX=clamp(state.targetX,34,gameBox.clientWidth-34);layoutPlayer();updateSliderThumb();}},120);};
+function updateFreeTimer(){const left=Math.max(0,save.nextFreeCase-Date.now());$("claimFree").disabled=left>0;if(left<=0){$("freeTimer").textContent="Ready";return;}const m=Math.floor(left/60000),s=Math.floor((left%60000)/1000);$("freeTimer").textContent=`${m}:${String(s).padStart(2,"0")}`;}
 setInterval(refresh,1000);
 
 let currentFilter="all";
 document.querySelectorAll(".tabs button").forEach(btn=>{btn.onclick=()=>{document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentFilter=btn.dataset.filter;renderCards(currentFilter);};});
-function renderCards(filter){
-  const wrap=$("cards");let list=defs.slice();
-  if(filter==="found")list=list.filter(d=>save.found[d.id]);
-  if(filter==="rareplus")list=list.filter(d=>["rare","epic","legendary","mythic"].includes(d.rarity));
-  wrap.innerHTML="";
-  if(!list.length){wrap.innerHTML='<p style="grid-column:1/-1">Empty.</p>';return;}
-  list.forEach(d=>{const found=!!save.found[d.id],th=skinTheme(d),div=document.createElement("div");div.className="card "+(found?d.rarity:"locked");div.innerHTML=`<div><div class="n">${found?"67":"??"}</div><div class="name">${found?d.name:"#"+String(d.id).padStart(2,"0")+" locked"}</div><div class="meta rarity-${d.rarity}">${found?d.rarity:"unknown"}</div>${found?`<div class="preview" style="background:${th.bg};color:${th.color}">67 ${th.icon||""}</div>`:""}</div><div><div class="meta">${found?d.desc:"open cases to unlock"}</div>${found&&save.dupes[d.id]?`<div class="meta">dupes: ${save.dupes[d.id]}</div>`:""}</div>`;wrap.appendChild(div);});
-}
+function renderCards(filter){const wrap=$("cards");let list=defs.slice();if(filter==="found")list=list.filter(d=>save.found[d.id]);if(filter==="rareplus")list=list.filter(d=>["rare","epic","legendary","mythic"].includes(d.rarity));wrap.innerHTML="";if(!list.length){wrap.innerHTML='<p style="grid-column:1/-1">Empty.</p>';return;}list.forEach(d=>{const found=!!save.found[d.id],th=skinTheme(d),div=document.createElement("div");div.className="card "+(found?d.rarity:"locked");div.innerHTML=`<div><div class="n">${found?"67":"??"}</div><div class="name">${found?d.name:"#"+String(d.id).padStart(2,"0")+" locked"}</div><div class="meta rarity-${d.rarity}">${found?d.rarity:"unknown"}</div>${found?`<div class="preview" style="background:${th.bg};color:${th.color}">67 ${th.icon||""}</div>`:""}</div><div><div class="meta">${found?d.desc:"open cases to unlock"}</div>${found&&save.dupes[d.id]?`<div class="meta">dupes: ${save.dupes[d.id]}</div>`:""}</div>`;wrap.appendChild(div);});}
 
-const lanesWrap=$("lanes");
-for(let i=1;i<LANE_COUNT;i++){const line=document.createElement("div");line.className="laneLine";line.style.left=(i*100/LANE_COUNT)+"%";lanesWrap.appendChild(line);}
+const lanesWrap=$("lanes");for(let i=1;i<LANE_COUNT;i++){const line=document.createElement("div");line.className="laneLine";line.style.left=(i*100/LANE_COUNT)+"%";lanesWrap.appendChild(line);}
 const gameBox=$("gameBox"),playerEl=$("player"),overlay=$("overlay"),sliderTrack=$("sliderTrack"),sliderThumb=$("sliderThumb"),scoreBox=$("scoreBox");
 let state=null,raf=null,isDragging=false;
 function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
@@ -385,150 +227,38 @@ function layoutPlayer(){if(state)playerEl.style.left=state.playerX+"px";}
 function updateSliderThumb(){if(!state)return;sliderThumb.style.left=(clamp(state.targetX/gameBox.clientWidth,0,1)*sliderTrack.clientWidth)+"px";}
 function setTargetGame(clientX){if(!state||!state.running)return;const r=gameBox.getBoundingClientRect();state.targetX=clamp(clientX-r.left,34,r.width-34);updateSliderThumb();}
 function setTargetSlider(clientX){if(!state||!state.running)return;const r=sliderTrack.getBoundingClientRect();const p=clamp((clientX-r.left)/r.width,0,1);state.targetX=clamp(p*gameBox.clientWidth,34,gameBox.clientWidth-34);updateSliderThumb();}
-gameBox.addEventListener("pointerdown",e=>{isDragging=true;try{gameBox.setPointerCapture(e.pointerId)}catch(err){};setTargetGame(e.clientX);});
-gameBox.addEventListener("pointermove",e=>{if(isDragging)setTargetGame(e.clientX);});
-gameBox.addEventListener("pointerup",e=>{isDragging=false;try{gameBox.releasePointerCapture(e.pointerId)}catch(err){}});
-gameBox.addEventListener("pointercancel",()=>{isDragging=false;});
-sliderTrack.addEventListener("pointerdown",e=>{isDragging=true;try{sliderTrack.setPointerCapture(e.pointerId)}catch(err){};setTargetSlider(e.clientX);});
-sliderTrack.addEventListener("pointermove",e=>{if(isDragging)setTargetSlider(e.clientX);});
-sliderTrack.addEventListener("pointerup",e=>{isDragging=false;try{sliderTrack.releasePointerCapture(e.pointerId)}catch(err){}});
-sliderTrack.addEventListener("pointercancel",()=>{isDragging=false;});
+gameBox.addEventListener("pointerdown",e=>{if(e.target&&e.target.id==="focusBtn")return;isDragging=true;try{gameBox.setPointerCapture(e.pointerId)}catch(err){};setTargetGame(e.clientX);});
+gameBox.addEventListener("pointermove",e=>{if(isDragging)setTargetGame(e.clientX);});gameBox.addEventListener("pointerup",e=>{isDragging=false;try{gameBox.releasePointerCapture(e.pointerId)}catch(err){}});gameBox.addEventListener("pointercancel",()=>{isDragging=false;});
+sliderTrack.addEventListener("pointerdown",e=>{isDragging=true;try{sliderTrack.setPointerCapture(e.pointerId)}catch(err){};setTargetSlider(e.clientX);});sliderTrack.addEventListener("pointermove",e=>{if(isDragging)setTargetSlider(e.clientX);});sliderTrack.addEventListener("pointerup",e=>{isDragging=false;try{sliderTrack.releasePointerCapture(e.pointerId)}catch(err){}});sliderTrack.addEventListener("pointercancel",()=>{isDragging=false;});
 window.addEventListener("resize",()=>{if(state){state.playerX=clamp(state.playerX,34,gameBox.clientWidth-34);state.targetX=clamp(state.targetX,34,gameBox.clientWidth-34);layoutPlayer();updateSliderThumb();}});
 
-function startRun(fromScore,continued){
-  cleanupItems();overlay.classList.remove("on");if(raf)cancelAnimationFrame(raf);
-  const x=laneLeft(2),skin=getSkinDefByChoice(save.selectedSkin||"default");applyPlayerSkin(skin);
-  state={running:true,score:fromScore||0,items:[],last:performance.now(),spawn:0,continued:!!continued,runShards:0,playerX:x,targetX:x,ending:false};
-  $("score").textContent=state.score;layoutPlayer();updateSliderThumb();raf=requestAnimationFrame(tick);
-}
+function startRun(fromScore,continued){cleanupItems();overlay.classList.remove("on");overlay.style.display="none";if(raf)cancelAnimationFrame(raf);const x=laneLeft(2),skin=getSkinDefByChoice(save.selectedSkin||"default");applyPlayerSkin(skin);state={running:true,score:fromScore||0,items:[],last:performance.now(),spawn:0,continued:!!continued,runShards:0,playerX:x,targetX:x,ending:false};$("score").textContent=state.score;layoutPlayer();updateSliderThumb();raf=requestAnimationFrame(tick);}
 function cleanupItems(){document.querySelectorAll(".item,.floatText,.spark").forEach(x=>x.remove());}
-function tick(now){
-  if(!state||!state.running)return;const dt=Math.min(.035,(now-state.last)/1000);state.last=now;
-  const speed=1.02+Math.min(1.28,state.score/67*1.12);$("speed").textContent="speed "+speed.toFixed(1)+"x";
-  const diff=state.targetX-state.playerX,maxStep=(650+state.score*1.7)*dt;state.playerX+=clamp(diff,-maxStep,maxStep);layoutPlayer();
-  state.spawn-=dt;if(state.spawn<=0){spawnItem();const base=state.score>55?.43:state.score>38?.54:.66;state.spawn=base-Math.random()*.13;}
-  const boxH=gameBox.clientHeight,playerY=boxH-63,px=state.playerX;
-  for(let i=state.items.length-1;i>=0;i--){const it=state.items[i];it.y+=it.v*dt*speed;it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`;if(it.y>boxH+80){it.el.remove();state.items.splice(i,1);continue;}const dx=Math.abs(it.x-px),dy=Math.abs((it.y+it.h/2)-playerY);if(dx<(it.type==="shard"?48:52)&&dy<(it.type==="shard"?46:49)){
-  it.el.remove();
-  state.items.splice(i,1);
-  hit(it);
-  if(!state.running)return;
-  break;
-}}
-  raf=requestAnimationFrame(tick);
-}
-function makeItem(type,label,value,lane){const el=document.createElement("div");let cls="item ";if(type==="num"){cls+="num "+(value>=0?"pos ":"neg ");if(value===1)cls+="n1 ";if(value>=6)cls+="big ";}if(type==="fake")cls+="fake";if(type==="danger")cls+="danger";if(type==="shard")cls+="shard";el.className=cls;el.textContent=label;gameBox.appendChild(el);const x=laneLeft(lane);const it={type,label,value,lane,x,y:-64,v:150+Math.random()*62+state.score*1.55,el,h:type==="shard"?52:52,half:type==="shard"?26:31};el.style.transform=`translate(${x-it.half}px, ${it.y}px)`;return it;}
+function tick(now){if(!state||!state.running)return;const dt=Math.min(.035,(now-state.last)/1000);state.last=now;const speed=1.02+Math.min(1.28,state.score/67*1.12);$("speed").textContent="speed "+speed.toFixed(1)+"x";const diff=state.targetX-state.playerX,maxStep=(650+state.score*1.7)*dt;state.playerX+=clamp(diff,-maxStep,maxStep);layoutPlayer();state.spawn-=dt;if(state.spawn<=0){spawnItem();const base=state.score>55?.43:state.score>38?.54:.66;state.spawn=base-Math.random()*.13;}const boxH=gameBox.clientHeight,playerY=boxH-63,px=state.playerX;for(let i=state.items.length-1;i>=0;i--){const it=state.items[i];it.y+=it.v*dt*speed;it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`;if(it.y>boxH+80){it.el.remove();state.items.splice(i,1);continue;}const dx=Math.abs(it.x-px),dy=Math.abs((it.y+it.h/2)-playerY);if(dx<(it.type==="shard"?48:52)&&dy<(it.type==="shard"?46:49)){it.el.remove();state.items.splice(i,1);hit(it);break;}}raf=requestAnimationFrame(tick);}
+function makeItem(type,label,value,lane){const el=document.createElement("div");let cls="item ";if(type==="number"){cls+="num "+(value>=0?"pos ":"neg ");if(value===1)cls+="n1 ";if(value>=6)cls+="big ";}if(type==="fake")cls+="fake";if(type==="danger")cls+="danger";if(type==="shard")cls+="shard";el.className=cls;el.textContent=label;gameBox.appendChild(el);const x=laneLeft(lane);const it={type,label,value,lane,x,y:-64,v:150+Math.random()*62+state.score*1.55,el,h:type==="shard"?52:52,half:type==="shard"?26:31};el.style.transform=`translate(${x-it.half}px, ${it.y}px)`;return it;}
 function pickNumberValue(){const s=state.score,need=67-s;let values;if(s<18)values=[1,2,2,3,3,4,5,6,7];else if(s<45)values=[1,2,3,3,4,5,6,7,-1,-2,-3];else if(s<58)values=[1,2,2,3,4,5,6,7,-1,-2,-3,-4,-6];else values=[1,2,3,4,5,6,7,-1,-2,-3,-4,-5,-6,-7,8,9];if(s>=60&&Math.random()<.08&&need>=1&&need<=7)values.push(need);if(s===66)values.push(1,-6,7,8,9);if(s===65)values.push(2,-5,7,9);if(s===64)values.push(3,-6,7,9);return values[Math.floor(Math.random()*values.length)];}
-function spawnItem(){const lane=Math.floor(Math.random()*LANE_COUNT),s=state.score;const shardChance=s<20?.07:.08,dangerChance=s>=55?.30:s>=35?.22:.14,fakeChance=s>=55?.20:s>=35?.14:.09;const r=Math.random();let it;if(r<shardChance)it=makeItem("shard","✦",0,lane);else if(r<shardChance+dangerChance)it=makeItem("danger",Math.random()<.58?"💣":"✖",0,lane);else if(r<shardChance+dangerChance+fakeChance){const f=["66","76","69","404"][Math.floor(Math.random()*4)];it=makeItem("fake",f,0,lane);}else{const val=pickNumberValue();it=makeItem("num",(val>0?"+":"")+val,val,lane);}state.items.push(it);if(s>45&&Math.random()<.30){const lane2=(lane+1+Math.floor(Math.random()*(LANE_COUNT-1)))%LANE_COUNT;const val=Math.random()<.55?pickNumberValue():0;const extra=val?makeItem("num",(val>0?"+":"")+val,val,lane2):makeItem(Math.random()<.5?"fake":"danger",Math.random()<.5?"76":"💣",0,lane2);extra.y-=72;state.items.push(extra);}}
+function spawnItem(){const lane=Math.floor(Math.random()*LANE_COUNT),s=state.score;const shardChance=s<20?.07:.08,dangerChance=s>=55?.30:s>=35?.22:.14,fakeChance=s>=55?.20:s>=35?.14:.09;const r=Math.random();let it;if(r<shardChance)it=makeItem("shard","✦",0,lane);else if(r<shardChance+dangerChance)it=makeItem("danger",Math.random()<.58?"💣":"✖",0,lane);else if(r<shardChance+dangerChance+fakeChance){const f=["66","76","69","404"][Math.floor(Math.random()*4)];it=makeItem("fake",f,0,lane);}else{const val=pickNumberValue();it=makeItem("number",(val>0?"+":"")+val,val,lane);}state.items.push(it);if(s>45&&Math.random()<.30){const lane2=(lane+1+Math.floor(Math.random()*(LANE_COUNT-1)))%LANE_COUNT;const val=Math.random()<.55?pickNumberValue():0;const extra=val?makeItem("number",(val>0?"+":"")+val,val,lane2):makeItem(Math.random()<.5?"fake":"danger",Math.random()<.5?"76":"💣",0,lane2);extra.y-=72;state.items.push(extra);}}
 function pulseScore(){scoreBox.classList.remove("pulse");void scoreBox.offsetWidth;scoreBox.classList.add("pulse");}
 function flash(kind){gameBox.classList.remove("flashGood","flashBad","shake");void gameBox.offsetWidth;if(kind==="good")gameBox.classList.add("flashGood");if(kind==="bad"){gameBox.classList.add("flashBad");gameBox.classList.add("shake");}}
 function sparks(x,y,color,count=10){for(let i=0;i<count;i++){const s=document.createElement("div");s.className="spark";s.style.left=x+"px";s.style.top=y+"px";s.style.background=color;const a=Math.random()*Math.PI*2,d=25+Math.random()*45;s.style.setProperty("--dx",Math.cos(a)*d+"px");s.style.setProperty("--dy",Math.sin(a)*d+"px");gameBox.appendChild(s);setTimeout(()=>s.remove(),500);}}
 function floatText(x,y,text,color){const el=document.createElement("div");el.className="floatText";el.textContent=text;el.style.left=(x-22)+"px";el.style.top=y+"px";el.style.color=color||"white";gameBox.appendChild(el);setTimeout(()=>el.remove(),760);}
-function hit(it){
-  if(!state||state.ending)return;
-  if(it.type==="shard" || it.label==="✦"){
-    state.runShards++;
-    save.shards=(save.shards||0)+1;
-    persist();
-    floatText(it.x,it.y,"+1 ✦","var(--cyan)");
-    sparks(it.x,it.y,"#69e8ff",12);
-    flash("good");
-    return;
-  }
-  if(it.type==="num"){const before=state.score;state.score+=it.value;if(state.score<0)state.score=0;$("score").textContent=state.score;pulseScore();floatText(it.x,it.y,(it.value>0?"+":"")+it.value,it.value<0?"var(--cyan)":"white");sparks(it.x,it.y,it.value<0?"#69e8ff":"#ffdc5c",it.value<0?8:12);flash("good");if(state.score===67)return win();if(state.score>67)return lose(`Over: ${before} + ${it.value} = ${state.score}`,"More than 67 is death.");return;}
-  if(it.type==="fake"){flash("bad");return lose(`Fake ${it.label}`,"It pretended to be 67.");}
-  if(it.type==="danger"){flash("bad");return lose("Bomb","67 hates explosions.");}
-}
+function hit(it){if(!state||state.ending)return;if(it.type==="shard"){state.runShards++;save.shards=(save.shards||0)+1;persist();floatText(it.x,it.y,"+1 ✦","var(--cyan)");sparks(it.x,it.y,"#69e8ff",12);flash("good");return;}if(it.type==="number"){const before=state.score;state.score+=it.value;if(state.score<0)state.score=0;$("score").textContent=state.score;pulseScore();floatText(it.x,it.y,(it.value>0?"+":"")+it.value,it.value<0?"var(--cyan)":"white");sparks(it.x,it.y,it.value<0?"#69e8ff":"#ffdc5c",it.value<0?8:12);flash("good");if(state.score===67)return win();if(state.score>67)return lose(`Over: ${before} + ${it.value} = ${state.score}`,"More than 67 is death.");return;}if(it.type==="fake"){flash("bad");return lose(`Fake ${it.label}`,"It pretended to be 67.");}if(it.type==="danger"){flash("bad");return lose("Bomb","67 hates explosions.");}}
 function stop(){if(!state)return;state.running=false;if(raf)cancelAnimationFrame(raf);}
-function forceResultOverlay(){
-  overlay.classList.add("on");
-  overlay.style.display="flex";
-  overlay.style.opacity="1";
-  overlay.style.visibility="visible";
-  overlay.style.zIndex="9999";
-}
-function lose(title,text){
-  if(!state||state.ending)return;
-  state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);
-  save.best=Math.max(save.best||0,Math.min(state.score,67));persist();
-  const can=state.score>=55&&state.score<=66&&!state.continued;
-  $("resScore").textContent=state.score+" / 67";$("resTitle").textContent=title;$("resText").textContent=can?`You were ${67-state.score} away. Continue?`:text;$("resNote").textContent=`Run shards: ${state.runShards}`;
-  const b=$("resButtons");b.innerHTML="";
-  if(can){const c=document.createElement("button");c.textContent="Continue";c.onclick=()=>startRun(state.score,true);b.appendChild(c);}
-  const r=document.createElement("button");r.className="secondary";r.textContent="Retry";r.onclick=()=>startRun(0,false);b.appendChild(r);
-  const m=document.createElement("button");m.className="secondary";m.textContent="Menu";m.onclick=()=>{cleanupItems();show("menu");};b.appendChild(m);
-  forceResultOverlay();
-}
-function win(){
-  if(!state||state.ending)return;
-  state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);
-  save.best=67;save.wins=(save.wins||0)+1;save.shards=(save.shards||0)+25;save.cases=(save.cases||0)+1;persist();
-  $("resScore").textContent="67 / 67";$("resTitle").textContent=state.continued?"Reached 67":"Clean 67";$("resText").textContent="Case earned. +25 shards.";$("resNote").textContent=`Run shards: ${state.runShards}`;
-  const b=$("resButtons");b.innerHTML="";
-  const open=document.createElement("button");open.className="good";open.textContent="Open case";open.onclick=()=>{cleanupItems();show("cases");};b.appendChild(open);
-  const again=document.createElement("button");again.className="secondary";again.textContent="Play again";again.onclick=()=>startRun(0,false);b.appendChild(again);
-  forceResultOverlay();
-}
+function forceOverlay(){overlay.classList.add("on");overlay.style.display="flex";overlay.style.visibility="visible";overlay.style.opacity="1";overlay.style.zIndex="9999";}
+function lose(title,text){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);save.best=Math.max(save.best||0,Math.min(state.score,67));persist();const finalScore=state.score,runShards=state.runShards,can=finalScore>=55&&finalScore<=66&&!state.continued;$("resScore").textContent=finalScore+" / 67";$("resTitle").textContent=title;$("resText").textContent=can?`You were ${67-finalScore} away. Continue?`:text;$("resNote").textContent=`Run shards: ${runShards}`;const b=$("resButtons");b.innerHTML="";if(can){const c=document.createElement("button");c.textContent="Continue";c.onclick=()=>startRun(finalScore,true);b.appendChild(c);}const r=document.createElement("button");r.className="secondary";r.textContent="Retry";r.onclick=()=>startRun(0,false);b.appendChild(r);const m=document.createElement("button");m.className="secondary";m.textContent="Menu";m.onclick=()=>{cleanupItems();show("menu");};b.appendChild(m);forceOverlay();}
+function win(){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);const runShards=state.runShards;save.best=67;save.wins=(save.wins||0)+1;save.shards=(save.shards||0)+25;save.cases=(save.cases||0)+1;persist();$("resScore").textContent="67 / 67";$("resTitle").textContent=state.continued?"Reached 67":"Clean 67";$("resText").textContent="Case earned. +25 shards.";$("resNote").textContent=`Run shards: ${runShards}`;const b=$("resButtons");b.innerHTML="";const open=document.createElement("button");open.className="good";open.textContent="Open case";open.onclick=()=>{cleanupItems();show("cases");};b.appendChild(open);const again=document.createElement("button");again.className="secondary";again.textContent="Play again";again.onclick=()=>startRun(0,false);b.appendChild(again);forceOverlay();}
 
-let opening=null, autoOpenTimer=null;
-function resetCaseScreen(keepDrop){
-  clearInterval(autoOpenTimer);autoOpenTimer=null;
-  $("caseCountText").textContent=save.cases||0;$("openProgress").style.width="0%";$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");
-  if(!keepDrop){$("caseCapsule").className="caseCapsule pulse";$("caseCapsule").textContent="?";$("caseCapsule").style.background="";$("newBanner").classList.remove("on");$("dropName").textContent=(save.cases||0)>0?"Ready?":"No cases";$("dropRarity").textContent="Cases: "+(save.cases||0);$("dropRarity").className="";$("dropNote").textContent=(save.cases||0)>0?"Start opening, then move either hand up and down.":"Buy a case or wait for the timer.";}
-  $("startOpen").disabled=(save.cases||0)<=0;
-  opening=null;
-}
-function rollCase(){
-  const r=Math.random()*100;
-  if(r<15){const x=Math.random()*100;if(x<60)return{kind:"shards",amount:100,rarity:"common",need:95};if(x<86)return{kind:"shards",amount:250,rarity:"rare",need:135};if(x<97)return{kind:"shards",amount:500,rarity:"epic",need:210};return{kind:"shards",amount:1000,rarity:"legendary",need:310};}
-  const q=Math.random()*100;
-  if(q<20){const t=trash[Math.floor(Math.random()*trash.length)];return{kind:"trash",name:t[0],desc:t[1],rarity:"trash",need:75};}
-  let rarity;if(q<70)rarity="common";else if(q<95)rarity="rare";else if(q<99)rarity="epic";else if(q<99.725)rarity="legendary";else rarity="mythic";
-  const pool=defs.filter(d=>d.rarity===rarity),item=pool[Math.floor(Math.random()*pool.length)];
-  const need={common:95,rare:135,epic:215,legendary:320,mythic:430}[rarity];
-  return{kind:"67",item,rarity,need};
-}
+let opening=null,autoOpenTimer=null;
+function resetCaseScreen(keepDrop){clearInterval(autoOpenTimer);autoOpenTimer=null;$("caseCountText").textContent=save.cases||0;$("openProgress").style.width="0%";$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");if(!keepDrop){$("caseCapsule").className="caseCapsule pulse";$("caseCapsule").textContent="?";$("caseCapsule").style.background="";$("newBanner").classList.remove("on");$("dropName").textContent=(save.cases||0)>0?"Ready?":"No cases";$("dropRarity").textContent="Cases: "+(save.cases||0);$("dropRarity").className="";$("dropNote").textContent=(save.cases||0)>0?"Start opening, then move either hand up and down.":"Buy a case or wait for the timer."}$("startOpen").disabled=(save.cases||0)<=0;$("startOpen").textContent=(save.cases||0)>0?"Start opening":"No cases";opening=null;}
+function rollCase(){const r=Math.random()*100;if(r<15){const x=Math.random()*100;if(x<60)return{kind:"shards",amount:100,rarity:"common",need:95};if(x<86)return{kind:"shards",amount:250,rarity:"rare",need:135};if(x<97)return{kind:"shards",amount:500,rarity:"epic",need:210};return{kind:"shards",amount:1000,rarity:"legendary",need:310};}const q=Math.random()*100;if(q<20){const t=trash[Math.floor(Math.random()*trash.length)];return{kind:"trash",name:t[0],desc:t[1],rarity:"trash",need:75};}let rarity;if(q<70)rarity="common";else if(q<95)rarity="rare";else if(q<99)rarity="epic";else if(q<99.725)rarity="legendary";else rarity="mythic";const pool=defs.filter(d=>d.rarity===rarity),item=pool[Math.floor(Math.random()*pool.length)];const need={common:95,rare:135,epic:215,legendary:320,mythic:430}[rarity];return{kind:"67",item,rarity,need};}
 $("startOpen").onclick=()=>startOpening();
-function startOpening(){
-  if((save.cases||0)<=0)return;
-  clearInterval(autoOpenTimer);autoOpenTimer=null;
-  save.cases--;persist();
-  const reward=rollCase();
-  opening={reward,progress:0,need:reward.need,left:false,right:false,lastLeftY:null,lastRightY:null,idleTick:0};
-  $("startOpen").disabled=true;$("caseCapsule").className="caseCapsule opening";$("caseInfo").textContent="Move hands up and down.";$("dropName").textContent="Opening...";$("dropRarity").textContent=reward.rarity.toUpperCase();$("dropRarity").className="rarity-"+reward.rarity;$("dropNote").textContent="Rare pulls take longer.";
-  // Fallback: slight auto-progress prevents soft-lock if mobile gestures fail.
-  autoOpenTimer=setInterval(()=>{if(!opening)return;opening.progress+=0.45;$("openProgress").style.width=Math.min(100,opening.progress/opening.need*100)+"%";if(opening.progress>=opening.need)finishOpening();},60);
-}
-function handDown(side,y){if(!opening)return;opening[side]=true;opening[side==="left"?"lastLeftY":"lastRightY"]=y;$(side+"Hand").classList.add("active");addOpenProgress(2);}
-function handMove(side,y){if(!opening)return;const key=side==="left"?"lastLeftY":"lastRightY";if(opening[key]===null)opening[key]=y;const delta=Math.abs(y-opening[key]);opening[key]=y;if(delta>0.5)addOpenProgress(Math.min(delta*1.45,34));}
+function startOpening(){if((save.cases||0)<=0)return;clearInterval(autoOpenTimer);save.cases--;persist();const reward=rollCase();opening={reward,progress:0,need:reward.need,lastY:null};$("startOpen").disabled=true;$("caseCapsule").className="caseCapsule opening";$("caseInfo").textContent="Move hands up and down.";$("dropName").textContent="Opening...";$("dropRarity").textContent=reward.rarity.toUpperCase();$("dropRarity").className="rarity-"+reward.rarity;$("dropNote").textContent="Rare pulls take longer.";autoOpenTimer=setInterval(()=>{if(!opening)return;addOpenProgress(0.35);},60);}
 function addOpenProgress(v){if(!opening)return;opening.progress+=v;$("openProgress").style.width=Math.min(100,opening.progress/opening.need*100)+"%";if(opening.progress>=opening.need)finishOpening();}
-function handUp(side){if(!opening)return;opening[side]=false;$(side+"Hand").classList.remove("active");}
-["left","right"].forEach(side=>{
-  const z=$(side+"HandZone");
-  z.addEventListener("pointerdown",e=>{try{z.setPointerCapture(e.pointerId)}catch(err){};handDown(side,e.clientY);});
-  z.addEventListener("pointermove",e=>handMove(side,e.clientY));
-  z.addEventListener("pointerup",e=>{try{z.releasePointerCapture(e.pointerId)}catch(err){};handUp(side);});
-  z.addEventListener("pointercancel",()=>handUp(side));
-  z.addEventListener("touchstart",e=>{if(e.touches[0])handDown(side,e.touches[0].clientY);},{passive:true});
-  z.addEventListener("touchmove",e=>{if(e.touches[0])handMove(side,e.touches[0].clientY);},{passive:true});
-  z.addEventListener("touchend",()=>handUp(side),{passive:true});
-});
-function finishOpening(){
-  if(!opening)return;
-  clearInterval(autoOpenTimer);autoOpenTimer=null;
-  const d=opening.reward;opening=null;$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");
-  $("openProgress").style.width="100%";$("caseCapsule").className="caseCapsule boom";
-  if(d.kind==="shards"){
-    save.shards=(save.shards||0)+d.amount;$("caseCapsule").textContent="✦";$("caseCapsule").style.background=d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)";$("dropName").textContent=`${d.amount} shards`;$("dropNote").textContent=`+${d.amount} ✦ added.`;$("dropRarity").textContent=d.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.rarity;persist();setTimeout(()=>resetStartButton(),400);return;
-  }
-  if(d.kind==="trash"){
-    $("caseCapsule").textContent=d.name;$("dropName").textContent=d.name+" — not 67";$("dropRarity").textContent="TRASH";$("dropRarity").className="rarity-trash";$("dropNote").textContent=d.desc;persist();setTimeout(()=>resetStartButton(),400);return;
-  }
-  const th=skinTheme(d.item);$("caseCapsule").textContent="67";$("caseCapsule").style.background=th.bg;$("dropName").textContent=d.item.name;$("dropRarity").textContent=d.item.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.item.rarity;
-  if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];save.shards=(save.shards||0)+amount;$("dropNote").textContent=`Duplicate. +${amount} ✦.`;}
-  else{save.found[d.item.id]=Date.now();$("newBanner").classList.add("on");$("dropNote").textContent=`New 67 unlocked. #${d.item.id}`;}
-  persist();setTimeout(()=>resetStartButton(),400);
-}
+function handDown(side,y){if(!opening)return;opening.lastY=y;$(side+"Hand").classList.add("active");addOpenProgress(2);}
+function handMove(side,y){if(!opening)return;const last=opening.lastY===null?y:opening.lastY;const delta=Math.abs(y-last);opening.lastY=y;if(delta>0.5)addOpenProgress(Math.min(delta*1.55,36));}
+function handUp(side){$(side+"Hand").classList.remove("active");}
+["left","right"].forEach(side=>{const z=$(side+"HandZone");z.addEventListener("pointerdown",e=>{try{z.setPointerCapture(e.pointerId)}catch(err){};handDown(side,e.clientY);});z.addEventListener("pointermove",e=>handMove(side,e.clientY));z.addEventListener("pointerup",e=>{try{z.releasePointerCapture(e.pointerId)}catch(err){};handUp(side);});z.addEventListener("pointercancel",()=>handUp(side));z.addEventListener("touchstart",e=>{e.preventDefault();if(e.touches[0])handDown(side,e.touches[0].clientY);},{passive:false});z.addEventListener("touchmove",e=>{e.preventDefault();if(e.touches[0])handMove(side,e.touches[0].clientY);},{passive:false});z.addEventListener("touchend",e=>{e.preventDefault();handUp(side);},{passive:false});});
+function finishOpening(){if(!opening)return;clearInterval(autoOpenTimer);autoOpenTimer=null;const d=opening.reward;opening=null;$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");$("openProgress").style.width="100%";$("caseCapsule").className="caseCapsule boom";if(d.kind==="shards"){save.shards=(save.shards||0)+d.amount;$("caseCapsule").textContent="✦";$("caseCapsule").style.background=d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)";$("dropName").textContent=`${d.amount} shards`;$("dropNote").textContent=`+${d.amount} ✦ added.`;$("dropRarity").textContent=d.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.rarity;persist();resetStartButton();return;}if(d.kind==="trash"){$("caseCapsule").textContent=d.name;$("dropName").textContent=d.name+" — not 67";$("dropRarity").textContent="TRASH";$("dropRarity").className="rarity-trash";$("dropNote").textContent=d.desc;persist();resetStartButton();return;}const th=skinTheme(d.item);$("caseCapsule").textContent="67";$("caseCapsule").style.background=th.bg;$("dropName").textContent=d.item.name;$("dropRarity").textContent=d.item.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.item.rarity;if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];save.shards=(save.shards||0)+amount;$("dropNote").textContent=`Duplicate. +${amount} ✦.`;}else{save.found[d.item.id]=Date.now();$("newBanner").classList.add("on");$("dropNote").textContent=`New 67 unlocked. #${d.item.id}`;}persist();resetStartButton();}
 function resetStartButton(){$("caseCountText").textContent=save.cases||0;$("startOpen").disabled=(save.cases||0)<=0;$("startOpen").textContent=(save.cases||0)>0?"Open next case":"No cases";}
 
 refresh();resetCaseScreen(false);show("menu");
