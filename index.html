@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Reach 67 — Working Prototype</title>
+<title>Reach 67 — Prototype v0.4</title>
 <style>
   :root{
-    --bg:#090912; --panel:#171727; --panel2:#222239; --text:#f7f7ff; --muted:#aaaac8;
+    --bg:#090912; --panel:#171727; --text:#f7f7ff; --muted:#aaaac8;
     --yellow:#ffdc5c; --red:#ff4f6d; --green:#60ffab; --blue:#5aa7ff; --purple:#b66cff;
-    --gold:#ffbd37; --pink:#ff62d4;
+    --gold:#ffbd37; --pink:#ff62d4; --cyan:#69e8ff;
   }
   *{box-sizing:border-box}
   html,body{margin:0;min-height:100%;background:radial-gradient(circle at top,#2b2043 0,#090912 42%,#050508 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;overscroll-behavior:none}
   body{display:flex;justify-content:center}
-  .app{width:min(480px,100%);min-height:100vh;padding:14px;display:flex;flex-direction:column;gap:12px}
+  .app{width:min(540px,100%);min-height:100vh;padding:14px;display:flex;flex-direction:column;gap:12px}
   .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .brand{line-height:.95}
   .brand b{font-size:34px;letter-spacing:-1.5px}
@@ -34,508 +34,105 @@
   button.good{background:var(--green)}
   button.bad{background:var(--red);color:white}
   button.small{padding:11px;font-size:13px;border-radius:14px;box-shadow:none}
+  select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:var(--text);border:1px solid rgba(255,255,255,.12);font-weight:800;font-size:14px;}
   .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
   .stat{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:10px;text-align:center}
   .stat b{display:block;font-size:22px}
   .stat span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
   .note{margin-top:12px;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:11px;color:var(--muted);font-size:13px;line-height:1.35}
-  .jsStatus{font-size:12px;margin-top:10px;color:var(--red)}
-  .jsStatus.ok{color:var(--green)}
-  .gameBox{position:relative;height:560px;max-height:calc(100vh - 180px);min-height:470px;border-radius:26px;overflow:hidden;background:
-    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/33.333% 100%,
-    radial-gradient(circle at 50% 16%,rgba(255,220,92,.14),transparent 32%),
-    linear-gradient(180deg,#141421,#07070e);border:1px solid rgba(255,255,255,.13);touch-action:none}
-  .hud{position:absolute;top:10px;left:10px;right:10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;z-index:5;pointer-events:none}
+  .jsStatus{font-size:12px;margin-top:10px;color:var(--red)} .jsStatus.ok{color:var(--green)}
+  .gameBox{position:relative;height:590px;max-height:calc(100vh - 220px);min-height:500px;border-radius:26px;overflow:hidden;background:radial-gradient(circle at 50% 16%,rgba(255,220,92,.14),transparent 32%),linear-gradient(180deg,#141421,#07070e);border:1px solid rgba(255,255,255,.13);touch-action:none}
+  .laneLine{position:absolute;top:0;bottom:0;border-left:1px solid rgba(255,255,255,.055);z-index:1;pointer-events:none}
+  .watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:126px;font-weight:1000;letter-spacing:-9px;color:rgba(255,255,255,.055);pointer-events:none;z-index:0}
+  .hud{position:absolute;top:10px;left:10px;right:10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;z-index:7;pointer-events:none}
   .hud .box{background:rgba(0,0,0,.46);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:8px 10px;text-align:center;font-weight:950;font-size:21px;backdrop-filter:blur(8px)}
   .hud .tiny{text-align:center;color:var(--muted);font-size:11px}
-  .lane{position:absolute;top:0;bottom:0;width:33.333%;border-left:1px solid rgba(255,255,255,.05);border-right:1px solid rgba(255,255,255,.05)}
-  .lane.l0{left:0}.lane.l1{left:33.333%}.lane.l2{left:66.666%}
-  .watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:126px;font-weight:1000;letter-spacing:-9px;color:rgba(255,255,255,.055);pointer-events:none;z-index:0}
-  .player{position:absolute;bottom:28px;width:84px;height:64px;margin-left:-42px;border-radius:23px;background:var(--yellow);border:4px solid #fff4aa;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:1000;letter-spacing:-2px;color:#11111a;z-index:3;box-shadow:0 0 28px rgba(255,220,92,.35);transition:left .09s ease-out}
-  .item{position:absolute;width:66px;height:52px;margin-left:-33px;border-radius:17px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:1000;color:#11111a;border:3px solid rgba(255,255,255,.65);z-index:2;will-change:transform}
-  .item.num{background:#f5f5ff}
-  .item.n1{background:var(--green)}
-  .item.nbig{background:var(--yellow)}
-  .item.fake{background:#9090a1;border-color:rgba(255,255,255,.3)}
-  .item.danger{background:var(--red);color:#fff;border-color:rgba(255,255,255,.4)}
-  .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-  .overlay{position:absolute;inset:0;background:rgba(5,5,10,.84);backdrop-filter:blur(8px);z-index:10;display:none;align-items:center;justify-content:center;padding:16px;text-align:center}
-  .overlay.on{display:flex}
-  .modal{width:100%;background:linear-gradient(180deg,#292943,#151525);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:18px;box-shadow:0 30px 100px rgba(0,0,0,.55)}
-  .result{font-size:60px;font-weight:1000;letter-spacing:-4px;margin-bottom:4px}
-  .capsule{width:150px;height:190px;border-radius:80px 80px 58px 58px;background:linear-gradient(140deg,#fff0a0,#ff4f6d 45%,#6a42ff);border:5px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;margin:20px auto 12px;font-size:54px;font-weight:1000;color:white;text-shadow:0 6px 16px rgba(0,0,0,.36);box-shadow:0 18px 70px rgba(255,220,92,.25)}
-  .capsule.shake{animation:shake .55s linear infinite}
+  .player{position:absolute;bottom:28px;width:76px;height:62px;margin-left:-38px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:1000;letter-spacing:-2px;color:#11111a;z-index:5;box-shadow:0 0 28px rgba(255,220,92,.35);transition:left .085s linear;overflow:hidden;}
+  .player::after{content:"";position:absolute;inset:0;border-radius:22px;border:4px solid rgba(255,255,255,.85);pointer-events:none;} .player span{position:relative;z-index:2;text-shadow:0 2px 8px rgba(255,255,255,.2)}
+  .item{position:absolute;width:58px;height:48px;margin-left:-29px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:1000;color:#11111a;border:3px solid rgba(255,255,255,.65);z-index:4;will-change:transform;box-shadow:0 8px 22px rgba(0,0,0,.25)}
+  .item.num.pos{background:#f5f5ff}.item.num.pos.n1{background:var(--green)}.item.num.pos.big{background:var(--yellow)}
+  .item.num.neg{background:linear-gradient(180deg,#d7f6ff,#5aa7ff);color:#071019;border-color:rgba(255,255,255,.55)}
+  .item.fake{background:#9090a1;border-color:rgba(255,255,255,.3)} .item.danger{background:var(--red);color:#fff;border-color:rgba(255,255,255,.4)}
+  .item.shard{background:linear-gradient(180deg,#dffbff,#69e8ff);color:#071019;border-color:#e7fdff;font-size:21px;border-radius:50%;width:52px;height:52px;margin-left:-26px}
+  .floatText{position:absolute;z-index:8;pointer-events:none;font-weight:1000;font-size:18px;text-shadow:0 3px 12px rgba(0,0,0,.45);animation:floatUp .7s ease forwards}
+  @keyframes floatUp{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-48px) scale(1.1)}}
+  .sliderWrap{margin-top:10px}.sliderLabel{font-size:12px;color:var(--muted);margin:0 0 6px 2px}
+  .sliderTrack{height:44px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden;touch-action:none}
+  .sliderTrack::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(20% - 1px), rgba(255,255,255,.06) calc(20% - 1px), rgba(255,255,255,.06) 20%, transparent 20%, transparent calc(40% - 1px), rgba(255,255,255,.06) calc(40% - 1px), rgba(255,255,255,.06) 40%, transparent 40%, transparent calc(60% - 1px), rgba(255,255,255,.06) calc(60% - 1px), rgba(255,255,255,.06) 60%, transparent 60%, transparent calc(80% - 1px), rgba(255,255,255,.06) calc(80% - 1px), rgba(255,255,255,.06) 80%, transparent 80%);pointer-events:none}
+  .sliderThumb{position:absolute;top:4px;width:64px;height:34px;margin-left:-32px;border-radius:999px;background:var(--yellow);box-shadow:0 6px 18px rgba(255,220,92,.35);transition:left .06s linear;display:flex;align-items:center;justify-content:center;color:#11111a;font-weight:1000;font-size:13px;pointer-events:none;}
+  .overlay{position:absolute;inset:0;background:rgba(5,5,10,.84);backdrop-filter:blur(8px);z-index:10;display:none;align-items:center;justify-content:center;padding:16px;text-align:center} .overlay.on{display:flex}
+  .modal{width:100%;background:linear-gradient(180deg,#292943,#151525);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:18px;box-shadow:0 30px 100px rgba(0,0,0,.55)} .result{font-size:60px;font-weight:1000;letter-spacing:-4px;margin-bottom:4px}
+  .capsule{width:150px;height:190px;border-radius:80px 80px 58px 58px;background:linear-gradient(140deg,#fff0a0,#ff4f6d 45%,#6a42ff);border:5px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;margin:20px auto 12px;font-size:54px;font-weight:1000;color:white;text-shadow:0 6px 16px rgba(0,0,0,.36);box-shadow:0 18px 70px rgba(255,220,92,.25)} .capsule.shake{animation:shake .55s linear infinite}
   @keyframes shake{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-6px)}}
   .rarity-common{color:#dedeee}.rarity-rare{color:var(--blue)}.rarity-epic{color:var(--purple)}.rarity-legendary{color:var(--gold)}.rarity-mythic{color:var(--pink)}.rarity-trash{color:#9797a7}
-  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-  .tabs button.active{background:var(--yellow);color:#11111a}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px} .tabs button.active{background:var(--yellow);color:#11111a}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
-  .card{min-height:124px;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:10px;background:rgba(255,255,255,.05);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-  .card.locked{filter:grayscale(1);opacity:.35}
-  .card .n{font-size:34px;font-weight:1000;letter-spacing:-2px;line-height:1}
-  .card .name{font-size:12px;font-weight:900;line-height:1.1}
-  .card .meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:4px}
+  .card{min-height:132px;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:10px;background:rgba(255,255,255,.05);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+  .card.locked{filter:grayscale(1);opacity:.35} .card .n{font-size:34px;font-weight:1000;letter-spacing:-2px;line-height:1} .card .name{font-size:12px;font-weight:900;line-height:1.1} .card .meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:4px}
+  .card .preview{height:28px;border-radius:10px;border:2px solid rgba(255,255,255,.55);margin-top:8px;overflow:hidden;position:relative;}
   .card.rare{border-color:rgba(90,167,255,.4)}.card.epic{border-color:rgba(182,108,255,.45)}.card.legendary{border-color:rgba(255,189,55,.55);box-shadow:0 0 22px rgba(255,189,55,.13)}.card.mythic{border-color:rgba(255,98,212,.6);box-shadow:0 0 24px rgba(255,98,212,.18)}
   .footer{text-align:center;color:var(--muted);font-size:11px;padding:0 0 10px}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top">
-    <div class="brand"><b>Reach 67</b><span>working prototype</span></div>
-    <div class="pill" id="foundPill">0 / 67</div>
-  </div>
-
-  <section id="menu" class="screen on">
-    <div class="panel">
-      <div class="big67">67</div>
-      <h1>Дойди ровно до 67</h1>
-      <p style="margin-top:8px">Кликай/свайпай по дорожкам, собирай +1/+2/+3/+6/+7, не трогай фейки и бомбы. Победа даёт капсулу.</p>
-      <div class="stats">
-        <div class="stat"><b id="best">0</b><span>лучший</span></div>
-        <div class="stat"><b id="wins">0</b><span>побед</span></div>
-        <div class="stat"><b id="collected">0</b><span>67</span></div>
-      </div>
-      <div class="btns">
-        <button id="btnPlay" type="button">Играть</button>
-        <button id="btnCollection" type="button" class="secondary">Коллекция</button>
-        <button id="btnCapsule" type="button" class="secondary">Тестовая капсула</button>
-      </div>
-      <div id="jsStatus" class="jsStatus">JavaScript не запустился. Открой файл в Safari/Chrome, а не в статичном превью.</div>
-      <div class="note">Если кнопки не нажимаются в окне ChatGPT — это превью блокирует скрипты. Скачай файл и открой его в Safari/Chrome.</div>
-    </div>
-  </section>
-
-  <section id="game" class="screen">
-    <div class="gameBox" id="gameBox">
-      <div class="lane l0" data-lane="0"></div>
-      <div class="lane l1" data-lane="1"></div>
-      <div class="lane l2" data-lane="2"></div>
-      <div class="watermark">67</div>
-      <div class="hud">
-        <div class="tiny">тапни дорожку</div>
-        <div class="box"><span id="score">0</span> / 67</div>
-        <div class="tiny" id="speed">speed 1.0x</div>
-      </div>
-      <div class="player" id="player">67</div>
-      <div class="overlay" id="overlay">
-        <div class="modal">
-          <div class="result" id="resScore">0 / 67</div>
-          <h2 id="resTitle">Проигрыш</h2>
-          <p id="resText" style="margin-top:8px">...</p>
-          <div class="btns" id="resButtons"></div>
-          <div class="note" id="resNote"></div>
-        </div>
-      </div>
-    </div>
-    <div class="controls">
-      <button id="left" class="secondary" type="button">← влево</button>
-      <button id="right" class="secondary" type="button">вправо →</button>
-    </div>
-  </section>
-
-  <section id="capsule" class="screen">
-    <div class="panel" style="text-align:center">
-      <h2>Капсула 67</h2>
-      <p style="margin-top:8px">20% не-67 / 50% common / 25% rare / 4% epic / 0.725% legendary / 0.275% mythic</p>
-      <div class="capsule" id="capVisual">?</div>
-      <h1 id="dropName">Открыть?</h1>
-      <p id="dropRarity" style="margin-top:6px">шанс мифика 0.275%</p>
-      <div class="btns">
-        <button id="openCap" type="button">Открыть</button>
-        <button id="capBack" type="button" class="secondary">В меню</button>
-      </div>
-      <div class="note" id="dropNote">Дубликаты дают пыль. Прогресс сохраняется в браузере.</div>
-    </div>
-  </section>
-
-  <section id="collection" class="screen">
-    <div class="panel">
-      <h2>Коллекция 67</h2>
-      <p style="margin-top:8px">Все 67 — только косметика и понт. Никаких скиллов.</p>
-      <div class="tabs">
-        <button class="small active" data-filter="all" type="button">Все</button>
-        <button class="small secondary" data-filter="found" type="button">Найденные</button>
-        <button class="small secondary" data-filter="rareplus" type="button">Редкие+</button>
-      </div>
-      <div class="cards" id="cards"></div>
-      <div class="btns">
-        <button id="colBack" type="button" class="secondary">В меню</button>
-        <button id="reset" type="button" class="bad">Сбросить прогресс</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="footer">Prototype v0.2. Один HTML-файл. Без реальной рекламы и серверов.</div>
+  <div class="top"><div class="brand"><b>Reach 67</b><span>prototype v0.4</span></div><div class="pill" id="foundPill">0 / 67</div></div>
+  <section id="menu" class="screen on"><div class="panel"><div class="big67">67</div><h1>Дойди ровно до 67</h1><p style="margin-top:8px">Теперь есть выбор дизайна 67: конкретный открытый или случайный из открытых. Управление — через drag-ползунок пальцем.</p><div class="stats"><div class="stat"><b id="best">0</b><span>лучший</span></div><div class="stat"><b id="wins">0</b><span>побед</span></div><div class="stat"><b id="shards">0</b><span>осколки</span></div></div><div class="note" style="margin-top:14px"><div style="font-weight:900;color:#fff;margin-bottom:8px">Выбор скина 67</div><select id="skinSelect"></select></div><div class="btns"><button id="btnPlay" type="button">Играть</button><button id="btnCollection" type="button" class="secondary">Коллекция</button><button id="btnCapsule" type="button" class="secondary">Тестовая капсула</button></div><div id="jsStatus" class="jsStatus">JavaScript не запустился. Открой файл в Safari/Chrome.</div><div class="note">Открытые 67 теперь служат как пак дизайнов. Любой найденный можно выбрать как внешний вид игрока, либо поставить Random from opened.</div></div></section>
+  <section id="game" class="screen"><div class="gameBox" id="gameBox"><div id="lanes"></div><div class="watermark">67</div><div class="hud"><div class="tiny">5 дорожек</div><div class="box"><span id="score">0</span> / 67</div><div class="tiny" id="speed">speed 1.0x</div></div><div class="player" id="player"><span>67</span></div><div class="overlay" id="overlay"><div class="modal"><div class="result" id="resScore">0 / 67</div><h2 id="resTitle">Проигрыш</h2><p id="resText" style="margin-top:8px">...</p><div class="btns" id="resButtons"></div><div class="note" id="resNote"></div></div></div></div><div class="sliderWrap"><div class="sliderLabel">Удерживай палец и води по ползунку</div><div class="sliderTrack" id="sliderTrack"><div class="sliderThumb" id="sliderThumb">67</div></div></div></section>
+  <section id="capsule" class="screen"><div class="panel" style="text-align:center"><h2>Капсула 67</h2><p style="margin-top:8px">20% не-67 / 50% common / 25% rare / 4% epic / 0.725% legendary / 0.275% mythic</p><div class="capsule" id="capVisual">?</div><h1 id="dropName">Открыть?</h1><p id="dropRarity" style="margin-top:6px">шанс мифика 0.275%</p><div class="btns"><button id="openCap" type="button">Открыть</button><button id="capBack" type="button" class="secondary">В меню</button></div><div class="note" id="dropNote">Дубликаты и падающие осколки копятся в прогрессе.</div></div></section>
+  <section id="collection" class="screen"><div class="panel"><h2>Коллекция 67</h2><p style="margin-top:8px">Любой открытый 67 можно поставить как дизайн игрока.</p><div class="tabs"><button class="small active" data-filter="all" type="button">Все</button><button class="small secondary" data-filter="found" type="button">Найденные</button><button class="small secondary" data-filter="rareplus" type="button">Редкие+</button></div><div class="cards" id="cards"></div><div class="btns"><button id="colBack" type="button" class="secondary">В меню</button><button id="reset" type="button" class="bad">Сбросить прогресс</button></div></div></section>
+  <div class="footer">Prototype v0.4. Один HTML-файл. Без реальной рекламы и серверов.</div>
 </div>
-
 <script>
 (function(){
 "use strict";
-
 const $ = id => document.getElementById(id);
-const screens = ["menu","game","capsule","collection"];
-const SAVE_KEY = "reach67_working_v02";
-
-const common = ["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
-const rare = ["Неоновый","Пиратский","Ниндзя","Кофейный","Сырный","Крысиный","Вампирский","Лимонадный","Косой","Радиоактивный","Ледяной","Огненный","Токсичный","Зеркальный","Ночной","Пляжный","Болотный","Скелетный","Кибер","Звёздный"];
-const epic = ["Проклятый","Демонический","Радужный","Глитчевый","Королевский","Мутант","Бесконечный","Теневой","Секретный","Панический"];
-const legendary = ["Золотой","Кровавый","Абсурдный","Божественный","Запретный"];
-const mythic = ["Галактический","Абсолютный"];
-const trash = [
-  ["66","almost. but no."],["76","wrong direction."],["69","wrong meme."],["404","67 not found."],["0","nothing happened."],["666","evil cousin."],["100","too much."]
-];
-
-let defs = [];
-function add(list, rarity){
-  list.forEach(n => defs.push({id:defs.length+1,name:n+" 67",rarity,desc:desc(rarity)}));
-}
-function desc(r){
-  const d = {
-    common:["Он просто существует.","Его мама говорит, что он особенный.","Выглядит как 67."],
-    rare:["Уже не стыдно показать.","Пахнет победой на 64.","Редкий, но без понтов."],
-    epic:["Тут уже начинается вайб.","Выпал — можно орать.","Почти легенда, но ещё нет."],
-    legendary:["Экран должен трястись.","Это уже событие.","Он думает, что он главный."],
-    mythic:["Если выпал — делай скрин.","Настоящий бог бессмысленности.","Почти невозможно. Почти."]
-  };
-  const a = d[r]; return a[Math.floor(Math.random()*a.length)];
-}
+const screens=["menu","game","capsule","collection"]; const SAVE_KEY="reach67_working_v04"; const LANE_COUNT=5;
+const common=["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
+const rare=["Неоновый","Пиратский","Ниндзя","Кофейный","Сырный","Крысиный","Вампирский","Лимонадный","Косой","Радиоактивный","Ледяной","Огненный","Токсичный","Зеркальный","Ночной","Пляжный","Болотный","Скелетный","Кибер","Звёздный"];
+const epic=["Проклятый","Демонический","Радужный","Глитчевый","Королевский","Мутант","Бесконечный","Теневой","Секретный","Панический"];
+const legendary=["Золотой","Кровавый","Абсурдный","Божественный","Запретный"]; const mythic=["Галактический","Абсолютный"];
+const trash=[["66","almost. but no."],["76","wrong direction."],["69","wrong meme."],["404","67 not found."],["0","nothing happened."],["666","evil cousin."],["100","too much."]];
+let defs=[]; function add(list,rarity){list.forEach(n=>defs.push({id:defs.length+1,name:n+" 67",rarity,desc:desc(rarity)}));}
+function desc(r){const d={common:["Он просто существует.","Его мама говорит, что он особенный.","Выглядит как 67."],rare:["Уже не стыдно показать.","Пахнет победой на 64.","Редкий, но без понтов."],epic:["Тут уже начинается вайб.","Выпал — можно орать.","Почти легенда, но ещё нет."],legendary:["Экран должен трястись.","Это уже событие.","Он думает, что он главный."],mythic:["Если выпал — делай скрин.","Настоящий бог бессмысленности.","Почти невозможно. Почти."]}; const a=d[r]; return a[Math.floor(Math.random()*a.length)];}
 add(common,"common"); add(rare,"rare"); add(epic,"epic"); add(legendary,"legendary"); add(mythic,"mythic");
-
-let save = load();
-function load(){
-  try { return Object.assign({found:{},dupes:{},best:0,wins:0,dust:0}, JSON.parse(localStorage.getItem(SAVE_KEY)||"{}")); }
-  catch(e){ return {found:{},dupes:{},best:0,wins:0,dust:0}; }
-}
-function persist(){ localStorage.setItem(SAVE_KEY, JSON.stringify(save)); refresh(); }
-function countFound(){ return Object.keys(save.found||{}).length; }
-function refresh(){
-  $("foundPill").textContent = countFound()+" / 67 найдено";
-  $("best").textContent = save.best||0;
-  $("wins").textContent = save.wins||0;
-  $("collected").textContent = countFound();
-}
-function show(id){
-  screens.forEach(s => $(s).classList.toggle("on", s===id));
-  if(id==="collection") renderCards(currentFilter);
-  if(id==="game") setTimeout(layoutPlayer, 30);
-  window.scrollTo(0,0);
-}
-
-$("jsStatus").textContent = "JavaScript работает ✅ кнопки должны нажиматься";
-$("jsStatus").classList.add("ok");
-
-$("btnPlay").onclick = () => { show("game"); startRun(0, false); };
-$("btnCollection").onclick = () => show("collection");
-$("btnCapsule").onclick = () => { show("capsule"); resetCapsule(); };
-$("capBack").onclick = () => show("menu");
-$("colBack").onclick = () => show("menu");
-$("reset").onclick = () => { if(confirm("Сбросить прогресс?")){ localStorage.removeItem(SAVE_KEY); save=load(); refresh(); renderCards(currentFilter); } };
-
-let currentFilter = "all";
-document.querySelectorAll(".tabs button").forEach(btn=>{
-  btn.onclick = () => {
-    document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    currentFilter = btn.dataset.filter;
-    renderCards(currentFilter);
-  };
-});
-
-function renderCards(filter){
-  const wrap = $("cards");
-  let list = defs.slice();
-  if(filter==="found") list = list.filter(d=>save.found[d.id]);
-  if(filter==="rareplus") list = list.filter(d=>["rare","epic","legendary","mythic"].includes(d.rarity));
-  wrap.innerHTML = "";
-  if(!list.length){ wrap.innerHTML = '<p style="grid-column:1/-1">Пока пусто.</p>'; return; }
-  list.forEach(d=>{
-    const found = !!save.found[d.id];
-    const div = document.createElement("div");
-    div.className = "card " + (found ? d.rarity : "locked");
-    div.innerHTML = `
-      <div>
-        <div class="n">${found ? "67" : "??"}</div>
-        <div class="name">${found ? d.name : "#"+String(d.id).padStart(2,"0")+" locked"}</div>
-        <div class="meta rarity-${d.rarity}">${found ? d.rarity : "unknown"}</div>
-      </div>
-      <div>
-        <div class="meta">${found ? d.desc : "дойди до 67 и открой капсулу"}</div>
-        ${found && save.dupes[d.id] ? `<div class="meta">дубликаты: ${save.dupes[d.id]}</div>` : ""}
-      </div>`;
-    wrap.appendChild(div);
-  });
-}
-
-// GAME
-const gameBox = $("gameBox");
-const playerEl = $("player");
-const overlay = $("overlay");
-let state = null;
-let raf = null;
-
-function laneLeft(lane){
-  return (lane + 0.5) * gameBox.clientWidth / 3;
-}
-function layoutPlayer(){
-  if(!state) return;
-  playerEl.style.left = laneLeft(state.lane) + "px";
-}
-function setLane(lane){
-  if(!state || !state.running) return;
-  state.lane = Math.max(0, Math.min(2, lane));
-  layoutPlayer();
-}
-function move(delta){ if(state) setLane(state.lane + delta); }
-
-$("left").onclick = () => move(-1);
-$("right").onclick = () => move(1);
-document.querySelectorAll(".lane").forEach(l => {
-  l.addEventListener("pointerdown", e => {
-    const lane = Number(l.dataset.lane);
-    setLane(lane);
-  });
-});
-window.addEventListener("keydown", e=>{
-  if(!$("game").classList.contains("on")) return;
-  if(e.key==="ArrowLeft" || e.key.toLowerCase()==="a") move(-1);
-  if(e.key==="ArrowRight" || e.key.toLowerCase()==="d") move(1);
-});
-window.addEventListener("resize", layoutPlayer);
-
-function startRun(fromScore, wasContinued){
-  cleanupItems();
-  overlay.classList.remove("on");
-  if(raf) cancelAnimationFrame(raf);
-  state = {
-    running:true,
-    lane:1,
-    score:fromScore||0,
-    items:[],
-    last:performance.now(),
-    spawn:0,
-    continued:!!wasContinued,
-    startTime:performance.now()
-  };
-  $("score").textContent = state.score;
-  layoutPlayer();
-  raf = requestAnimationFrame(tick);
-}
-
-function cleanupItems(){
-  document.querySelectorAll(".item").forEach(x=>x.remove());
-}
-
-function tick(now){
-  if(!state || !state.running) return;
-  const dt = Math.min(0.035, (now - state.last)/1000);
-  state.last = now;
-  const speed = 1 + Math.min(1.9, state.score/67*1.35);
-  $("speed").textContent = "speed " + speed.toFixed(1) + "x";
-
-  state.spawn -= dt;
-  if(state.spawn <= 0){
-    spawnItem();
-    const base = state.score > 52 ? .39 : state.score > 38 ? .48 : .58;
-    state.spawn = base - Math.random()*.12;
-  }
-
-  const boxH = gameBox.clientHeight;
-  const playerY = boxH - 60;
-  const px = laneLeft(state.lane);
-
-  for(let i=state.items.length-1;i>=0;i--){
-    const it = state.items[i];
-    it.y += it.v * dt * speed;
-    it.el.style.transform = `translate(${it.x-33}px, ${it.y}px)`;
-    if(it.y > boxH + 80){
-      it.el.remove(); state.items.splice(i,1); continue;
-    }
-    if(Math.abs((it.x) - px) < 45 && Math.abs((it.y+26) - playerY) < 45){
-      it.el.remove(); state.items.splice(i,1); hit(it);
-      if(!state.running) return;
-    }
-  }
-  raf = requestAnimationFrame(tick);
-}
-
-function makeItem(type,label,value,lane){
-  const el = document.createElement("div");
-  let cls = "item ";
-  if(type==="num") cls += "num " + (value===1?"n1":value>=6?"nbig":"");
-  if(type==="fake") cls += "fake";
-  if(type==="danger") cls += "danger";
-  el.className = cls;
-  el.textContent = label;
-  gameBox.appendChild(el);
-  const x = laneLeft(lane);
-  const it = {type,label,value,lane,x,y:-60,v:160 + Math.random()*85 + state.score*1.75,el};
-  el.style.transform = `translate(${x-33}px, ${it.y}px)`;
-  return it;
-}
-function spawnItem(){
-  const lane = Math.floor(Math.random()*3);
-  const dangerChance = state.score >= 50 ? .34 : state.score >= 35 ? .25 : .17;
-  const fakeChance = state.score >= 50 ? .18 : state.score >= 35 ? .13 : .08;
-  const r = Math.random();
-  let it;
-  if(r < dangerChance){
-    it = makeItem("danger", Math.random()<.55 ? "💣" : "✖", 0, lane);
-  } else if(r < dangerChance + fakeChance){
-    const f = ["66","76","69","404"][Math.floor(Math.random()*4)];
-    it = makeItem("fake", f, 0, lane);
-  } else {
-    const need = 67 - state.score;
-    let vals = state.score >= 58 ? [1,1,2,2,3,6,7] : state.score >= 42 ? [1,2,2,3,3,6,7] : [1,2,3,3,6,7];
-    if(need <= 3 && Math.random()<.35) vals = [1,1,2,3,6];
-    const val = vals[Math.floor(Math.random()*vals.length)];
-    it = makeItem("num","+"+val,val,lane);
-  }
-  state.items.push(it);
-
-  if(state.score > 52 && Math.random()<.18){
-    const lane2 = (lane + 1 + Math.floor(Math.random()*2)) % 3;
-    const extra = Math.random()<.5 ? makeItem("fake","76",0,lane2) : makeItem("danger","💣",0,lane2);
-    extra.y -= 55;
-    state.items.push(extra);
-  }
-}
-function hit(it){
-  if(it.type==="num"){
-    const before = state.score;
-    state.score += it.value;
-    $("score").textContent = state.score;
-    if(state.score === 67) return win();
-    if(state.score > 67) return lose(`Перелёт: ${before} + ${it.value} = ${state.score}`, "Больше 67 — смерть.");
-  } else if(it.type==="fake"){
-    return lose(`Это был ${it.label}`, "Он притворялся настоящим 67.");
-  } else {
-    return lose("Бомба", "67 не любит взрывы.");
-  }
-}
-function stop(){
-  if(!state) return;
-  state.running = false;
-  if(raf) cancelAnimationFrame(raf);
-}
-function lose(title,text){
-  stop();
-  save.best = Math.max(save.best||0, Math.min(state.score,67));
-  persist();
-
-  const canContinue = state.score >= 55 && state.score <= 66 && !state.continued;
-  $("resScore").textContent = state.score + " / 67";
-  $("resTitle").textContent = title;
-  $("resText").textContent = canContinue ? `Ты был в ${67-state.score} от 67. Можно продолжить с этого места.` : text;
-  $("resNote").textContent = canContinue ? "В полной версии тут будет rewarded-реклама. В прототипе кнопка просто продолжает." : "Дойди хотя бы до 55, чтобы появилось продолжение.";
-  const buttons = $("resButtons");
-  buttons.innerHTML = "";
-  if(canContinue){
-    const b = document.createElement("button");
-    b.textContent = "Смотреть рекламу и продолжить";
-    b.onclick = () => startRun(state.score, true);
-    buttons.appendChild(b);
-  }
-  const r = document.createElement("button");
-  r.className = "secondary";
-  r.textContent = "Заново";
-  r.onclick = () => startRun(0,false);
-  buttons.appendChild(r);
-  const m = document.createElement("button");
-  m.className = "secondary";
-  m.textContent = "В меню";
-  m.onclick = () => { cleanupItems(); show("menu"); };
-  buttons.appendChild(m);
-  overlay.classList.add("on");
-}
-function win(){
-  stop();
-  save.best = 67;
-  save.wins = (save.wins||0)+1;
-  persist();
-  $("resScore").textContent = "67 / 67";
-  $("resTitle").textContent = state.continued ? "Дошёл до 67" : "Чистый 67!";
-  $("resText").textContent = "Капсула получена.";
-  $("resNote").textContent = state.continued ? "В полной версии чистый 67 без рекламы может давать улучшенную капсулу." : "Без продолжения — красиво.";
-  const buttons = $("resButtons");
-  buttons.innerHTML = "";
-  const open = document.createElement("button");
-  open.className = "good";
-  open.textContent = "Открыть капсулу";
-  open.onclick = () => { cleanupItems(); show("capsule"); resetCapsule(); };
-  buttons.appendChild(open);
-  const again = document.createElement("button");
-  again.className = "secondary";
-  again.textContent = "Ещё забег";
-  again.onclick = () => startRun(0,false);
-  buttons.appendChild(again);
-  overlay.classList.add("on");
-}
-
-// CAPSULES
-$("openCap").onclick = openCapsule;
-function resetCapsule(){
-  $("capVisual").classList.remove("shake");
-  $("capVisual").textContent = "?";
-  $("dropName").textContent = "Открыть?";
-  $("dropRarity").textContent = "шанс мифика 0.275%";
-  $("dropRarity").className = "";
-  $("dropNote").textContent = "Дубликаты дают пыль. Прогресс сохраняется в браузере.";
-  $("openCap").disabled = false;
-}
-function roll(){
-  const r = Math.random()*100;
-  if(r < 20){
-    const t = trash[Math.floor(Math.random()*trash.length)];
-    return {kind:"trash", name:t[0], desc:t[1], rarity:"trash"};
-  }
-  let rarity;
-  if(r < 70) rarity = "common";
-  else if(r < 95) rarity = "rare";
-  else if(r < 99) rarity = "epic";
-  else if(r < 99.725) rarity = "legendary";
-  else rarity = "mythic";
-  const pool = defs.filter(d=>d.rarity===rarity);
-  return {kind:"67", item:pool[Math.floor(Math.random()*pool.length)]};
-}
-function dust(r){ return {common:5,rare:12,epic:35,legendary:120,mythic:300}[r] || 1; }
-function openCapsule(){
-  $("openCap").disabled = true;
-  $("capVisual").classList.add("shake");
-  let ticks = 0;
-  const timer = setInterval(()=>{
-    ticks++;
-    $("capVisual").textContent = ticks%2 ? "67" : "?";
-    $("dropName").textContent = ["wait...","almost...","is it 67?","no way..."][ticks%4];
-    if(ticks >= 12){
-      clearInterval(timer);
-      $("capVisual").classList.remove("shake");
-      const d = roll();
-      if(d.kind==="trash"){
-        $("capVisual").textContent = d.name;
-        $("dropName").textContent = d.name + " — не 67";
-        $("dropRarity").textContent = "TRASH";
-        $("dropRarity").className = "rarity-trash";
-        $("dropNote").textContent = d.desc + " В полной версии это уйдёт в пыль.";
-      } else {
-        $("capVisual").textContent = "67";
-        $("dropName").textContent = d.item.name;
-        $("dropRarity").textContent = d.item.rarity.toUpperCase();
-        $("dropRarity").className = "rarity-" + d.item.rarity;
-        if(save.found[d.item.id]){
-          save.dupes[d.item.id] = (save.dupes[d.item.id]||0)+1;
-          save.dust = (save.dust||0) + dust(d.item.rarity);
-          $("dropNote").textContent = `Дубликат. +${dust(d.item.rarity)} пыли. ${d.item.desc}`;
-        } else {
-          save.found[d.item.id] = Date.now();
-          $("dropNote").textContent = `Новый 67! #${d.item.id}. ${d.item.desc}`;
-        }
-        persist();
-      }
-    }
-  },85);
-}
-
+let save=load(); function load(){const base={found:{},dupes:{},best:0,wins:0,shards:0,selectedSkin:"default"}; try{return Object.assign(base, JSON.parse(localStorage.getItem(SAVE_KEY)||"{}"));}catch(e){return base;}}
+function persist(){localStorage.setItem(SAVE_KEY, JSON.stringify(save)); refresh();} function countFound(){return Object.keys(save.found||{}).length;}
+function buildSkinStyle(def){if(!def){return {bg:"linear-gradient(135deg,#fff0a0,#ffdc5c)",color:"#11111a",shadow:"0 0 28px rgba(255,220,92,.35)"};} const id=def.id; const hue=(id*37)%360; const hue2=(hue+55)%360; let bg=`linear-gradient(135deg, hsl(${hue} 85% 72%), hsl(${hue2} 85% 60%))`; let color="#11111a"; let shadow=`0 0 28px hsla(${hue},85%,65%,.35)`; if(def.rarity==="rare") bg=`repeating-linear-gradient(135deg, hsl(${hue} 90% 70%) 0 12px, hsl(${hue2} 90% 58%) 12px 24px)`; if(def.rarity==="epic") bg=`radial-gradient(circle at 30% 25%, rgba(255,255,255,.45), transparent 18%), linear-gradient(135deg, hsl(${hue} 95% 72%), hsl(${hue2} 95% 52%))`; if(def.rarity==="legendary"){bg=`linear-gradient(135deg, #fff0a0, hsl(${hue} 90% 60%), #ff7d34)`; shadow=`0 0 32px rgba(255,189,55,.45)`;} if(def.rarity==="mythic"){bg=`radial-gradient(circle at 30% 20%, rgba(255,255,255,.55), transparent 14%), linear-gradient(135deg, hsl(${hue} 100% 74%), hsl(${hue2} 100% 56%), #ffffff 180%)`; shadow=`0 0 36px rgba(255,98,212,.42)`;} return {bg,color,shadow};}
+function getFoundDefs(){return defs.filter(d=>save.found[d.id]);}
+function getSkinDefByChoice(choice){if(choice==="default"||!choice) return null; if(choice==="random"){const found=getFoundDefs(); if(!found.length) return null; return found[Math.floor(Math.random()*found.length)];} const id=Number(choice); return defs.find(d=>d.id===id)||null;}
+function applyPlayerSkin(def){const player=$("player"); const style=buildSkinStyle(def); player.style.background=style.bg; player.style.color=style.color; player.style.boxShadow=style.shadow; player.dataset.skinId=def?String(def.id):"default";}
+function refreshSkinSelect(){const sel=$("skinSelect"); const old=save.selectedSkin||"default"; const found=getFoundDefs(); let html=`<option value="default">Default 67</option><option value="random">Random from opened</option>`; found.forEach(d=>{html += `<option value="${d.id}">${d.name} (${d.rarity})</option>`;}); sel.innerHTML=html; if([...sel.options].some(o=>o.value===old)) sel.value=old; else {sel.value="default"; save.selectedSkin="default"; persist();}}
+function refresh(){$("foundPill").textContent=countFound()+" / 67 найдено"; $("best").textContent=save.best||0; $("wins").textContent=save.wins||0; $("shards").textContent=save.shards||0; refreshSkinSelect();}
+$("skinSelect").addEventListener("change",e=>{save.selectedSkin=e.target.value; persist();});
+function show(id){screens.forEach(s=>$(s).classList.toggle("on", s===id)); if(id==="collection") renderCards(currentFilter); if(id==="game") setTimeout(()=>{layoutPlayer(); updateSliderThumb();},30); window.scrollTo(0,0);}
+$("jsStatus").textContent="JavaScript работает ✅"; $("jsStatus").classList.add("ok");
+$("btnPlay").onclick=()=>{show("game"); startRun(0,false);}; $("btnCollection").onclick=()=>show("collection"); $("btnCapsule").onclick=()=>{show("capsule"); resetCapsule();}; $("capBack").onclick=()=>show("menu"); $("colBack").onclick=()=>show("menu"); $("reset").onclick=()=>{if(confirm("Сбросить прогресс?")){localStorage.removeItem(SAVE_KEY); save=load(); refresh(); renderCards(currentFilter);}};
+let currentFilter="all"; document.querySelectorAll(".tabs button").forEach(btn=>{btn.onclick=()=>{document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); currentFilter=btn.dataset.filter; renderCards(currentFilter);};});
+function renderCards(filter){const wrap=$("cards"); let list=defs.slice(); if(filter==="found") list=list.filter(d=>save.found[d.id]); if(filter==="rareplus") list=list.filter(d=>["rare","epic","legendary","mythic"].includes(d.rarity)); wrap.innerHTML=""; if(!list.length){wrap.innerHTML='<p style="grid-column:1/-1">Пока пусто.</p>'; return;} list.forEach(d=>{const found=!!save.found[d.id]; const skin=buildSkinStyle(d); const div=document.createElement("div"); div.className="card "+(found?d.rarity:"locked"); div.innerHTML=`<div><div class="n">${found?"67":"??"}</div><div class="name">${found?d.name:"#"+String(d.id).padStart(2,"0")+" locked"}</div><div class="meta rarity-${d.rarity}">${found?d.rarity:"unknown"}</div>${found?`<div class="preview" style="background:${skin.bg}"></div>`:``}</div><div><div class="meta">${found?d.desc:"дойди до 67 и открой капсулу"}</div>${found&&save.dupes[d.id]?`<div class="meta">дубликаты: ${save.dupes[d.id]}</div>`:""}</div>`; wrap.appendChild(div);});}
+const lanesWrap=$("lanes"); function buildLanes(){lanesWrap.innerHTML=""; for(let i=0;i<LANE_COUNT;i++){if(i>0){const line=document.createElement("div"); line.className="laneLine"; line.style.left=(i*100/LANE_COUNT)+"%"; lanesWrap.appendChild(line);}}} buildLanes();
+const gameBox=$("gameBox"), playerEl=$("player"), overlay=$("overlay"), sliderTrack=$("sliderTrack"), sliderThumb=$("sliderThumb"); let state=null, raf=null, sliderDragging=false;
+function laneLeft(lane){return (lane+0.5)*gameBox.clientWidth/LANE_COUNT;} function layoutPlayer(){if(!state) return; playerEl.style.left=laneLeft(state.lane)+"px";} function updateSliderThumb(){if(!state) return; const w=sliderTrack.clientWidth; sliderThumb.style.left=((state.lane+0.5)*w/LANE_COUNT)+"px";}
+function setLaneDirect(lane){if(!state||!state.running) return; state.lane=Math.max(0,Math.min(LANE_COUNT-1,lane)); layoutPlayer(); updateSliderThumb();}
+function laneFromClientX(clientX){const rect=sliderTrack.getBoundingClientRect(); let x=clientX-rect.left; x=Math.max(0,Math.min(rect.width,x)); return Math.max(0,Math.min(LANE_COUNT-1,Math.floor(x/(rect.width/LANE_COUNT))));}
+function handleSliderPointer(clientX){setLaneDirect(laneFromClientX(clientX));}
+sliderTrack.addEventListener("pointerdown",e=>{sliderDragging=true; sliderTrack.setPointerCapture(e.pointerId); handleSliderPointer(e.clientX);}); sliderTrack.addEventListener("pointermove",e=>{if(!sliderDragging) return; handleSliderPointer(e.clientX);}); sliderTrack.addEventListener("pointerup",e=>{sliderDragging=false; try{sliderTrack.releasePointerCapture(e.pointerId);}catch(err){}}); sliderTrack.addEventListener("pointercancel",()=>sliderDragging=false);
+gameBox.addEventListener("pointerdown",e=>{if(!state||!state.running) return; const rect=gameBox.getBoundingClientRect(); const x=e.clientX-rect.left; const lane=Math.max(0,Math.min(LANE_COUNT-1,Math.floor(x/(rect.width/LANE_COUNT)))); setLaneDirect(lane);});
+gameBox.addEventListener("pointermove",e=>{if(!state||!state.running||e.pressure===0) return; const rect=gameBox.getBoundingClientRect(); const x=e.clientX-rect.left; const lane=Math.max(0,Math.min(LANE_COUNT-1,Math.floor(x/(rect.width/LANE_COUNT)))); setLaneDirect(lane);});
+window.addEventListener("resize",()=>{layoutPlayer(); updateSliderThumb();});
+function startRun(fromScore,wasContinued){cleanupItems(); overlay.classList.remove("on"); if(raf) cancelAnimationFrame(raf); const chosenSkin=getSkinDefByChoice(save.selectedSkin||"default"); applyPlayerSkin(chosenSkin); state={running:true,lane:2,score:fromScore||0,items:[],last:performance.now(),spawn:0,continued:!!wasContinued,runShards:0,activeSkin:chosenSkin}; $("score").textContent=state.score; layoutPlayer(); updateSliderThumb(); raf=requestAnimationFrame(tick);} function cleanupItems(){document.querySelectorAll(".item,.floatText").forEach(x=>x.remove());}
+function tick(now){if(!state||!state.running) return; const dt=Math.min(0.035,(now-state.last)/1000); state.last=now; const speed=0.78+Math.min(0.82,state.score/67*0.72); $("speed").textContent="speed "+speed.toFixed(1)+"x"; state.spawn-=dt; if(state.spawn<=0){spawnItem(); const base=state.score>55?.64:state.score>38?.70:.78; state.spawn=base-Math.random()*.12;} const boxH=gameBox.clientHeight, playerY=boxH-58, px=laneLeft(state.lane); for(let i=state.items.length-1;i>=0;i--){const it=state.items[i]; it.y+=it.v*dt*speed; it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`; if(it.y>boxH+80){it.el.remove(); state.items.splice(i,1); continue;} const hitRadius=it.type==="shard"?41:43; if(Math.abs(it.x-px)<hitRadius && Math.abs((it.y+it.h/2)-playerY)<43){it.el.remove(); state.items.splice(i,1); hit(it); if(!state.running) return;}} raf=requestAnimationFrame(tick);}
+function makeItem(type,label,value,lane){const el=document.createElement("div"); let cls="item "; if(type==="num"){cls+="num "+(value>=0?"pos ":"neg "); if(value===1) cls+="n1 "; if(value>=6) cls+="big ";} if(type==="fake") cls+="fake"; if(type==="danger") cls+="danger"; if(type==="shard") cls+="shard"; el.className=cls; el.textContent=label; gameBox.appendChild(el); const x=laneLeft(lane); const it={type,label,value,lane,x,y:-64,v:118+Math.random()*42+state.score*0.95,el,h:type==="shard"?52:48,half:type==="shard"?26:29}; el.style.transform=`translate(${x-it.half}px, ${it.y}px)`; return it;}
+function pickNumberValue(){const s=state.score, need=67-s; let values; if(s<18){values=[1,1,2,2,3,3,4,5,6,7];} else if(s<45){values=[1,2,2,3,3,4,5,6,7,-1,-2,-3];} else if(s<58){values=[1,1,2,2,3,4,5,6,7,-1,-2,-3,-4,-6];} else {values=[1,1,2,2,3,3,4,5,6,7,-1,-2,-3,-4,-5,-6,-7];} if(s>=58&&Math.random()<0.42){if(need>=1&&need<=7) values.push(need,need); if(s>=64) values.push(-1,-2,-3,-6);} if(s===66) values.push(1,-6,-1,-2); if(s===65) values.push(2,1,-5,-6); if(s===64) values.push(3,2,1,-6); return values[Math.floor(Math.random()*values.length)];}
+function spawnItem(){const lane=Math.floor(Math.random()*LANE_COUNT), s=state.score; const shardChance=s<20?.10:.13, dangerChance=s>=55?.18:s>=35?.15:.11, fakeChance=s>=55?.13:s>=35?.10:.07; const r=Math.random(); let it; if(r<shardChance){it=makeItem("shard","✦",0,lane);} else if(r<shardChance+dangerChance){it=makeItem("danger",Math.random()<.58?"💣":"✖",0,lane);} else if(r<shardChance+dangerChance+fakeChance){const f=["66","76","69","404"][Math.floor(Math.random()*4)]; it=makeItem("fake",f,0,lane);} else {const val=pickNumberValue(); it=makeItem("num",(val>0?"+":"")+val,val,lane);} state.items.push(it); if(s>50&&Math.random()<.10){const lane2=(lane+1+Math.floor(Math.random()*(LANE_COUNT-1)))%LANE_COUNT; const val=Math.random()<.55?pickNumberValue():0; const extra=val?makeItem("num",(val>0?"+":"")+val,val,lane2):makeItem("fake","76",0,lane2); extra.y-=70; state.items.push(extra);}}
+function hit(it){if(it.type==="num"){const before=state.score; state.score+=it.value; if(state.score<0) state.score=0; $("score").textContent=state.score; floatText(it.x,it.y,(it.value>0?"+":"")+it.value,it.value<0?"var(--cyan)":"white"); if(state.score===67) return win(); if(state.score>67) return lose(`Перелёт: ${before} + ${it.value} = ${state.score}`, "Больше 67 — смерть.");} else if(it.type==="shard"){state.runShards+=1; save.shards=(save.shards||0)+1; persist(); floatText(it.x,it.y,"+1 ✦","var(--cyan)");} else if(it.type==="fake"){return lose(`Это был ${it.label}`, "Он притворялся настоящим 67.");} else {return lose("Бомба", "67 не любит взрывы.");}}
+function floatText(x,y,text,color){const el=document.createElement("div"); el.className="floatText"; el.textContent=text; el.style.left=(x-18)+"px"; el.style.top=y+"px"; el.style.color=color||"white"; gameBox.appendChild(el); setTimeout(()=>el.remove(),760);}
+function stop(){if(!state) return; state.running=false; if(raf) cancelAnimationFrame(raf);} function lose(title,text){stop(); save.best=Math.max(save.best||0,Math.min(state.score,67)); persist(); const canContinue=state.score>=55&&state.score<=66&&!state.continued; $("resScore").textContent=state.score+" / 67"; $("resTitle").textContent=title; $("resText").textContent=canContinue?`Ты был в ${67-state.score} от 67. Можно продолжить с этого места.`:text; $("resNote").textContent=canContinue?`В этом забеге собрано осколков: ${state.runShards}. В полной версии тут будет rewarded-реклама.`:`Осколков в этом забеге: ${state.runShards}.`; const buttons=$("resButtons"); buttons.innerHTML=""; if(canContinue){const b=document.createElement("button"); b.textContent="Смотреть рекламу и продолжить"; b.onclick=()=>startRun(state.score,true); buttons.appendChild(b);} const r=document.createElement("button"); r.className="secondary"; r.textContent="Заново"; r.onclick=()=>startRun(0,false); buttons.appendChild(r); const m=document.createElement("button"); m.className="secondary"; m.textContent="В меню"; m.onclick=()=>{cleanupItems(); show("menu");}; buttons.appendChild(m); overlay.classList.add("on");}
+function win(){stop(); save.best=67; save.wins=(save.wins||0)+1; save.shards=(save.shards||0)+3; persist(); $("resScore").textContent="67 / 67"; $("resTitle").textContent=state.continued?"Дошёл до 67":"Чистый 67!"; $("resText").textContent="Капсула получена. Бонус: +3 осколка."; $("resNote").textContent=`В этом забеге собрано осколков: ${state.runShards}.`; const buttons=$("resButtons"); buttons.innerHTML=""; const open=document.createElement("button"); open.className="good"; open.textContent="Открыть капсулу"; open.onclick=()=>{cleanupItems(); show("capsule"); resetCapsule();}; buttons.appendChild(open); const again=document.createElement("button"); again.className="secondary"; again.textContent="Ещё забег"; again.onclick=()=>startRun(0,false); buttons.appendChild(again); overlay.classList.add("on");}
+$("openCap").onclick=openCapsule; function resetCapsule(){$("capVisual").classList.remove("shake"); $("capVisual").textContent="?"; $("dropName").textContent="Открыть?"; $("dropRarity").textContent="шанс мифика 0.275%"; $("dropRarity").className=""; $("dropNote").textContent="Дубликаты и падающие осколки копятся в прогрессе."; $("openCap").disabled=false;}
+function roll(){const r=Math.random()*100; if(r<20){const t=trash[Math.floor(Math.random()*trash.length)]; return {kind:"trash",name:t[0],desc:t[1],rarity:"trash"};} let rarity; if(r<70) rarity="common"; else if(r<95) rarity="rare"; else if(r<99) rarity="epic"; else if(r<99.725) rarity="legendary"; else rarity="mythic"; const pool=defs.filter(d=>d.rarity===rarity); return {kind:"67",item:pool[Math.floor(Math.random()*pool.length)]};}
+function shardReward(r){return {common:5,rare:12,epic:35,legendary:120,mythic:300}[r]||1;}
+function openCapsule(){$("openCap").disabled=true; $("capVisual").classList.add("shake"); let ticks=0; const timer=setInterval(()=>{ticks++; $("capVisual").textContent=ticks%2?"67":"?"; $("dropName").textContent=["wait...","almost...","is it 67?","no way..."][ticks%4]; if(ticks>=12){clearInterval(timer); $("capVisual").classList.remove("shake"); const d=roll(); if(d.kind==="trash"){$("capVisual").textContent=d.name; $("dropName").textContent=d.name+" — не 67"; $("dropRarity").textContent="TRASH"; $("dropRarity").className="rarity-trash"; $("dropNote").textContent=d.desc+" В полной версии это уйдёт в пыль.";} else {$("capVisual").textContent="67"; $("dropName").textContent=d.item.name; $("dropRarity").textContent=d.item.rarity.toUpperCase(); $("dropRarity").className="rarity-"+d.item.rarity; if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1; save.shards=(save.shards||0)+shardReward(d.item.rarity); $("dropNote").textContent=`Дубликат. +${shardReward(d.item.rarity)} осколков. ${d.item.desc}`;} else {save.found[d.item.id]=Date.now(); $("dropNote").textContent=`Новый 67! #${d.item.id}. ${d.item.desc}`;} persist();}}},85);}
 refresh();
 })();
 </script>
