@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Reach 67 Stable 11</title>
+<title>Reach 67 Stable 12</title>
 <style>
 :root{
   --bg:#050508; --panel:#171727; --text:#f7f7ff; --muted:#aaaac8;
@@ -94,12 +94,24 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 .rarity-common{color:#dedeee}.rarity-rare{color:var(--blue)}.rarity-epic{color:var(--purple)}.rarity-legendary{color:var(--gold)}.rarity-mythic{color:var(--pink)}.rarity-trash{color:#9797a7}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.tabs button.active{background:var(--yellow);color:#11111a}.tabs button{box-shadow:none}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.card{min-height:138px;border:1px solid rgba(255,255,255,.1);border-radius:17px;padding:10px;background:rgba(255,255,255,.05);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}.card.locked{filter:grayscale(1);opacity:.35}.card .n{font-size:34px;font-weight:1000;letter-spacing:-2px;line-height:1}.card .name{font-size:12px;font-weight:900;line-height:1.1}.card .meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-top:4px}.card .preview{height:34px;border-radius:12px;border:2px solid rgba(255,255,255,.55);margin-top:8px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-weight:1000;color:#11111a}.card.rare{border-color:rgba(90,167,255,.4)}.card.epic{border-color:rgba(182,108,255,.45)}.card.legendary{border-color:rgba(255,189,55,.55);box-shadow:0 0 22px rgba(255,189,55,.13)}.card.mythic{border-color:rgba(255,98,212,.6);box-shadow:0 0 24px rgba(255,98,212,.18)}
+
+.caseStage{min-height:auto!important;padding-bottom:18px!important}
+.caseStage .handZone{display:none!important}
+.caseCapsule{margin:20px auto 10px!important;width:150px!important;height:188px!important}
+.caseActions{display:grid;gap:10px;margin-top:14px}
+.caseActions button{box-shadow:0 7px 0 rgba(0,0,0,.35)}
+.shakeMeter{display:grid;grid-template-columns:repeat(18,1fr);gap:4px;margin-top:12px}
+.shakeDot{height:10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.08)}
+.shakeDot.on{background:linear-gradient(90deg,var(--yellow),var(--pink));box-shadow:0 0 12px rgba(255,220,92,.22)}
+.caseResultGlow{animation:caseResultGlow .7s ease}
+@keyframes caseResultGlow{0%{filter:brightness(1)}40%{filter:brightness(1.65)}100%{filter:brightness(1)}}
+
 </style>
 </head>
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><b>Reach 67</b><span>stable build 11</span></div>
+    <div class="brand"><b>Reach 67</b><span>stable build 12</span></div>
     <div class="resources">
       <div class="resPill">✦ <span id="topShards">0</span> <small>осколки</small></div>
       <div class="resPill">◉ <span id="topCases">0</span> <small>кейсы</small></div>
@@ -113,7 +125,25 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 
   <section id="shop" class="screen"><div class="panel"><h2>Магазин</h2><p style="margin-top:8px">Покупай кейсы за осколки.</p><div class="shopGrid"><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">◉</div></div><div style="flex:1"><h3>Кейс 67</h3><p>Внутри может быть 67, фейк или осколки.</p><div class="price">500 ✦</div></div></div><div class="btns"><button id="buyCase">Купить кейс</button></div></div><div class="shopItem"><div class="shopTop"><div><div class="shopIcon">⏱</div></div><div style="flex:1"><h3>Бесплатный кейс</h3><p>Забирай кейс по таймеру.</p><div class="timer" id="freeTimer">Готово</div></div></div><div class="btns"><button id="claimFree">Забрать кейс</button></div></div></div></div></section>
 
-  <section id="cases" class="screen"><div class="panel caseStage" id="caseStage"><h2>Открыть кейс</h2><p id="caseInfo" style="margin-top:8px">Сделай 67 двумя пальцами.</p><div class="handZone left" id="leftHandZone"><div class="hand" id="leftHand">✋</div></div><div class="handZone right" id="rightHandZone"><div class="hand" id="rightHand">🤚</div></div><div class="caseCapsule pulse" id="caseCapsule">?</div><div class="newBanner" id="newBanner">NEW 67!</div><h1 id="dropName">Готов?</h1><p id="dropRarity" style="margin-top:6px">Cases: <span id="caseCountText">0</span></p><div class="progressShell"><div class="progressBar" id="openProgress"></div></div><div class="openHint" id="openHint">Нажми старт</div><div class="openSub" id="openSub">Чем круче награда, тем больше движений нужно.</div><div class="btns"><button id="startOpen">Начать открытие</button></div><div class="cleanBox" id="dropNote">Кейсы дают за победу, покупку или таймер.</div></div></section>
+  <section id="cases" class="screen">
+    <div class="panel caseStage" id="caseStage">
+      <h2>Открыть кейс</h2>
+      <p id="caseInfo" style="margin-top:8px">Нажми старт и тряси телефон.</p>
+      <div class="caseCapsule pulse" id="caseCapsule">?</div>
+      <div class="newBanner" id="newBanner">NEW 67!</div>
+      <h1 id="dropName">Готов?</h1>
+      <p id="dropRarity" style="margin-top:6px">Кейсы: <span id="caseCountText">0</span></p>
+      <div class="progressShell"><div class="progressBar" id="openProgress"></div></div>
+      <div class="shakeMeter" id="shakeMeter"></div>
+      <div class="openHint" id="openHint">Нажми старт</div>
+      <div class="openSub" id="openSub">Обычный дроп — 5 встряхиваний, редкий — 7, эпик — 10, легендарный — 14, мифик — 18.</div>
+      <div class="caseActions">
+        <button id="startOpen">Начать открытие</button>
+        <button id="fakeShake" class="secondary" type="button">Запасная кнопка: +1 тряска</button>
+      </div>
+      <div class="cleanBox" id="dropNote">Кейсы дают за победу, покупку или таймер.</div>
+    </div>
+  </section>
 
   <section id="collection" class="screen"><div class="panel"><h2>Коллекция 67</h2><p style="margin-top:8px">Выбирай любой открытый 67 как скин для забега.</p><div class="tabs"><button class="small active" data-filter="all" type="button">Все</button><button class="small secondary" data-filter="found" type="button">Открытые</button><button class="small secondary" data-filter="rareplus" type="button">Rare+</button></div><div class="cards" id="cards"></div><div class="btns"><button id="reset" type="button" class="bad">Сбросить прогресс</button></div></div></section>
 </div>
@@ -128,8 +158,8 @@ function setClass(id,value){const node=$(id); if(node) node.className=value;}
 function setDisabled(id,value){const node=$(id); if(node) node.disabled=value;}
 function setStyle(id,prop,value){const node=$(id); if(node) node.style[prop]=value;}
 const screens=["menu","game","shop","cases","collection"];
-const SAVE_KEY="reach67_stable_11";
-const OLD_KEYS=["reach67_stable_11","reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
+const SAVE_KEY="reach67_stable_12";
+const OLD_KEYS=["reach67_stable_12","reach67_stable_11","reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
 const LANE_COUNT=5, CASE_PRICE=500, FREE_CASE_INTERVAL=3*60*1000;
 
 const common=["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
@@ -313,104 +343,174 @@ function rollCase(){
   return{kind:"67",item,rarity,need};
 }
 $("startOpen").onclick=()=>startOpening();
-function startOpening(){
+$("fakeShake").onclick=()=>registerShake(true);
+
+function buildShakeMeter(max=18){
+  const meter=$("shakeMeter");
+  if(!meter)return;
+  meter.innerHTML="";
+  for(let i=0;i<max;i++){
+    const d=document.createElement("div");
+    d.className="shakeDot";
+    meter.appendChild(d);
+  }
+}
+function updateShakeMeter(){
+  const meter=$("shakeMeter");
+  if(!meter || !opening)return;
+  [...meter.children].forEach((dot,i)=>{
+    dot.classList.toggle("on", i<opening.shakes);
+    dot.style.display = i<opening.need ? "block" : "none";
+  });
+}
+function resetCaseScreen(keepDrop){
+  clearInterval(autoOpenTimer);autoOpenTimer=null;
+  window.removeEventListener("devicemotion", onDeviceMotion);
+  setText("caseCountText", save.cases||0);
+  setStyle("openProgress","width","0%");
+  buildShakeMeter(18);
+  if(!keepDrop){
+    setClass("caseCapsule","caseCapsule pulse");
+    setText("caseCapsule","?");
+    setStyle("caseCapsule","background","");
+    const nb=$("newBanner"); if(nb) nb.classList.remove("on");
+    setText("dropName",(save.cases||0)>0?"Готов?":"Нет кейсов");
+    setText("dropRarity","Кейсы: "+(save.cases||0));
+    setClass("dropRarity","");
+    setText("caseInfo","Нажми старт и тряси телефон.");
+    setText("dropNote",(save.cases||0)>0?"После старта тряси телефон, чтобы открыть капсулу.":"Купи кейс или дождись таймера.");
+    setText("openHint","Нажми старт");
+    setText("openSub","Обычный дроп — 5 встряхиваний, редкий — 7, эпик — 10, легендарный — 14, мифик — 18.");
+  }
+  setDisabled("startOpen",(save.cases||0)<=0);
+  setText("startOpen",(save.cases||0)>0?"Начать открытие":"Нет кейсов");
+  setDisabled("fakeShake", true);
+  opening=null;
+}
+async function enableMotionIfNeeded(){
+  try{
+    if(typeof DeviceMotionEvent!=="undefined" && typeof DeviceMotionEvent.requestPermission==="function"){
+      const res=await DeviceMotionEvent.requestPermission();
+      return res==="granted";
+    }
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+async function startOpening(){
   if((save.cases||0)<=0)return;
-  clearInterval(autoOpenTimer);
-  autoOpenTimer=null;
-  save.cases--;
-  persist();
+  clearInterval(autoOpenTimer);autoOpenTimer=null;
+  save.cases--;persist();
   const reward=rollCase();
   opening={
     reward,
-    moves:0,
+    shakes:0,
     need:reward.need,
-    leftActive:false,
-    rightActive:false,
-    leftStart:null,
-    rightStart:null,
-    leftY:null,
-    rightY:null,
-    lock:false
+    lastShakeAt:0,
+    lastPower:0
   };
+  buildShakeMeter(18);
+  updateShakeMeter();
   setDisabled("startOpen",true);
+  setDisabled("fakeShake",false);
   setClass("caseCapsule","caseCapsule opening");
-  setText("caseInfo","Сделай 67 двумя пальцами.");
+  setText("caseInfo","Тряси телефон.");
   setText("dropName","Открывается...");
   setText("dropRarity",reward.rarity.toUpperCase());
   setClass("dropRarity","rarity-"+reward.rarity);
-  setText("dropNote",`Сделай ${reward.need} движений: один палец вверх, другой вниз.`);
+  setText("dropNote",`Нужно встряхнуть ${reward.need} раз. Чем дольше открывается — тем жирнее дроп.`);
   setText("openHint",`0 / ${reward.need}`);
-  setText("openSub","Движение засчитывается только когда пальцы идут в разные стороны.");
+  setText("openSub","Если iPhone не дал доступ к движению, жми запасную кнопку.");
   setStyle("openProgress","width","0%");
-}
-function updateOpenProgress(){
-  if(!opening)return;
-  setStyle("openProgress","width",Math.min(100,opening.moves/opening.need*100)+"%");
-  setText("openHint",`${opening.moves} / ${opening.need}`);
-}
-function register67Move(){
-  if(!opening || opening.lock)return;
-  opening.lock=true;
-  opening.moves++;
-  updateOpenProgress();
-  setClass("caseCapsule","caseCapsule opening");
-  setTimeout(()=>{ if($("caseCapsule")) $("caseCapsule").classList.add("boom"); },10);
-  setTimeout(()=>{ if($("caseCapsule") && opening) $("caseCapsule").className="caseCapsule opening"; },180);
-  if(opening.moves>=opening.need){
-    setTimeout(()=>finishOpening(),220);
-    return;
-  }
-  setTimeout(()=>{
-    if(!opening)return;
-    opening.lock=false;
-    opening.leftStart=opening.leftY;
-    opening.rightStart=opening.rightY;
-  },220);
-}
-function check67Gesture(){
-  if(!opening || opening.lock)return;
-  if(!opening.leftActive || !opening.rightActive)return;
-  if(opening.leftStart===null || opening.rightStart===null || opening.leftY===null || opening.rightY===null)return;
-  const l=opening.leftY-opening.leftStart;
-  const r=opening.rightY-opening.rightStart;
-  const threshold=34;
-  if(Math.abs(l)<threshold || Math.abs(r)<threshold)return;
-  if(l*r<0)register67Move();
-}
-function handDown(side,y){
-  if(!opening)return;
-  if(side==="left"){
-    opening.leftActive=true; opening.leftStart=y; opening.leftY=y;
+  const ok=await enableMotionIfNeeded();
+  if(ok){
+    window.addEventListener("devicemotion", onDeviceMotion);
+    setText("caseInfo","Тряси телефон!");
   }else{
-    opening.rightActive=true; opening.rightStart=y; opening.rightY=y;
+    setText("caseInfo","Датчик движения не включился.");
+    setText("openSub","Используй запасную кнопку ниже.");
   }
-  $(side+"Hand").classList.add("active");
-  check67Gesture();
 }
-function handMove(side,y){
+function onDeviceMotion(e){
   if(!opening)return;
-  if(side==="left")opening.leftY=y;
-  else opening.rightY=y;
-  check67Gesture();
-}
-function handUp(side){
-  if(opening){
-    if(side==="left"){opening.leftActive=false;opening.leftStart=null;opening.leftY=null;}
-    else{opening.rightActive=false;opening.rightStart=null;opening.rightY=null;}
+  const a=e.accelerationIncludingGravity || e.acceleration;
+  if(!a)return;
+  const x=a.x||0,y=a.y||0,z=a.z||0;
+  const power=Math.sqrt(x*x+y*y+z*z);
+  const diff=Math.abs(power-(opening.lastPower||power));
+  opening.lastPower=power;
+  const now=Date.now();
+  if((power>16 || diff>8) && now-opening.lastShakeAt>360){
+    opening.lastShakeAt=now;
+    registerShake(false);
   }
-  const hand=$(side+"Hand"); if(hand) hand.classList.remove("active");
 }
-["left","right"].forEach(side=>{
-  const z=$(side+"HandZone");
-  z.addEventListener("pointerdown",e=>{try{z.setPointerCapture(e.pointerId)}catch(err){};handDown(side,e.clientY);});
-  z.addEventListener("pointermove",e=>handMove(side,e.clientY));
-  z.addEventListener("pointerup",e=>{try{z.releasePointerCapture(e.pointerId)}catch(err){};handUp(side);});
-  z.addEventListener("pointercancel",()=>handUp(side));
-  z.addEventListener("touchstart",e=>{e.preventDefault();if(e.touches[0])handDown(side,e.touches[0].clientY);},{passive:false});
-  z.addEventListener("touchmove",e=>{e.preventDefault();if(e.touches[0])handMove(side,e.touches[0].clientY);},{passive:false});
-  z.addEventListener("touchend",e=>{e.preventDefault();handUp(side);},{passive:false});
-});
-function finishOpening(){if(!opening)return;clearInterval(autoOpenTimer);autoOpenTimer=null;const d=opening.reward;opening=null;$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");$("openProgress").style.width="100%";$("caseCapsule").className="caseCapsule boom";if(d.kind==="shards"){save.shards=(save.shards||0)+d.amount;$("caseCapsule").textContent="✦";$("caseCapsule").style.background=d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)";$("dropName").textContent=`${d.amount} осколков`;$("dropNote").textContent=`+${d.amount} ✦ добавлено.`;$("dropRarity").textContent=d.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.rarity;persist();resetStartButton();return;}if(d.kind==="trash"){$("caseCapsule").textContent=d.name;$("dropName").textContent=d.name+" — не 67";$("dropRarity").textContent="TRASH";$("dropRarity").className="rarity-trash";$("dropNote").textContent=d.desc;persist();resetStartButton();return;}const th=skinTheme(d.item);$("caseCapsule").textContent="67";$("caseCapsule").style.background=th.bg;$("dropName").textContent=d.item.name;$("dropRarity").textContent=d.item.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.item.rarity;if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];save.shards=(save.shards||0)+amount;$("dropNote").textContent=`Дубликат. +${amount} ✦.`;}else{save.found[d.item.id]=Date.now();$("newBanner").classList.add("on");$("dropNote").textContent=`Новый 67 открыт. #${d.item.id}`;}persist();resetStartButton();}
+function registerShake(manual){
+  if(!opening)return;
+  const now=Date.now();
+  if(!manual && now-opening.lastShakeAt<320)return;
+  if(manual)opening.lastShakeAt=now;
+  opening.shakes++;
+  setStyle("openProgress","width",Math.min(100,opening.shakes/opening.need*100)+"%");
+  setText("openHint",`${opening.shakes} / ${opening.need}`);
+  updateShakeMeter();
+  const cap=$("caseCapsule");
+  if(cap){
+    cap.classList.remove("boom");
+    void cap.offsetWidth;
+    cap.classList.add("boom");
+    setTimeout(()=>{ if(opening && cap) cap.className="caseCapsule opening"; },220);
+  }
+  if(opening.shakes>=opening.need){
+    setTimeout(()=>finishOpening(),260);
+  }
+}
+function finishOpening(){
+  if(!opening)return;
+  window.removeEventListener("devicemotion", onDeviceMotion);
+  clearInterval(autoOpenTimer);autoOpenTimer=null;
+  const d=opening.reward;opening=null;
+  setStyle("openProgress","width","100%");
+  setText("openHint","Открыто!");
+  setDisabled("fakeShake",true);
+  setClass("caseCapsule","caseCapsule boom caseResultGlow");
+  if(d.kind==="shards"){
+    save.shards=(save.shards||0)+d.amount;
+    setText("caseCapsule","✦");
+    setStyle("caseCapsule","background",d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)");
+    setText("dropName",`${d.amount} осколков`);
+    setText("dropNote",`+${d.amount} ✦ добавлено.`);
+    setText("dropRarity",d.rarity.toUpperCase());
+    setClass("dropRarity","rarity-"+d.rarity);
+    persist();resetStartButton();return;
+  }
+  if(d.kind==="trash"){
+    setText("caseCapsule",d.name);
+    setText("dropName",d.name+" — не 67");
+    setText("dropRarity","TRASH");
+    setClass("dropRarity","rarity-trash");
+    setText("dropNote",d.desc);
+    persist();resetStartButton();return;
+  }
+  const th=skinTheme(d.item);
+  setText("caseCapsule","67");
+  setStyle("caseCapsule","background",th.bg);
+  setText("dropName",d.item.name);
+  setText("dropRarity",d.item.rarity.toUpperCase());
+  setClass("dropRarity","rarity-"+d.item.rarity);
+  if(save.found[d.item.id]){
+    save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;
+    const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];
+    save.shards=(save.shards||0)+amount;
+    setText("dropNote",`Дубликат. +${amount} ✦.`);
+  }else{
+    save.found[d.item.id]=Date.now();
+    const nb=$("newBanner"); if(nb) nb.classList.add("on");
+    setText("dropNote",`Новый 67 открыт. #${d.item.id}`);
+  }
+  persist();resetStartButton();
+}
 function resetStartButton(){
   setText("caseCountText", save.cases||0);
   setDisabled("startOpen",(save.cases||0)<=0);
