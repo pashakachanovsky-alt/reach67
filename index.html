@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Reach 67 Stable 12</title>
+<title>Reach 67 Stable 13</title>
 <style>
 :root{
   --bg:#050508; --panel:#171727; --text:#f7f7ff; --muted:#aaaac8;
@@ -106,12 +106,53 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 .caseResultGlow{animation:caseResultGlow .7s ease}
 @keyframes caseResultGlow{0%{filter:brightness(1)}40%{filter:brightness(1.65)}100%{filter:brightness(1)}}
 
+
+.caseStage{
+  min-height:auto!important;
+  padding:16px!important;
+}
+.caseStage h2{font-size:34px!important}
+.caseStage > p{font-size:18px!important}
+.caseCapsule{
+  width:132px!important;
+  height:164px!important;
+  margin:14px auto 8px!important;
+  font-size:48px!important;
+}
+.caseStage h1{
+  font-size:38px!important;
+  line-height:1!important;
+  margin-top:8px!important;
+}
+.caseActions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px!important;
+}
+.caseActions button{
+  padding:18px 10px!important;
+  font-size:18px!important;
+  border-radius:22px!important;
+}
+#fakeShake{
+  background:var(--green)!important;
+  color:#071019!important;
+}
+#dropNote{
+  margin-top:10px!important;
+  min-height:44px;
+}
+.openSub{display:none!important}
+.shakeMeter{margin-top:10px!important}
+.progressShell{margin-top:12px!important}
+
 </style>
 </head>
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><b>Reach 67</b><span>stable build 12</span></div>
+    <div class="brand"><b>Reach 67</b><span>stable build 13</span></div>
     <div class="resources">
       <div class="resPill">✦ <span id="topShards">0</span> <small>осколки</small></div>
       <div class="resPill">◉ <span id="topCases">0</span> <small>кейсы</small></div>
@@ -128,7 +169,7 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
   <section id="cases" class="screen">
     <div class="panel caseStage" id="caseStage">
       <h2>Открыть кейс</h2>
-      <p id="caseInfo" style="margin-top:8px">Нажми старт и тряси телефон.</p>
+      <p id="caseInfo" style="margin-top:8px">Тряси, чтобы открыть.</p>
       <div class="caseCapsule pulse" id="caseCapsule">?</div>
       <div class="newBanner" id="newBanner">NEW 67!</div>
       <h1 id="dropName">Готов?</h1>
@@ -136,10 +177,10 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
       <div class="progressShell"><div class="progressBar" id="openProgress"></div></div>
       <div class="shakeMeter" id="shakeMeter"></div>
       <div class="openHint" id="openHint">Нажми старт</div>
-      <div class="openSub" id="openSub">Обычный дроп — 5 встряхиваний, редкий — 7, эпик — 10, легендарный — 14, мифик — 18.</div>
+      <div class="openSub" id="openSub"></div>
       <div class="caseActions">
-        <button id="startOpen">Начать открытие</button>
-        <button id="fakeShake" class="secondary" type="button">Запасная кнопка: +1 тряска</button>
+        <button id="startOpen">Старт</button>
+        <button id="fakeShake" class="secondary" type="button">Трясти</button>
       </div>
       <div class="cleanBox" id="dropNote">Кейсы дают за победу, покупку или таймер.</div>
     </div>
@@ -158,8 +199,8 @@ function setClass(id,value){const node=$(id); if(node) node.className=value;}
 function setDisabled(id,value){const node=$(id); if(node) node.disabled=value;}
 function setStyle(id,prop,value){const node=$(id); if(node) node.style[prop]=value;}
 const screens=["menu","game","shop","cases","collection"];
-const SAVE_KEY="reach67_stable_12";
-const OLD_KEYS=["reach67_stable_12","reach67_stable_11","reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
+const SAVE_KEY="reach67_stable_13";
+const OLD_KEYS=["reach67_stable_13","reach67_stable_12","reach67_stable_11","reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
 const LANE_COUNT=5, CASE_PRICE=500, FREE_CASE_INTERVAL=3*60*1000;
 
 const common=["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
@@ -315,7 +356,7 @@ function resetCaseScreen(keepDrop){
     setText("dropNote",(save.cases||0)>0?"Нажми старт. Потом одновременно веди один палец вверх, другой вниз — это одно движение 67.":"Купи кейс или дождись таймера.");
   }
   setDisabled("startOpen",(save.cases||0)<=0);
-  setText("startOpen",(save.cases||0)>0?"Начать открытие":"Нет кейсов");
+  setText("startOpen",(save.cases||0)>0?"Старт":"Нет кейсов");
   opening=null;
 }
 function rollCase(){
@@ -344,6 +385,10 @@ function rollCase(){
 }
 $("startOpen").onclick=()=>startOpening();
 $("fakeShake").onclick=()=>registerShake(true);
+$("caseCapsule").onclick=()=>registerShake(true);
+$("caseStage").addEventListener("pointerdown",e=>{
+  if(opening && (e.target.id==="caseCapsule" || e.target.id==="dropName")) registerShake(true);
+});
 
 function buildShakeMeter(max=18){
   const meter=$("shakeMeter");
@@ -377,13 +422,13 @@ function resetCaseScreen(keepDrop){
     setText("dropName",(save.cases||0)>0?"Готов?":"Нет кейсов");
     setText("dropRarity","Кейсы: "+(save.cases||0));
     setClass("dropRarity","");
-    setText("caseInfo","Нажми старт и тряси телефон.");
-    setText("dropNote",(save.cases||0)>0?"После старта тряси телефон, чтобы открыть капсулу.":"Купи кейс или дождись таймера.");
+    setText("caseInfo","Тряси, чтобы открыть.");
+    setText("dropNote",(save.cases||0)>0?"Нажми старт, потом тряси телефон или кнопку.":"Купи кейс или дождись таймера.");
     setText("openHint","Нажми старт");
-    setText("openSub","Обычный дроп — 5 встряхиваний, редкий — 7, эпик — 10, легендарный — 14, мифик — 18.");
+    setText("openSub","");
   }
   setDisabled("startOpen",(save.cases||0)<=0);
-  setText("startOpen",(save.cases||0)>0?"Начать открытие":"Нет кейсов");
+  setText("startOpen",(save.cases||0)>0?"Старт":"Нет кейсов");
   setDisabled("fakeShake", true);
   opening=null;
 }
@@ -415,22 +460,19 @@ async function startOpening(){
   setDisabled("startOpen",true);
   setDisabled("fakeShake",false);
   setClass("caseCapsule","caseCapsule opening");
-  setText("caseInfo","Тряси телефон.");
+  setText("caseInfo","Тряси!");
   setText("dropName","Открывается...");
   setText("dropRarity",reward.rarity.toUpperCase());
   setClass("dropRarity","rarity-"+reward.rarity);
-  setText("dropNote",`Нужно встряхнуть ${reward.need} раз. Чем дольше открывается — тем жирнее дроп.`);
+  setText("dropNote","");
   setText("openHint",`0 / ${reward.need}`);
-  setText("openSub","Если iPhone не дал доступ к движению, жми запасную кнопку.");
+  setText("openSub","");
   setStyle("openProgress","width","0%");
   const ok=await enableMotionIfNeeded();
   if(ok){
     window.addEventListener("devicemotion", onDeviceMotion);
-    setText("caseInfo","Тряси телефон!");
-  }else{
-    setText("caseInfo","Датчик движения не включился.");
-    setText("openSub","Используй запасную кнопку ниже.");
   }
+  setText("caseInfo","Тряси!");
 }
 function onDeviceMotion(e){
   if(!opening)return;
@@ -441,13 +483,14 @@ function onDeviceMotion(e){
   const diff=Math.abs(power-(opening.lastPower||power));
   opening.lastPower=power;
   const now=Date.now();
-  if((power>16 || diff>8) && now-opening.lastShakeAt>360){
+  if((power>13 || diff>5.5) && now-opening.lastShakeAt>300){
     opening.lastShakeAt=now;
     registerShake(false);
   }
 }
 function registerShake(manual){
   if(!opening)return;
+  try{ if(navigator.vibrate) navigator.vibrate(25); }catch(e){}
   const now=Date.now();
   if(!manual && now-opening.lastShakeAt<320)return;
   if(manual)opening.lastShakeAt=now;
@@ -514,7 +557,7 @@ function finishOpening(){
 function resetStartButton(){
   setText("caseCountText", save.cases||0);
   setDisabled("startOpen",(save.cases||0)<=0);
-  setText("startOpen",(save.cases||0)>0?"Открыть следующий":"Нет кейсов");
+  setText("startOpen",(save.cases||0)>0?"Следующий":"Нет кейсов");
 }
 
 refresh();resetCaseScreen(false);show("menu");
