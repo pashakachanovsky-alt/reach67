@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Reach 67</title>
+<title>Reach 67 Stable 10</title>
 <style>
 :root{
   --bg:#050508; --panel:#171727; --text:#f7f7ff; --muted:#aaaac8;
@@ -99,7 +99,7 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><b>Reach 67</b><span>stable build</span></div>
+    <div class="brand"><b>Reach 67</b><span>stable build 10</span></div>
     <div class="resources">
       <div class="resPill">✦ <span id="topShards">0</span> <small>shards</small></div>
       <div class="resPill">◉ <span id="topCases">0</span> <small>cases</small></div>
@@ -121,11 +121,15 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 <script>
 (function(){
 "use strict";
-window.addEventListener("error",function(e){alert("Game error: "+(e.message||"unknown"));});
+window.addEventListener("error",function(e){console.error("Game error:", e.message || e);});
 const $=id=>document.getElementById(id);
+function setText(id,value){const node=$(id); if(node) node.textContent=value;}
+function setClass(id,value){const node=$(id); if(node) node.className=value;}
+function setDisabled(id,value){const node=$(id); if(node) node.disabled=value;}
+function setStyle(id,prop,value){const node=$(id); if(node) node.style[prop]=value;}
 const screens=["menu","game","shop","cases","collection"];
-const SAVE_KEY="reach67_stable_09";
-const OLD_KEYS=["reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
+const SAVE_KEY="reach67_stable_10";
+const OLD_KEYS=["reach67_stable_10","reach67_stable_09","reach67_product_v08","reach67_product_v07","reach67_product_v06","reach67_product_v05","reach67_working_v05"];
 const LANE_COUNT=5, CASE_PRICE=500, FREE_CASE_INTERVAL=3*60*1000;
 
 const common=["Травяной","Каменный","Деревянный","Пыльный","Картонный","Школьный","Пластиковый","Скучный","Мокрый","Сонный","Кривой","Маленький","Большой","Обычный","Грязный","Липкий","Пиксельный","Печеньковый","Домашний","Заборный","Серый","Солевой","Лужайковый","Блокнотный","Ржавый","Мыльный","Пакетный","Подвальный","Резиновый","Кефирный"];
@@ -187,10 +191,15 @@ function getSkinDefByChoice(choice){if(choice==="default"||!choice)return null;i
 function applyPlayerSkin(def){const th=skinTheme(def);$("player").style.background=th.bg;$("player").style.color=th.color;$("player").style.boxShadow=th.shadow;$("skinIcon").textContent=th.icon||"";}
 function refreshSkinSelect(){const sel=$("skinSelect"),old=save.selectedSkin||"default",found=getFoundDefs();let html=`<option value="default">Default 67</option><option value="random">Random from opened</option>`;found.forEach(d=>html+=`<option value="${d.id}">${d.name} (${d.rarity})</option>`);sel.innerHTML=html;sel.value=[...sel.options].some(o=>o.value===old)?old:"default";}
 function refresh(){
-  $("topShards").textContent=save.shards||0;$("topCases").textContent=save.cases||0;$("caseCountText").textContent=save.cases||0;
-  $("best").textContent=save.best||0;$("wins").textContent=save.wins||0;$("foundStat").textContent=countFound();
-  $("buyCase").disabled=(save.shards||0)<CASE_PRICE;
-  refreshSkinSelect();updateFreeTimer();
+  setText("topShards", save.shards||0);
+  setText("topCases", save.cases||0);
+  setText("caseCountText", save.cases||0);
+  setText("best", save.best||0);
+  setText("wins", save.wins||0);
+  setText("foundStat", countFound());
+  setDisabled("buyCase", (save.shards||0)<CASE_PRICE);
+  refreshSkinSelect();
+  updateFreeTimer();
 }
 $("skinSelect").addEventListener("change",e=>{save.selectedSkin=e.target.value;persist();});
 
@@ -211,7 +220,13 @@ $("buyCase").onclick=()=>{if((save.shards||0)>=CASE_PRICE){save.shards-=CASE_PRI
 $("claimFree").onclick=()=>{if(Date.now()>=save.nextFreeCase){save.cases=(save.cases||0)+1;save.nextFreeCase=Date.now()+FREE_CASE_INTERVAL;persist();show("cases");}};
 $("reset").onclick=()=>{if(confirm("Reset progress?")){localStorage.removeItem(SAVE_KEY);save=baseSave();persist();renderCards(currentFilter);}};
 $("focusBtn").onclick=async()=>{document.body.classList.toggle("focusMode");$("focusBtn").textContent=document.body.classList.contains("focusMode")?"exit":"fullscreen";try{if(document.body.classList.contains("focusMode")&&document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else if(document.fullscreenElement&&document.exitFullscreen)await document.exitFullscreen();}catch(e){}setTimeout(()=>{if(state){state.playerX=clamp(state.playerX,34,gameBox.clientWidth-34);state.targetX=clamp(state.targetX,34,gameBox.clientWidth-34);layoutPlayer();updateSliderThumb();}},120);};
-function updateFreeTimer(){const left=Math.max(0,save.nextFreeCase-Date.now());$("claimFree").disabled=left>0;if(left<=0){$("freeTimer").textContent="Ready";return;}const m=Math.floor(left/60000),s=Math.floor((left%60000)/1000);$("freeTimer").textContent=`${m}:${String(s).padStart(2,"0")}`;}
+function updateFreeTimer(){
+  const left=Math.max(0,save.nextFreeCase-Date.now());
+  setDisabled("claimFree", left>0);
+  if(left<=0){setText("freeTimer","Ready");return;}
+  const m=Math.floor(left/60000),s=Math.floor((left%60000)/1000);
+  setText("freeTimer", `${m}:${String(s).padStart(2,"0")}`);
+}
 setInterval(refresh,1000);
 
 let currentFilter="all";
@@ -249,7 +264,26 @@ function lose(title,text){if(!state||state.ending)return;state.ending=true;state
 function win(){if(!state||state.ending)return;state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);const runShards=state.runShards;save.best=67;save.wins=(save.wins||0)+1;save.shards=(save.shards||0)+25;save.cases=(save.cases||0)+1;persist();$("resScore").textContent="67 / 67";$("resTitle").textContent=state.continued?"Reached 67":"Clean 67";$("resText").textContent="Case earned. +25 shards.";$("resNote").textContent=`Run shards: ${runShards}`;const b=$("resButtons");b.innerHTML="";const open=document.createElement("button");open.className="good";open.textContent="Open case";open.onclick=()=>{cleanupItems();show("cases");};b.appendChild(open);const again=document.createElement("button");again.className="secondary";again.textContent="Play again";again.onclick=()=>startRun(0,false);b.appendChild(again);forceOverlay();}
 
 let opening=null,autoOpenTimer=null;
-function resetCaseScreen(keepDrop){clearInterval(autoOpenTimer);autoOpenTimer=null;$("caseCountText").textContent=save.cases||0;$("openProgress").style.width="0%";$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");if(!keepDrop){$("caseCapsule").className="caseCapsule pulse";$("caseCapsule").textContent="?";$("caseCapsule").style.background="";$("newBanner").classList.remove("on");$("dropName").textContent=(save.cases||0)>0?"Ready?":"No cases";$("dropRarity").textContent="Cases: "+(save.cases||0);$("dropRarity").className="";$("dropNote").textContent=(save.cases||0)>0?"Start opening, then move either hand up and down.":"Buy a case or wait for the timer."}$("startOpen").disabled=(save.cases||0)<=0;$("startOpen").textContent=(save.cases||0)>0?"Start opening":"No cases";opening=null;}
+function resetCaseScreen(keepDrop){
+  clearInterval(autoOpenTimer);autoOpenTimer=null;
+  setText("caseCountText", save.cases||0);
+  setStyle("openProgress","width","0%");
+  const lh=$("leftHand"); if(lh) lh.classList.remove("active");
+  const rh=$("rightHand"); if(rh) rh.classList.remove("active");
+  if(!keepDrop){
+    setClass("caseCapsule","caseCapsule pulse");
+    setText("caseCapsule","?");
+    setStyle("caseCapsule","background","");
+    const nb=$("newBanner"); if(nb) nb.classList.remove("on");
+    setText("dropName",(save.cases||0)>0?"Ready?":"No cases");
+    setText("dropRarity","Cases: "+(save.cases||0));
+    setClass("dropRarity","");
+    setText("dropNote",(save.cases||0)>0?"Start opening, then move either hand up and down.":"Buy a case or wait for the timer.");
+  }
+  setDisabled("startOpen",(save.cases||0)<=0);
+  setText("startOpen",(save.cases||0)>0?"Start opening":"No cases");
+  opening=null;
+}
 function rollCase(){const r=Math.random()*100;if(r<15){const x=Math.random()*100;if(x<60)return{kind:"shards",amount:100,rarity:"common",need:95};if(x<86)return{kind:"shards",amount:250,rarity:"rare",need:135};if(x<97)return{kind:"shards",amount:500,rarity:"epic",need:210};return{kind:"shards",amount:1000,rarity:"legendary",need:310};}const q=Math.random()*100;if(q<20){const t=trash[Math.floor(Math.random()*trash.length)];return{kind:"trash",name:t[0],desc:t[1],rarity:"trash",need:75};}let rarity;if(q<70)rarity="common";else if(q<95)rarity="rare";else if(q<99)rarity="epic";else if(q<99.725)rarity="legendary";else rarity="mythic";const pool=defs.filter(d=>d.rarity===rarity),item=pool[Math.floor(Math.random()*pool.length)];const need={common:95,rare:135,epic:215,legendary:320,mythic:430}[rarity];return{kind:"67",item,rarity,need};}
 $("startOpen").onclick=()=>startOpening();
 function startOpening(){if((save.cases||0)<=0)return;clearInterval(autoOpenTimer);save.cases--;persist();const reward=rollCase();opening={reward,progress:0,need:reward.need,lastY:null};$("startOpen").disabled=true;$("caseCapsule").className="caseCapsule opening";$("caseInfo").textContent="Move hands up and down.";$("dropName").textContent="Opening...";$("dropRarity").textContent=reward.rarity.toUpperCase();$("dropRarity").className="rarity-"+reward.rarity;$("dropNote").textContent="Rare pulls take longer.";autoOpenTimer=setInterval(()=>{if(!opening)return;addOpenProgress(0.35);},60);}
@@ -259,7 +293,11 @@ function handMove(side,y){if(!opening)return;const last=opening.lastY===null?y:o
 function handUp(side){$(side+"Hand").classList.remove("active");}
 ["left","right"].forEach(side=>{const z=$(side+"HandZone");z.addEventListener("pointerdown",e=>{try{z.setPointerCapture(e.pointerId)}catch(err){};handDown(side,e.clientY);});z.addEventListener("pointermove",e=>handMove(side,e.clientY));z.addEventListener("pointerup",e=>{try{z.releasePointerCapture(e.pointerId)}catch(err){};handUp(side);});z.addEventListener("pointercancel",()=>handUp(side));z.addEventListener("touchstart",e=>{e.preventDefault();if(e.touches[0])handDown(side,e.touches[0].clientY);},{passive:false});z.addEventListener("touchmove",e=>{e.preventDefault();if(e.touches[0])handMove(side,e.touches[0].clientY);},{passive:false});z.addEventListener("touchend",e=>{e.preventDefault();handUp(side);},{passive:false});});
 function finishOpening(){if(!opening)return;clearInterval(autoOpenTimer);autoOpenTimer=null;const d=opening.reward;opening=null;$("leftHand").classList.remove("active");$("rightHand").classList.remove("active");$("openProgress").style.width="100%";$("caseCapsule").className="caseCapsule boom";if(d.kind==="shards"){save.shards=(save.shards||0)+d.amount;$("caseCapsule").textContent="✦";$("caseCapsule").style.background=d.rarity==="legendary"?"linear-gradient(135deg,#fff6a6,#ffbd37,#b56b00)":d.rarity==="epic"?"linear-gradient(135deg,#b66cff,#ff62d4)":"linear-gradient(135deg,#69e8ff,#5aa7ff)";$("dropName").textContent=`${d.amount} shards`;$("dropNote").textContent=`+${d.amount} ✦ added.`;$("dropRarity").textContent=d.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.rarity;persist();resetStartButton();return;}if(d.kind==="trash"){$("caseCapsule").textContent=d.name;$("dropName").textContent=d.name+" — not 67";$("dropRarity").textContent="TRASH";$("dropRarity").className="rarity-trash";$("dropNote").textContent=d.desc;persist();resetStartButton();return;}const th=skinTheme(d.item);$("caseCapsule").textContent="67";$("caseCapsule").style.background=th.bg;$("dropName").textContent=d.item.name;$("dropRarity").textContent=d.item.rarity.toUpperCase();$("dropRarity").className="rarity-"+d.item.rarity;if(save.found[d.item.id]){save.dupes[d.item.id]=(save.dupes[d.item.id]||0)+1;const amount={common:25,rare:60,epic:150,legendary:500,mythic:1000}[d.item.rarity];save.shards=(save.shards||0)+amount;$("dropNote").textContent=`Duplicate. +${amount} ✦.`;}else{save.found[d.item.id]=Date.now();$("newBanner").classList.add("on");$("dropNote").textContent=`New 67 unlocked. #${d.item.id}`;}persist();resetStartButton();}
-function resetStartButton(){$("caseCountText").textContent=save.cases||0;$("startOpen").disabled=(save.cases||0)<=0;$("startOpen").textContent=(save.cases||0)>0?"Open next case":"No cases";}
+function resetStartButton(){
+  setText("caseCountText", save.cases||0);
+  setDisabled("startOpen",(save.cases||0)<=0);
+  setText("startOpen",(save.cases||0)>0?"Open next case":"No cases");
+}
 
 refresh();resetCaseScreen(false);show("menu");
 })();
