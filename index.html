@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Reach 67</title>
+<title>Reach 67 v0.8</title>
 <style>
 :root{
   --bg:#06060b; --panel:#171727; --panel2:#23233a; --text:#f7f7ff; --muted:#aaaac8;
@@ -89,7 +89,7 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 .focusBtn{position:absolute;left:10px;bottom:10px;z-index:9;width:auto;padding:9px 11px;border-radius:999px;font-size:12px;box-shadow:none;background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.14)}
 
 .overlay{position:absolute;inset:0;background:rgba(5,5,10,.88);backdrop-filter:blur(8px);z-index:50;display:none;align-items:center;justify-content:center;padding:16px;text-align:center}
-.overlay.on{display:flex!important}
+.overlay.on{display:flex!important;opacity:1!important;visibility:visible!important}
 .modal{width:100%;background:linear-gradient(180deg,#292943,#151525);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:18px;box-shadow:0 30px 100px rgba(0,0,0,.55)}
 .result{font-size:60px;font-weight:1000;letter-spacing:-4px;margin-bottom:4px}
 
@@ -137,7 +137,7 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 <body>
 <div class="app" id="app">
   <div class="top">
-    <div class="brand"><b>Reach 67</b><span>collect all 67</span></div>
+    <div class="brand"><b>Reach 67</b><span>v0.8 hotfix</span></div>
     <div class="resources">
       <div class="resPill">✦ <span id="topShards">0</span> <small>shards</small></div>
       <div class="resPill">◉ <span id="topCases">0</span> <small>cases</small></div>
@@ -268,7 +268,7 @@ select{width:100%;border-radius:16px;padding:13px 14px;background:#282842;color:
 "use strict";
 const $=id=>document.getElementById(id);
 const screens=["menu","game","shop","cases","collection"];
-const SAVE_KEY="reach67_product_v07";
+const SAVE_KEY="reach67_product_v08";
 const LANE_COUNT=5;
 const CASE_PRICE=500;
 const FREE_CASE_INTERVAL=3*60*1000;
@@ -408,7 +408,13 @@ function tick(now){
   const diff=state.targetX-state.playerX,maxStep=(650+state.score*1.7)*dt;state.playerX+=clamp(diff,-maxStep,maxStep);layoutPlayer();
   state.spawn-=dt;if(state.spawn<=0){spawnItem();const base=state.score>55?.43:state.score>38?.54:.66;state.spawn=base-Math.random()*.13;}
   const boxH=gameBox.clientHeight,playerY=boxH-63,px=state.playerX;
-  for(let i=state.items.length-1;i>=0;i--){const it=state.items[i];it.y+=it.v*dt*speed;it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`;if(it.y>boxH+80){it.el.remove();state.items.splice(i,1);continue;}const dx=Math.abs(it.x-px),dy=Math.abs((it.y+it.h/2)-playerY);if(dx<(it.type==="shard"?48:52)&&dy<(it.type==="shard"?46:49)){it.el.remove();state.items.splice(i,1);hit(it);if(!state.running)return;}}
+  for(let i=state.items.length-1;i>=0;i--){const it=state.items[i];it.y+=it.v*dt*speed;it.el.style.transform=`translate(${it.x-it.half}px, ${it.y}px)`;if(it.y>boxH+80){it.el.remove();state.items.splice(i,1);continue;}const dx=Math.abs(it.x-px),dy=Math.abs((it.y+it.h/2)-playerY);if(dx<(it.type==="shard"?48:52)&&dy<(it.type==="shard"?46:49)){
+  it.el.remove();
+  state.items.splice(i,1);
+  hit(it);
+  if(!state.running)return;
+  break;
+}}
   raf=requestAnimationFrame(tick);
 }
 function makeItem(type,label,value,lane){const el=document.createElement("div");let cls="item ";if(type==="num"){cls+="num "+(value>=0?"pos ":"neg ");if(value===1)cls+="n1 ";if(value>=6)cls+="big ";}if(type==="fake")cls+="fake";if(type==="danger")cls+="danger";if(type==="shard")cls+="shard";el.className=cls;el.textContent=label;gameBox.appendChild(el);const x=laneLeft(lane);const it={type,label,value,lane,x,y:-64,v:150+Math.random()*62+state.score*1.55,el,h:type==="shard"?52:52,half:type==="shard"?26:31};el.style.transform=`translate(${x-it.half}px, ${it.y}px)`;return it;}
@@ -420,12 +426,27 @@ function sparks(x,y,color,count=10){for(let i=0;i<count;i++){const s=document.cr
 function floatText(x,y,text,color){const el=document.createElement("div");el.className="floatText";el.textContent=text;el.style.left=(x-22)+"px";el.style.top=y+"px";el.style.color=color||"white";gameBox.appendChild(el);setTimeout(()=>el.remove(),760);}
 function hit(it){
   if(!state||state.ending)return;
-  if(it.type==="shard"){state.runShards++;save.shards=(save.shards||0)+1;persist();floatText(it.x,it.y,"+1 ✦","var(--cyan)");sparks(it.x,it.y,"#69e8ff",12);flash("good");return;}
+  if(it.type==="shard" || it.label==="✦"){
+    state.runShards++;
+    save.shards=(save.shards||0)+1;
+    persist();
+    floatText(it.x,it.y,"+1 ✦","var(--cyan)");
+    sparks(it.x,it.y,"#69e8ff",12);
+    flash("good");
+    return;
+  }
   if(it.type==="num"){const before=state.score;state.score+=it.value;if(state.score<0)state.score=0;$("score").textContent=state.score;pulseScore();floatText(it.x,it.y,(it.value>0?"+":"")+it.value,it.value<0?"var(--cyan)":"white");sparks(it.x,it.y,it.value<0?"#69e8ff":"#ffdc5c",it.value<0?8:12);flash("good");if(state.score===67)return win();if(state.score>67)return lose(`Over: ${before} + ${it.value} = ${state.score}`,"More than 67 is death.");return;}
   if(it.type==="fake"){flash("bad");return lose(`Fake ${it.label}`,"It pretended to be 67.");}
   if(it.type==="danger"){flash("bad");return lose("Bomb","67 hates explosions.");}
 }
 function stop(){if(!state)return;state.running=false;if(raf)cancelAnimationFrame(raf);}
+function forceResultOverlay(){
+  overlay.classList.add("on");
+  overlay.style.display="flex";
+  overlay.style.opacity="1";
+  overlay.style.visibility="visible";
+  overlay.style.zIndex="9999";
+}
 function lose(title,text){
   if(!state||state.ending)return;
   state.ending=true;state.running=false;if(raf)cancelAnimationFrame(raf);
@@ -436,7 +457,7 @@ function lose(title,text){
   if(can){const c=document.createElement("button");c.textContent="Continue";c.onclick=()=>startRun(state.score,true);b.appendChild(c);}
   const r=document.createElement("button");r.className="secondary";r.textContent="Retry";r.onclick=()=>startRun(0,false);b.appendChild(r);
   const m=document.createElement("button");m.className="secondary";m.textContent="Menu";m.onclick=()=>{cleanupItems();show("menu");};b.appendChild(m);
-  overlay.classList.add("on");
+  forceResultOverlay();
 }
 function win(){
   if(!state||state.ending)return;
@@ -446,7 +467,7 @@ function win(){
   const b=$("resButtons");b.innerHTML="";
   const open=document.createElement("button");open.className="good";open.textContent="Open case";open.onclick=()=>{cleanupItems();show("cases");};b.appendChild(open);
   const again=document.createElement("button");again.className="secondary";again.textContent="Play again";again.onclick=()=>startRun(0,false);b.appendChild(again);
-  overlay.classList.add("on");
+  forceResultOverlay();
 }
 
 let opening=null, autoOpenTimer=null;
