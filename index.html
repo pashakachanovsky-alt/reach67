@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Reach 67 Stable 19</title>
+<title>Reach 67 Stable 20</title>
 <style>
 :root{--text:#f8f7ff;--muted:#aaa9c8;--yellow:#ffdc5c;--red:#ff4f6d;--green:#60ffab;--blue:#69e8ff;--purple:#b66cff;--pink:#ff62d4;--gold:#ffbd37}
 *{box-sizing:border-box}
@@ -180,11 +180,133 @@ body.focusMode{overflow:hidden}body.focusMode .app{width:100%;height:100dvh;min-
 #caseShopMini{display:none;margin-top:10px;font-size:14px!important;padding:12px 14px!important;border-radius:16px!important;box-shadow:none!important;background:rgba(255,255,255,.08)!important;color:var(--text)!important;border:1px solid rgba(255,255,255,.12)!important}
 #caseShopMini.on{display:block}
 
+
+/* stable20 visual polish pass */
+html,body{
+  background:
+    radial-gradient(circle at 50% -8%, rgba(255,220,92,.13), transparent 28%),
+    radial-gradient(circle at 18% 8%, rgba(255,98,212,.16), transparent 26%),
+    radial-gradient(circle at 86% 14%, rgba(105,232,255,.10), transparent 24%),
+    linear-gradient(180deg,#171124 0%,#090913 48%,#030306 100%)!important;
+}
+.app{padding:16px 14px 18px!important;gap:13px!important}
+.brand b{
+  letter-spacing:-2.6px!important;
+  text-shadow:0 12px 38px rgba(255,255,255,.08),0 0 34px rgba(255,220,92,.08);
+}
+.brand span{opacity:.88}
+.pill{
+  background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.045))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 10px 30px rgba(0,0,0,.18)!important;
+}
+.nav{
+  background:rgba(0,0,0,.12);
+  padding:4px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.055);
+}
+.nav button{
+  border-radius:16px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.045))!important;
+  border:1px solid rgba(255,255,255,.055)!important;
+  font-size:15px!important;
+}
+.nav button.active{
+  background:linear-gradient(180deg,#ffe77a,#ffcf3f)!important;
+  box-shadow:0 10px 28px rgba(255,220,92,.20), inset 0 1px 0 rgba(255,255,255,.45)!important;
+}
+.panel{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,220,92,.055),transparent 34%),
+    linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.035))!important;
+  border:1px solid rgba(255,255,255,.15)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 24px 70px rgba(0,0,0,.32)!important;
+}
+.big67{
+  background:linear-gradient(135deg,#fff,#ffdc5c 42%,#ff62d4 78%,#69e8ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent!important;
+  filter:drop-shadow(0 18px 42px rgba(255,220,92,.13));
+}
+.stats .stat{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.17))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05)!important;
+}
+.box{
+  background:linear-gradient(180deg,rgba(0,0,0,.26),rgba(0,0,0,.14))!important;
+  border-color:rgba(255,255,255,.10)!important;
+}
+.gameBox{
+  background:
+    radial-gradient(circle at 50% 18%,rgba(255,220,92,.12),transparent 24%),
+    radial-gradient(circle at 20% 78%,rgba(105,232,255,.08),transparent 24%),
+    radial-gradient(circle at 82% 52%,rgba(255,98,212,.06),transparent 24%),
+    linear-gradient(180deg,#151525 0%,#080811 62%,#050509 100%)!important;
+  border:1px solid rgba(255,255,255,.15)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -30px 70px rgba(0,0,0,.32),
+    0 22px 70px rgba(0,0,0,.34)!important;
+}
+.gameBox:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    linear-gradient(90deg,transparent 0 19%,rgba(255,255,255,.025) 20%,transparent 21% 39%,rgba(255,255,255,.025) 40%,transparent 41% 59%,rgba(255,255,255,.025) 60%,transparent 61% 79%,rgba(255,255,255,.025) 80%,transparent 81%),
+    radial-gradient(circle at 50% 95%,rgba(255,220,92,.13),transparent 18%);
+}
+.laneLine{
+  border-left:1px solid rgba(255,255,255,.075)!important;
+  box-shadow:0 0 24px rgba(255,255,255,.02)!important;
+}
+.watermark{
+  color:rgba(255,255,255,.045)!important;
+  text-shadow:0 0 42px rgba(255,220,92,.06);
+}
+.hud .scoreBox{
+  background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,.38))!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  box-shadow:0 10px 32px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.09)!important;
+}
+.hud .tiny{
+  color:rgba(220,220,245,.72)!important;
+  text-shadow:0 3px 10px rgba(0,0,0,.35);
+}
+.item{
+  box-shadow:0 12px 28px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.35)!important;
+}
+.sliderTrack{
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025))!important;
+  border-color:rgba(255,255,255,.10)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 32px rgba(0,0,0,.24)!important;
+}
+.sliderThumb{
+  background:linear-gradient(180deg,#ffe77a,#ffcf3f)!important;
+  box-shadow:0 0 30px rgba(255,220,92,.26),0 7px 18px rgba(0,0,0,.35)!important;
+}
+.caseStage{
+  background:
+    radial-gradient(circle at 50% 20%,rgba(255,220,92,.075),transparent 32%),
+    linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.035))!important;
+}
+.caseCapsule{
+  box-shadow:0 18px 80px rgba(255,220,92,.22),0 0 40px rgba(255,98,212,.08)!important;
+}
+.newBanner{
+  box-shadow:0 15px 42px rgba(255,98,212,.24),0 0 24px rgba(105,232,255,.14)!important;
+}
+
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top"><div class="brand"><b>Reach 67</b><span>stable build 19</span></div><div class="res"><div class="pill">✦ <span id="topShards">0</span> <small>осколки</small></div><div class="pill">◉ <span id="topCases">0</span> <small>кейсы</small></div></div></div>
+  <div class="top"><div class="brand"><b>Reach 67</b><span>stable build 20</span></div><div class="res"><div class="pill">✦ <span id="topShards">0</span> <small>осколки</small></div><div class="pill">◉ <span id="topCases">0</span> <small>кейсы</small></div></div></div>
   <div class="nav"><button id="navMenu" class="active">Играть</button><button id="navShop">Магазин</button><button id="navCases">Кейсы</button><button id="navCollection">67</button></div>
 
   <section id="menu" class="screen on"><div class="panel"><div class="big67">67</div><h1>Дойди ровно до 67</h1><p style="margin-top:8px">Лови числа, избегай фейков и бомб, собирай осколки и открывай кейсы.</p><div class="stats"><div class="stat"><b id="best">0</b><span>рекорд</span></div><div class="stat"><b id="wins">0</b><span>побед</span></div><div class="stat"><b id="foundStat">0</b><span>найдено</span></div></div><div class="box"><div style="font-weight:950;color:#fff;margin-bottom:8px">Скин</div><select id="skinSelect"></select></div><div class="btns"><button id="btnPlay">Играть</button></div></div></section>
